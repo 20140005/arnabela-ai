@@ -1,0 +1,4832 @@
+[
+  {
+    "id": "001",
+    "name": "Sarah Williams",
+    "archetype": "Budget-Focused Buyer",
+    "age": 22,
+    "state": "Victoria",
+    "location": "Melbourne",
+    "occupation": "Accountant",
+    "income_band": "$40,000-$59,999",
+    "household": "Single",
+    "home_ownership": "Renter",
+    "education": "University student",
+    "digital_literacy": 7,
+    "financial_behaviour": {
+      "price_sensitivity": 9,
+      "willingness_to_finance": 6,
+      "impulse_buying": 2
+    },
+    "personality": {
+      "risk_tolerance": 3,
+      "trust_requirement": 8,
+      "research_tendency": 8,
+      "brand_loyalty": 3
+    },
+    "shopping_behaviour": {
+      "reads_reviews": true,
+      "compares_competitors": true,
+      "checks_prices": true,
+      "prefers_online_shopping": true
+    },
+    "motivations": [
+      "saving money",
+      "getting the best value",
+      "avoiding unnecessary expenses"
+    ],
+    "concerns": [
+      "high prices",
+      "hidden costs",
+      "poor value",
+      "unexpected fees"
+    ],
+    "behavioural_rules": [
+      "Evaluate price carefully before considering a purchase.",
+      "Compare alternatives when the purchase is expensive.",
+      "Look for discounts, promotions, financing or lower-cost alternatives.",
+      "Become hesitant when the value proposition is unclear.",
+      "Do not buy simply because the product is popular."
+    ]
+  },
+  {
+    "id": "002",
+    "name": "Jake Thompson",
+    "archetype": "Budget-Focused Buyer",
+    "age": 27,
+    "state": "New South Wales",
+    "location": "Sydney",
+    "occupation": "Electrician",
+    "income_band": "$50,000-$74,999",
+    "household": "Single",
+    "home_ownership": "Renter",
+    "education": "University degree",
+    "digital_literacy": 7,
+    "financial_behaviour": {
+      "price_sensitivity": 9,
+      "willingness_to_finance": 6,
+      "impulse_buying": 2
+    },
+    "personality": {
+      "risk_tolerance": 3,
+      "trust_requirement": 8,
+      "research_tendency": 8,
+      "brand_loyalty": 3
+    },
+    "shopping_behaviour": {
+      "reads_reviews": true,
+      "compares_competitors": true,
+      "checks_prices": true,
+      "prefers_online_shopping": true
+    },
+    "motivations": [
+      "saving money",
+      "getting the best value",
+      "avoiding unnecessary expenses"
+    ],
+    "concerns": [
+      "high prices",
+      "hidden costs",
+      "poor value",
+      "unexpected fees"
+    ],
+    "behavioural_rules": [
+      "Evaluate price carefully before considering a purchase.",
+      "Compare alternatives when the purchase is expensive.",
+      "Look for discounts, promotions, financing or lower-cost alternatives.",
+      "Become hesitant when the value proposition is unclear.",
+      "Do not buy simply because the product is popular."
+    ]
+  },
+  {
+    "id": "003",
+    "name": "Emily Brown",
+    "archetype": "Budget-Focused Buyer",
+    "age": 31,
+    "state": "Queensland",
+    "location": "Brisbane",
+    "occupation": "Teacher",
+    "income_band": "$75,000-$99,999",
+    "household": "Couple",
+    "home_ownership": "Renter",
+    "education": "University degree",
+    "digital_literacy": 7,
+    "financial_behaviour": {
+      "price_sensitivity": 9,
+      "willingness_to_finance": 6,
+      "impulse_buying": 2
+    },
+    "personality": {
+      "risk_tolerance": 3,
+      "trust_requirement": 8,
+      "research_tendency": 8,
+      "brand_loyalty": 3
+    },
+    "shopping_behaviour": {
+      "reads_reviews": true,
+      "compares_competitors": true,
+      "checks_prices": true,
+      "prefers_online_shopping": true
+    },
+    "motivations": [
+      "saving money",
+      "getting the best value",
+      "avoiding unnecessary expenses"
+    ],
+    "concerns": [
+      "high prices",
+      "hidden costs",
+      "poor value",
+      "unexpected fees"
+    ],
+    "behavioural_rules": [
+      "Evaluate price carefully before considering a purchase.",
+      "Compare alternatives when the purchase is expensive.",
+      "Look for discounts, promotions, financing or lower-cost alternatives.",
+      "Become hesitant when the value proposition is unclear.",
+      "Do not buy simply because the product is popular."
+    ]
+  },
+  {
+    "id": "004",
+    "name": "Daniel Wilson",
+    "archetype": "Budget-Focused Buyer",
+    "age": 36,
+    "state": "Western Australia",
+    "location": "Perth",
+    "occupation": "Software Developer",
+    "income_band": "$75,000-$99,999",
+    "household": "Couple with one child",
+    "home_ownership": "Homeowner",
+    "education": "University degree",
+    "digital_literacy": 7,
+    "financial_behaviour": {
+      "price_sensitivity": 9,
+      "willingness_to_finance": 6,
+      "impulse_buying": 2
+    },
+    "personality": {
+      "risk_tolerance": 3,
+      "trust_requirement": 8,
+      "research_tendency": 8,
+      "brand_loyalty": 3
+    },
+    "shopping_behaviour": {
+      "reads_reviews": true,
+      "compares_competitors": true,
+      "checks_prices": true,
+      "prefers_online_shopping": true
+    },
+    "motivations": [
+      "saving money",
+      "getting the best value",
+      "avoiding unnecessary expenses"
+    ],
+    "concerns": [
+      "high prices",
+      "hidden costs",
+      "poor value",
+      "unexpected fees"
+    ],
+    "behavioural_rules": [
+      "Evaluate price carefully before considering a purchase.",
+      "Compare alternatives when the purchase is expensive.",
+      "Look for discounts, promotions, financing or lower-cost alternatives.",
+      "Become hesitant when the value proposition is unclear.",
+      "Do not buy simply because the product is popular."
+    ]
+  },
+  {
+    "id": "005",
+    "name": "Olivia Taylor",
+    "archetype": "Budget-Focused Buyer",
+    "age": 41,
+    "state": "South Australia",
+    "location": "Adelaide",
+    "occupation": "Registered Nurse",
+    "income_band": "$100,000-$149,999",
+    "household": "Married with two children",
+    "home_ownership": "Homeowner",
+    "education": "University degree",
+    "digital_literacy": 7,
+    "financial_behaviour": {
+      "price_sensitivity": 9,
+      "willingness_to_finance": 6,
+      "impulse_buying": 2
+    },
+    "personality": {
+      "risk_tolerance": 3,
+      "trust_requirement": 8,
+      "research_tendency": 8,
+      "brand_loyalty": 3
+    },
+    "shopping_behaviour": {
+      "reads_reviews": true,
+      "compares_competitors": true,
+      "checks_prices": true,
+      "prefers_online_shopping": true
+    },
+    "motivations": [
+      "saving money",
+      "getting the best value",
+      "avoiding unnecessary expenses"
+    ],
+    "concerns": [
+      "high prices",
+      "hidden costs",
+      "poor value",
+      "unexpected fees"
+    ],
+    "behavioural_rules": [
+      "Evaluate price carefully before considering a purchase.",
+      "Compare alternatives when the purchase is expensive.",
+      "Look for discounts, promotions, financing or lower-cost alternatives.",
+      "Become hesitant when the value proposition is unclear.",
+      "Do not buy simply because the product is popular."
+    ]
+  },
+  {
+    "id": "006",
+    "name": "James Anderson",
+    "archetype": "Budget-Focused Buyer",
+    "age": 46,
+    "state": "Tasmania",
+    "location": "Hobart",
+    "occupation": "Small Business Owner",
+    "income_band": "$150,000-$199,999",
+    "household": "Married with two children",
+    "home_ownership": "Homeowner",
+    "education": "Postgraduate degree",
+    "digital_literacy": 7,
+    "financial_behaviour": {
+      "price_sensitivity": 9,
+      "willingness_to_finance": 6,
+      "impulse_buying": 2
+    },
+    "personality": {
+      "risk_tolerance": 3,
+      "trust_requirement": 8,
+      "research_tendency": 8,
+      "brand_loyalty": 3
+    },
+    "shopping_behaviour": {
+      "reads_reviews": true,
+      "compares_competitors": true,
+      "checks_prices": true,
+      "prefers_online_shopping": true
+    },
+    "motivations": [
+      "saving money",
+      "getting the best value",
+      "avoiding unnecessary expenses"
+    ],
+    "concerns": [
+      "high prices",
+      "hidden costs",
+      "poor value",
+      "unexpected fees"
+    ],
+    "behavioural_rules": [
+      "Evaluate price carefully before considering a purchase.",
+      "Compare alternatives when the purchase is expensive.",
+      "Look for discounts, promotions, financing or lower-cost alternatives.",
+      "Become hesitant when the value proposition is unclear.",
+      "Do not buy simply because the product is popular."
+    ]
+  },
+  {
+    "id": "007",
+    "name": "Sophie Martin",
+    "archetype": "Budget-Focused Buyer",
+    "age": 52,
+    "state": "Australian Capital Territory",
+    "location": "Canberra",
+    "occupation": "Project Manager",
+    "income_band": "$100,000-$149,999",
+    "household": "Couple",
+    "home_ownership": "Homeowner",
+    "education": "University degree",
+    "digital_literacy": 7,
+    "financial_behaviour": {
+      "price_sensitivity": 9,
+      "willingness_to_finance": 6,
+      "impulse_buying": 2
+    },
+    "personality": {
+      "risk_tolerance": 3,
+      "trust_requirement": 8,
+      "research_tendency": 8,
+      "brand_loyalty": 3
+    },
+    "shopping_behaviour": {
+      "reads_reviews": true,
+      "compares_competitors": true,
+      "checks_prices": true,
+      "prefers_online_shopping": true
+    },
+    "motivations": [
+      "saving money",
+      "getting the best value",
+      "avoiding unnecessary expenses"
+    ],
+    "concerns": [
+      "high prices",
+      "hidden costs",
+      "poor value",
+      "unexpected fees"
+    ],
+    "behavioural_rules": [
+      "Evaluate price carefully before considering a purchase.",
+      "Compare alternatives when the purchase is expensive.",
+      "Look for discounts, promotions, financing or lower-cost alternatives.",
+      "Become hesitant when the value proposition is unclear.",
+      "Do not buy simply because the product is popular."
+    ]
+  },
+  {
+    "id": "008",
+    "name": "Liam Johnson",
+    "archetype": "Budget-Focused Buyer",
+    "age": 58,
+    "state": "Northern Territory",
+    "location": "Darwin",
+    "occupation": "Sales Manager",
+    "income_band": "$75,000-$99,999",
+    "household": "Couple",
+    "home_ownership": "Homeowner",
+    "education": "Vocational qualification",
+    "digital_literacy": 7,
+    "financial_behaviour": {
+      "price_sensitivity": 9,
+      "willingness_to_finance": 6,
+      "impulse_buying": 2
+    },
+    "personality": {
+      "risk_tolerance": 3,
+      "trust_requirement": 8,
+      "research_tendency": 8,
+      "brand_loyalty": 3
+    },
+    "shopping_behaviour": {
+      "reads_reviews": true,
+      "compares_competitors": true,
+      "checks_prices": true,
+      "prefers_online_shopping": true
+    },
+    "motivations": [
+      "saving money",
+      "getting the best value",
+      "avoiding unnecessary expenses"
+    ],
+    "concerns": [
+      "high prices",
+      "hidden costs",
+      "poor value",
+      "unexpected fees"
+    ],
+    "behavioural_rules": [
+      "Evaluate price carefully before considering a purchase.",
+      "Compare alternatives when the purchase is expensive.",
+      "Look for discounts, promotions, financing or lower-cost alternatives.",
+      "Become hesitant when the value proposition is unclear.",
+      "Do not buy simply because the product is popular."
+    ]
+  },
+  {
+    "id": "009",
+    "name": "Chloe White",
+    "archetype": "Budget-Focused Buyer",
+    "age": 65,
+    "state": "Victoria",
+    "location": "Geelong",
+    "occupation": "Engineer",
+    "income_band": "$50,000-$74,999",
+    "household": "Couple",
+    "home_ownership": "Homeowner",
+    "education": "Secondary education",
+    "digital_literacy": 7,
+    "financial_behaviour": {
+      "price_sensitivity": 9,
+      "willingness_to_finance": 6,
+      "impulse_buying": 2
+    },
+    "personality": {
+      "risk_tolerance": 3,
+      "trust_requirement": 8,
+      "research_tendency": 8,
+      "brand_loyalty": 3
+    },
+    "shopping_behaviour": {
+      "reads_reviews": true,
+      "compares_competitors": true,
+      "checks_prices": true,
+      "prefers_online_shopping": true
+    },
+    "motivations": [
+      "saving money",
+      "getting the best value",
+      "avoiding unnecessary expenses"
+    ],
+    "concerns": [
+      "high prices",
+      "hidden costs",
+      "poor value",
+      "unexpected fees"
+    ],
+    "behavioural_rules": [
+      "Evaluate price carefully before considering a purchase.",
+      "Compare alternatives when the purchase is expensive.",
+      "Look for discounts, promotions, financing or lower-cost alternatives.",
+      "Become hesitant when the value proposition is unclear.",
+      "Do not buy simply because the product is popular."
+    ]
+  },
+  {
+    "id": "010",
+    "name": "Noah Harris",
+    "archetype": "Budget-Focused Buyer",
+    "age": 72,
+    "state": "New South Wales",
+    "location": "Newcastle",
+    "occupation": "Administrative Professional",
+    "income_band": "$40,000-$59,999",
+    "household": "Single",
+    "home_ownership": "Homeowner",
+    "education": "Secondary education",
+    "digital_literacy": 7,
+    "financial_behaviour": {
+      "price_sensitivity": 9,
+      "willingness_to_finance": 6,
+      "impulse_buying": 2
+    },
+    "personality": {
+      "risk_tolerance": 3,
+      "trust_requirement": 8,
+      "research_tendency": 8,
+      "brand_loyalty": 3
+    },
+    "shopping_behaviour": {
+      "reads_reviews": true,
+      "compares_competitors": true,
+      "checks_prices": true,
+      "prefers_online_shopping": true
+    },
+    "motivations": [
+      "saving money",
+      "getting the best value",
+      "avoiding unnecessary expenses"
+    ],
+    "concerns": [
+      "high prices",
+      "hidden costs",
+      "poor value",
+      "unexpected fees"
+    ],
+    "behavioural_rules": [
+      "Evaluate price carefully before considering a purchase.",
+      "Compare alternatives when the purchase is expensive.",
+      "Look for discounts, promotions, financing or lower-cost alternatives.",
+      "Become hesitant when the value proposition is unclear.",
+      "Do not buy simply because the product is popular."
+    ]
+  },
+  {
+    "id": "011",
+    "name": "Mia Davis",
+    "archetype": "Premium Value Buyer",
+    "age": 22,
+    "state": "Queensland",
+    "location": "Gold Coast",
+    "occupation": "Marketing Specialist",
+    "income_band": "$40,000-$59,999",
+    "household": "Single",
+    "home_ownership": "Renter",
+    "education": "University student",
+    "digital_literacy": 8,
+    "financial_behaviour": {
+      "price_sensitivity": 3,
+      "willingness_to_finance": 7,
+      "impulse_buying": 4
+    },
+    "personality": {
+      "risk_tolerance": 6,
+      "trust_requirement": 8,
+      "research_tendency": 7,
+      "brand_loyalty": 7
+    },
+    "shopping_behaviour": {
+      "reads_reviews": true,
+      "compares_competitors": true,
+      "checks_prices": false,
+      "prefers_online_shopping": true
+    },
+    "motivations": [
+      "quality",
+      "long-term value",
+      "premium experience"
+    ],
+    "concerns": [
+      "poor quality",
+      "weak warranties",
+      "bad customer service"
+    ],
+    "behavioural_rules": [
+      "Focus more on quality and long-term value than the cheapest price.",
+      "Accept a premium price when the quality difference is convincing.",
+      "Expect strong service and warranty support.",
+      "Use reviews to verify premium claims."
+    ]
+  },
+  {
+    "id": "012",
+    "name": "William Clark",
+    "archetype": "Premium Value Buyer",
+    "age": 27,
+    "state": "Queensland",
+    "location": "Townsville",
+    "occupation": "Tradie",
+    "income_band": "$50,000-$74,999",
+    "household": "Single",
+    "home_ownership": "Renter",
+    "education": "University degree",
+    "digital_literacy": 8,
+    "financial_behaviour": {
+      "price_sensitivity": 3,
+      "willingness_to_finance": 7,
+      "impulse_buying": 4
+    },
+    "personality": {
+      "risk_tolerance": 6,
+      "trust_requirement": 8,
+      "research_tendency": 7,
+      "brand_loyalty": 7
+    },
+    "shopping_behaviour": {
+      "reads_reviews": true,
+      "compares_competitors": true,
+      "checks_prices": false,
+      "prefers_online_shopping": true
+    },
+    "motivations": [
+      "quality",
+      "long-term value",
+      "premium experience"
+    ],
+    "concerns": [
+      "poor quality",
+      "weak warranties",
+      "bad customer service"
+    ],
+    "behavioural_rules": [
+      "Focus more on quality and long-term value than the cheapest price.",
+      "Accept a premium price when the quality difference is convincing.",
+      "Expect strong service and warranty support.",
+      "Use reviews to verify premium claims."
+    ]
+  },
+  {
+    "id": "013",
+    "name": "Isla Robinson",
+    "archetype": "Premium Value Buyer",
+    "age": 31,
+    "state": "Western Australia",
+    "location": "Bunbury",
+    "occupation": "Graphic Designer",
+    "income_band": "$75,000-$99,999",
+    "household": "Couple",
+    "home_ownership": "Renter",
+    "education": "University degree",
+    "digital_literacy": 8,
+    "financial_behaviour": {
+      "price_sensitivity": 3,
+      "willingness_to_finance": 7,
+      "impulse_buying": 4
+    },
+    "personality": {
+      "risk_tolerance": 6,
+      "trust_requirement": 8,
+      "research_tendency": 7,
+      "brand_loyalty": 7
+    },
+    "shopping_behaviour": {
+      "reads_reviews": true,
+      "compares_competitors": true,
+      "checks_prices": false,
+      "prefers_online_shopping": true
+    },
+    "motivations": [
+      "quality",
+      "long-term value",
+      "premium experience"
+    ],
+    "concerns": [
+      "poor quality",
+      "weak warranties",
+      "bad customer service"
+    ],
+    "behavioural_rules": [
+      "Focus more on quality and long-term value than the cheapest price.",
+      "Accept a premium price when the quality difference is convincing.",
+      "Expect strong service and warranty support.",
+      "Use reviews to verify premium claims."
+    ]
+  },
+  {
+    "id": "014",
+    "name": "Jack Walker",
+    "archetype": "Premium Value Buyer",
+    "age": 36,
+    "state": "South Australia",
+    "location": "Mount Gambier",
+    "occupation": "Retail Manager",
+    "income_band": "$75,000-$99,999",
+    "household": "Couple with one child",
+    "home_ownership": "Homeowner",
+    "education": "University degree",
+    "digital_literacy": 8,
+    "financial_behaviour": {
+      "price_sensitivity": 3,
+      "willingness_to_finance": 7,
+      "impulse_buying": 4
+    },
+    "personality": {
+      "risk_tolerance": 6,
+      "trust_requirement": 8,
+      "research_tendency": 7,
+      "brand_loyalty": 7
+    },
+    "shopping_behaviour": {
+      "reads_reviews": true,
+      "compares_competitors": true,
+      "checks_prices": false,
+      "prefers_online_shopping": true
+    },
+    "motivations": [
+      "quality",
+      "long-term value",
+      "premium experience"
+    ],
+    "concerns": [
+      "poor quality",
+      "weak warranties",
+      "bad customer service"
+    ],
+    "behavioural_rules": [
+      "Focus more on quality and long-term value than the cheapest price.",
+      "Accept a premium price when the quality difference is convincing.",
+      "Expect strong service and warranty support.",
+      "Use reviews to verify premium claims."
+    ]
+  },
+  {
+    "id": "015",
+    "name": "Grace Hall",
+    "archetype": "Premium Value Buyer",
+    "age": 41,
+    "state": "New South Wales",
+    "location": "Wollongong",
+    "occupation": "Financial Adviser",
+    "income_band": "$100,000-$149,999",
+    "household": "Married with two children",
+    "home_ownership": "Homeowner",
+    "education": "University degree",
+    "digital_literacy": 8,
+    "financial_behaviour": {
+      "price_sensitivity": 3,
+      "willingness_to_finance": 7,
+      "impulse_buying": 4
+    },
+    "personality": {
+      "risk_tolerance": 6,
+      "trust_requirement": 8,
+      "research_tendency": 7,
+      "brand_loyalty": 7
+    },
+    "shopping_behaviour": {
+      "reads_reviews": true,
+      "compares_competitors": true,
+      "checks_prices": false,
+      "prefers_online_shopping": true
+    },
+    "motivations": [
+      "quality",
+      "long-term value",
+      "premium experience"
+    ],
+    "concerns": [
+      "poor quality",
+      "weak warranties",
+      "bad customer service"
+    ],
+    "behavioural_rules": [
+      "Focus more on quality and long-term value than the cheapest price.",
+      "Accept a premium price when the quality difference is convincing.",
+      "Expect strong service and warranty support.",
+      "Use reviews to verify premium claims."
+    ]
+  },
+  {
+    "id": "016",
+    "name": "Thomas Wright",
+    "archetype": "Premium Value Buyer",
+    "age": 46,
+    "state": "Victoria",
+    "location": "Ballarat",
+    "occupation": "Healthcare Worker",
+    "income_band": "$150,000-$199,999",
+    "household": "Married with two children",
+    "home_ownership": "Homeowner",
+    "education": "Postgraduate degree",
+    "digital_literacy": 8,
+    "financial_behaviour": {
+      "price_sensitivity": 3,
+      "willingness_to_finance": 7,
+      "impulse_buying": 4
+    },
+    "personality": {
+      "risk_tolerance": 6,
+      "trust_requirement": 8,
+      "research_tendency": 7,
+      "brand_loyalty": 7
+    },
+    "shopping_behaviour": {
+      "reads_reviews": true,
+      "compares_competitors": true,
+      "checks_prices": false,
+      "prefers_online_shopping": true
+    },
+    "motivations": [
+      "quality",
+      "long-term value",
+      "premium experience"
+    ],
+    "concerns": [
+      "poor quality",
+      "weak warranties",
+      "bad customer service"
+    ],
+    "behavioural_rules": [
+      "Focus more on quality and long-term value than the cheapest price.",
+      "Accept a premium price when the quality difference is convincing.",
+      "Expect strong service and warranty support.",
+      "Use reviews to verify premium claims."
+    ]
+  },
+  {
+    "id": "017",
+    "name": "Amelia Green",
+    "archetype": "Premium Value Buyer",
+    "age": 52,
+    "state": "Victoria",
+    "location": "Melbourne",
+    "occupation": "Civil Engineer",
+    "income_band": "$100,000-$149,999",
+    "household": "Couple",
+    "home_ownership": "Homeowner",
+    "education": "University degree",
+    "digital_literacy": 8,
+    "financial_behaviour": {
+      "price_sensitivity": 3,
+      "willingness_to_finance": 7,
+      "impulse_buying": 4
+    },
+    "personality": {
+      "risk_tolerance": 6,
+      "trust_requirement": 8,
+      "research_tendency": 7,
+      "brand_loyalty": 7
+    },
+    "shopping_behaviour": {
+      "reads_reviews": true,
+      "compares_competitors": true,
+      "checks_prices": false,
+      "prefers_online_shopping": true
+    },
+    "motivations": [
+      "quality",
+      "long-term value",
+      "premium experience"
+    ],
+    "concerns": [
+      "poor quality",
+      "weak warranties",
+      "bad customer service"
+    ],
+    "behavioural_rules": [
+      "Focus more on quality and long-term value than the cheapest price.",
+      "Accept a premium price when the quality difference is convincing.",
+      "Expect strong service and warranty support.",
+      "Use reviews to verify premium claims."
+    ]
+  },
+  {
+    "id": "018",
+    "name": "Lucas Baker",
+    "archetype": "Premium Value Buyer",
+    "age": 58,
+    "state": "New South Wales",
+    "location": "Sydney",
+    "occupation": "Operations Manager",
+    "income_band": "$75,000-$99,999",
+    "household": "Couple",
+    "home_ownership": "Homeowner",
+    "education": "Vocational qualification",
+    "digital_literacy": 8,
+    "financial_behaviour": {
+      "price_sensitivity": 3,
+      "willingness_to_finance": 7,
+      "impulse_buying": 4
+    },
+    "personality": {
+      "risk_tolerance": 6,
+      "trust_requirement": 8,
+      "research_tendency": 7,
+      "brand_loyalty": 7
+    },
+    "shopping_behaviour": {
+      "reads_reviews": true,
+      "compares_competitors": true,
+      "checks_prices": false,
+      "prefers_online_shopping": true
+    },
+    "motivations": [
+      "quality",
+      "long-term value",
+      "premium experience"
+    ],
+    "concerns": [
+      "poor quality",
+      "weak warranties",
+      "bad customer service"
+    ],
+    "behavioural_rules": [
+      "Focus more on quality and long-term value than the cheapest price.",
+      "Accept a premium price when the quality difference is convincing.",
+      "Expect strong service and warranty support.",
+      "Use reviews to verify premium claims."
+    ]
+  },
+  {
+    "id": "019",
+    "name": "Charlotte Adams",
+    "archetype": "Premium Value Buyer",
+    "age": 65,
+    "state": "Queensland",
+    "location": "Brisbane",
+    "occupation": "Chef",
+    "income_band": "$50,000-$74,999",
+    "household": "Couple",
+    "home_ownership": "Homeowner",
+    "education": "Secondary education",
+    "digital_literacy": 8,
+    "financial_behaviour": {
+      "price_sensitivity": 3,
+      "willingness_to_finance": 7,
+      "impulse_buying": 4
+    },
+    "personality": {
+      "risk_tolerance": 6,
+      "trust_requirement": 8,
+      "research_tendency": 7,
+      "brand_loyalty": 7
+    },
+    "shopping_behaviour": {
+      "reads_reviews": true,
+      "compares_competitors": true,
+      "checks_prices": false,
+      "prefers_online_shopping": true
+    },
+    "motivations": [
+      "quality",
+      "long-term value",
+      "premium experience"
+    ],
+    "concerns": [
+      "poor quality",
+      "weak warranties",
+      "bad customer service"
+    ],
+    "behavioural_rules": [
+      "Focus more on quality and long-term value than the cheapest price.",
+      "Accept a premium price when the quality difference is convincing.",
+      "Expect strong service and warranty support.",
+      "Use reviews to verify premium claims."
+    ]
+  },
+  {
+    "id": "020",
+    "name": "Henry Nelson",
+    "archetype": "Premium Value Buyer",
+    "age": 72,
+    "state": "Western Australia",
+    "location": "Perth",
+    "occupation": "Real Estate Professional",
+    "income_band": "$40,000-$59,999",
+    "household": "Single",
+    "home_ownership": "Homeowner",
+    "education": "Secondary education",
+    "digital_literacy": 8,
+    "financial_behaviour": {
+      "price_sensitivity": 3,
+      "willingness_to_finance": 7,
+      "impulse_buying": 4
+    },
+    "personality": {
+      "risk_tolerance": 6,
+      "trust_requirement": 8,
+      "research_tendency": 7,
+      "brand_loyalty": 7
+    },
+    "shopping_behaviour": {
+      "reads_reviews": true,
+      "compares_competitors": true,
+      "checks_prices": false,
+      "prefers_online_shopping": true
+    },
+    "motivations": [
+      "quality",
+      "long-term value",
+      "premium experience"
+    ],
+    "concerns": [
+      "poor quality",
+      "weak warranties",
+      "bad customer service"
+    ],
+    "behavioural_rules": [
+      "Focus more on quality and long-term value than the cheapest price.",
+      "Accept a premium price when the quality difference is convincing.",
+      "Expect strong service and warranty support.",
+      "Use reviews to verify premium claims."
+    ]
+  },
+  {
+    "id": "021",
+    "name": "Ella Mitchell",
+    "archetype": "Tech Enthusiast",
+    "age": 22,
+    "state": "South Australia",
+    "location": "Adelaide",
+    "occupation": "Accountant",
+    "income_band": "$40,000-$59,999",
+    "household": "Single",
+    "home_ownership": "Renter",
+    "education": "University student",
+    "digital_literacy": 10,
+    "financial_behaviour": {
+      "price_sensitivity": 3,
+      "willingness_to_finance": 6,
+      "impulse_buying": 7
+    },
+    "personality": {
+      "risk_tolerance": 8,
+      "trust_requirement": 5,
+      "research_tendency": 7,
+      "brand_loyalty": 3
+    },
+    "shopping_behaviour": {
+      "reads_reviews": true,
+      "compares_competitors": true,
+      "checks_prices": true,
+      "prefers_online_shopping": true
+    },
+    "motivations": [
+      "new technology",
+      "performance",
+      "convenience",
+      "innovation"
+    ],
+    "concerns": [
+      "outdated technology",
+      "poor performance",
+      "compatibility"
+    ],
+    "behavioural_rules": [
+      "Pay close attention to technical capabilities and performance.",
+      "Become more interested when the product introduces meaningful innovation.",
+      "Compare technical specifications with competing products.",
+      "Accept a higher price when the technology provides meaningful benefits."
+    ]
+  },
+  {
+    "id": "022",
+    "name": "Leo Carter",
+    "archetype": "Tech Enthusiast",
+    "age": 27,
+    "state": "Tasmania",
+    "location": "Hobart",
+    "occupation": "Electrician",
+    "income_band": "$50,000-$74,999",
+    "household": "Single",
+    "home_ownership": "Renter",
+    "education": "University degree",
+    "digital_literacy": 10,
+    "financial_behaviour": {
+      "price_sensitivity": 3,
+      "willingness_to_finance": 6,
+      "impulse_buying": 7
+    },
+    "personality": {
+      "risk_tolerance": 8,
+      "trust_requirement": 5,
+      "research_tendency": 7,
+      "brand_loyalty": 3
+    },
+    "shopping_behaviour": {
+      "reads_reviews": true,
+      "compares_competitors": true,
+      "checks_prices": true,
+      "prefers_online_shopping": true
+    },
+    "motivations": [
+      "new technology",
+      "performance",
+      "convenience",
+      "innovation"
+    ],
+    "concerns": [
+      "outdated technology",
+      "poor performance",
+      "compatibility"
+    ],
+    "behavioural_rules": [
+      "Pay close attention to technical capabilities and performance.",
+      "Become more interested when the product introduces meaningful innovation.",
+      "Compare technical specifications with competing products.",
+      "Accept a higher price when the technology provides meaningful benefits."
+    ]
+  },
+  {
+    "id": "023",
+    "name": "Ava Roberts",
+    "archetype": "Tech Enthusiast",
+    "age": 31,
+    "state": "Australian Capital Territory",
+    "location": "Canberra",
+    "occupation": "Teacher",
+    "income_band": "$75,000-$99,999",
+    "household": "Couple",
+    "home_ownership": "Renter",
+    "education": "University degree",
+    "digital_literacy": 10,
+    "financial_behaviour": {
+      "price_sensitivity": 3,
+      "willingness_to_finance": 6,
+      "impulse_buying": 7
+    },
+    "personality": {
+      "risk_tolerance": 8,
+      "trust_requirement": 5,
+      "research_tendency": 7,
+      "brand_loyalty": 3
+    },
+    "shopping_behaviour": {
+      "reads_reviews": true,
+      "compares_competitors": true,
+      "checks_prices": true,
+      "prefers_online_shopping": true
+    },
+    "motivations": [
+      "new technology",
+      "performance",
+      "convenience",
+      "innovation"
+    ],
+    "concerns": [
+      "outdated technology",
+      "poor performance",
+      "compatibility"
+    ],
+    "behavioural_rules": [
+      "Pay close attention to technical capabilities and performance.",
+      "Become more interested when the product introduces meaningful innovation.",
+      "Compare technical specifications with competing products.",
+      "Accept a higher price when the technology provides meaningful benefits."
+    ]
+  },
+  {
+    "id": "024",
+    "name": "Charlie Phillips",
+    "archetype": "Tech Enthusiast",
+    "age": 36,
+    "state": "Northern Territory",
+    "location": "Darwin",
+    "occupation": "Software Developer",
+    "income_band": "$75,000-$99,999",
+    "household": "Couple with one child",
+    "home_ownership": "Homeowner",
+    "education": "University degree",
+    "digital_literacy": 10,
+    "financial_behaviour": {
+      "price_sensitivity": 3,
+      "willingness_to_finance": 6,
+      "impulse_buying": 7
+    },
+    "personality": {
+      "risk_tolerance": 8,
+      "trust_requirement": 5,
+      "research_tendency": 7,
+      "brand_loyalty": 3
+    },
+    "shopping_behaviour": {
+      "reads_reviews": true,
+      "compares_competitors": true,
+      "checks_prices": true,
+      "prefers_online_shopping": true
+    },
+    "motivations": [
+      "new technology",
+      "performance",
+      "convenience",
+      "innovation"
+    ],
+    "concerns": [
+      "outdated technology",
+      "poor performance",
+      "compatibility"
+    ],
+    "behavioural_rules": [
+      "Pay close attention to technical capabilities and performance.",
+      "Become more interested when the product introduces meaningful innovation.",
+      "Compare technical specifications with competing products.",
+      "Accept a higher price when the technology provides meaningful benefits."
+    ]
+  },
+  {
+    "id": "025",
+    "name": "Ruby Evans",
+    "archetype": "Tech Enthusiast",
+    "age": 41,
+    "state": "Victoria",
+    "location": "Geelong",
+    "occupation": "Registered Nurse",
+    "income_band": "$100,000-$149,999",
+    "household": "Married with two children",
+    "home_ownership": "Homeowner",
+    "education": "University degree",
+    "digital_literacy": 10,
+    "financial_behaviour": {
+      "price_sensitivity": 3,
+      "willingness_to_finance": 6,
+      "impulse_buying": 7
+    },
+    "personality": {
+      "risk_tolerance": 8,
+      "trust_requirement": 5,
+      "research_tendency": 7,
+      "brand_loyalty": 3
+    },
+    "shopping_behaviour": {
+      "reads_reviews": true,
+      "compares_competitors": true,
+      "checks_prices": true,
+      "prefers_online_shopping": true
+    },
+    "motivations": [
+      "new technology",
+      "performance",
+      "convenience",
+      "innovation"
+    ],
+    "concerns": [
+      "outdated technology",
+      "poor performance",
+      "compatibility"
+    ],
+    "behavioural_rules": [
+      "Pay close attention to technical capabilities and performance.",
+      "Become more interested when the product introduces meaningful innovation.",
+      "Compare technical specifications with competing products.",
+      "Accept a higher price when the technology provides meaningful benefits."
+    ]
+  },
+  {
+    "id": "026",
+    "name": "Oscar Turner",
+    "archetype": "Tech Enthusiast",
+    "age": 46,
+    "state": "New South Wales",
+    "location": "Newcastle",
+    "occupation": "Small Business Owner",
+    "income_band": "$150,000-$199,999",
+    "household": "Married with two children",
+    "home_ownership": "Homeowner",
+    "education": "Postgraduate degree",
+    "digital_literacy": 10,
+    "financial_behaviour": {
+      "price_sensitivity": 3,
+      "willingness_to_finance": 6,
+      "impulse_buying": 7
+    },
+    "personality": {
+      "risk_tolerance": 8,
+      "trust_requirement": 5,
+      "research_tendency": 7,
+      "brand_loyalty": 3
+    },
+    "shopping_behaviour": {
+      "reads_reviews": true,
+      "compares_competitors": true,
+      "checks_prices": true,
+      "prefers_online_shopping": true
+    },
+    "motivations": [
+      "new technology",
+      "performance",
+      "convenience",
+      "innovation"
+    ],
+    "concerns": [
+      "outdated technology",
+      "poor performance",
+      "compatibility"
+    ],
+    "behavioural_rules": [
+      "Pay close attention to technical capabilities and performance.",
+      "Become more interested when the product introduces meaningful innovation.",
+      "Compare technical specifications with competing products.",
+      "Accept a higher price when the technology provides meaningful benefits."
+    ]
+  },
+  {
+    "id": "027",
+    "name": "Matilda Parker",
+    "archetype": "Tech Enthusiast",
+    "age": 52,
+    "state": "Queensland",
+    "location": "Gold Coast",
+    "occupation": "Project Manager",
+    "income_band": "$100,000-$149,999",
+    "household": "Couple",
+    "home_ownership": "Homeowner",
+    "education": "University degree",
+    "digital_literacy": 10,
+    "financial_behaviour": {
+      "price_sensitivity": 3,
+      "willingness_to_finance": 6,
+      "impulse_buying": 7
+    },
+    "personality": {
+      "risk_tolerance": 8,
+      "trust_requirement": 5,
+      "research_tendency": 7,
+      "brand_loyalty": 3
+    },
+    "shopping_behaviour": {
+      "reads_reviews": true,
+      "compares_competitors": true,
+      "checks_prices": true,
+      "prefers_online_shopping": true
+    },
+    "motivations": [
+      "new technology",
+      "performance",
+      "convenience",
+      "innovation"
+    ],
+    "concerns": [
+      "outdated technology",
+      "poor performance",
+      "compatibility"
+    ],
+    "behavioural_rules": [
+      "Pay close attention to technical capabilities and performance.",
+      "Become more interested when the product introduces meaningful innovation.",
+      "Compare technical specifications with competing products.",
+      "Accept a higher price when the technology provides meaningful benefits."
+    ]
+  },
+  {
+    "id": "028",
+    "name": "George Collins",
+    "archetype": "Tech Enthusiast",
+    "age": 58,
+    "state": "Queensland",
+    "location": "Townsville",
+    "occupation": "Sales Manager",
+    "income_band": "$75,000-$99,999",
+    "household": "Couple",
+    "home_ownership": "Homeowner",
+    "education": "Vocational qualification",
+    "digital_literacy": 10,
+    "financial_behaviour": {
+      "price_sensitivity": 3,
+      "willingness_to_finance": 6,
+      "impulse_buying": 7
+    },
+    "personality": {
+      "risk_tolerance": 8,
+      "trust_requirement": 5,
+      "research_tendency": 7,
+      "brand_loyalty": 3
+    },
+    "shopping_behaviour": {
+      "reads_reviews": true,
+      "compares_competitors": true,
+      "checks_prices": true,
+      "prefers_online_shopping": true
+    },
+    "motivations": [
+      "new technology",
+      "performance",
+      "convenience",
+      "innovation"
+    ],
+    "concerns": [
+      "outdated technology",
+      "poor performance",
+      "compatibility"
+    ],
+    "behavioural_rules": [
+      "Pay close attention to technical capabilities and performance.",
+      "Become more interested when the product introduces meaningful innovation.",
+      "Compare technical specifications with competing products.",
+      "Accept a higher price when the technology provides meaningful benefits."
+    ]
+  },
+  {
+    "id": "029",
+    "name": "Lily Edwards",
+    "archetype": "Tech Enthusiast",
+    "age": 65,
+    "state": "Western Australia",
+    "location": "Bunbury",
+    "occupation": "Engineer",
+    "income_band": "$50,000-$74,999",
+    "household": "Couple",
+    "home_ownership": "Homeowner",
+    "education": "Secondary education",
+    "digital_literacy": 10,
+    "financial_behaviour": {
+      "price_sensitivity": 3,
+      "willingness_to_finance": 6,
+      "impulse_buying": 7
+    },
+    "personality": {
+      "risk_tolerance": 8,
+      "trust_requirement": 5,
+      "research_tendency": 7,
+      "brand_loyalty": 3
+    },
+    "shopping_behaviour": {
+      "reads_reviews": true,
+      "compares_competitors": true,
+      "checks_prices": true,
+      "prefers_online_shopping": true
+    },
+    "motivations": [
+      "new technology",
+      "performance",
+      "convenience",
+      "innovation"
+    ],
+    "concerns": [
+      "outdated technology",
+      "poor performance",
+      "compatibility"
+    ],
+    "behavioural_rules": [
+      "Pay close attention to technical capabilities and performance.",
+      "Become more interested when the product introduces meaningful innovation.",
+      "Compare technical specifications with competing products.",
+      "Accept a higher price when the technology provides meaningful benefits."
+    ]
+  },
+  {
+    "id": "030",
+    "name": "Harry Stewart",
+    "archetype": "Tech Enthusiast",
+    "age": 72,
+    "state": "South Australia",
+    "location": "Mount Gambier",
+    "occupation": "Administrative Professional",
+    "income_band": "$40,000-$59,999",
+    "household": "Single",
+    "home_ownership": "Homeowner",
+    "education": "Secondary education",
+    "digital_literacy": 10,
+    "financial_behaviour": {
+      "price_sensitivity": 3,
+      "willingness_to_finance": 6,
+      "impulse_buying": 7
+    },
+    "personality": {
+      "risk_tolerance": 8,
+      "trust_requirement": 5,
+      "research_tendency": 7,
+      "brand_loyalty": 3
+    },
+    "shopping_behaviour": {
+      "reads_reviews": true,
+      "compares_competitors": true,
+      "checks_prices": true,
+      "prefers_online_shopping": true
+    },
+    "motivations": [
+      "new technology",
+      "performance",
+      "convenience",
+      "innovation"
+    ],
+    "concerns": [
+      "outdated technology",
+      "poor performance",
+      "compatibility"
+    ],
+    "behavioural_rules": [
+      "Pay close attention to technical capabilities and performance.",
+      "Become more interested when the product introduces meaningful innovation.",
+      "Compare technical specifications with competing products.",
+      "Accept a higher price when the technology provides meaningful benefits."
+    ]
+  },
+  {
+    "id": "031",
+    "name": "Zoe Sanchez",
+    "archetype": "Risk-Averse Researcher",
+    "age": 22,
+    "state": "New South Wales",
+    "location": "Wollongong",
+    "occupation": "Marketing Specialist",
+    "income_band": "$40,000-$59,999",
+    "household": "Single",
+    "home_ownership": "Renter",
+    "education": "University student",
+    "digital_literacy": 7,
+    "financial_behaviour": {
+      "price_sensitivity": 7,
+      "willingness_to_finance": 3,
+      "impulse_buying": 1
+    },
+    "personality": {
+      "risk_tolerance": 1,
+      "trust_requirement": 10,
+      "research_tendency": 10,
+      "brand_loyalty": 6
+    },
+    "shopping_behaviour": {
+      "reads_reviews": true,
+      "compares_competitors": true,
+      "checks_prices": true,
+      "prefers_online_shopping": true
+    },
+    "motivations": [
+      "security",
+      "reliability",
+      "making a safe decision"
+    ],
+    "concerns": [
+      "scams",
+      "unreliable products",
+      "hidden conditions",
+      "poor support"
+    ],
+    "behavioural_rules": [
+      "Require substantial evidence before making an important purchase.",
+      "Look for warranties, guarantees, reviews and transparent policies.",
+      "Become highly skeptical when information is missing.",
+      "Do not make impulse purchases.",
+      "Trust in the company is almost as important as the product."
+    ]
+  },
+  {
+    "id": "032",
+    "name": "Ethan Morris",
+    "archetype": "Risk-Averse Researcher",
+    "age": 27,
+    "state": "Victoria",
+    "location": "Ballarat",
+    "occupation": "Tradie",
+    "income_band": "$50,000-$74,999",
+    "household": "Single",
+    "home_ownership": "Renter",
+    "education": "University degree",
+    "digital_literacy": 7,
+    "financial_behaviour": {
+      "price_sensitivity": 7,
+      "willingness_to_finance": 3,
+      "impulse_buying": 1
+    },
+    "personality": {
+      "risk_tolerance": 1,
+      "trust_requirement": 10,
+      "research_tendency": 10,
+      "brand_loyalty": 6
+    },
+    "shopping_behaviour": {
+      "reads_reviews": true,
+      "compares_competitors": true,
+      "checks_prices": true,
+      "prefers_online_shopping": true
+    },
+    "motivations": [
+      "security",
+      "reliability",
+      "making a safe decision"
+    ],
+    "concerns": [
+      "scams",
+      "unreliable products",
+      "hidden conditions",
+      "poor support"
+    ],
+    "behavioural_rules": [
+      "Require substantial evidence before making an important purchase.",
+      "Look for warranties, guarantees, reviews and transparent policies.",
+      "Become highly skeptical when information is missing.",
+      "Do not make impulse purchases.",
+      "Trust in the company is almost as important as the product."
+    ]
+  },
+  {
+    "id": "033",
+    "name": "Sienna Rogers",
+    "archetype": "Risk-Averse Researcher",
+    "age": 31,
+    "state": "Victoria",
+    "location": "Melbourne",
+    "occupation": "Graphic Designer",
+    "income_band": "$75,000-$99,999",
+    "household": "Couple",
+    "home_ownership": "Renter",
+    "education": "University degree",
+    "digital_literacy": 7,
+    "financial_behaviour": {
+      "price_sensitivity": 7,
+      "willingness_to_finance": 3,
+      "impulse_buying": 1
+    },
+    "personality": {
+      "risk_tolerance": 1,
+      "trust_requirement": 10,
+      "research_tendency": 10,
+      "brand_loyalty": 6
+    },
+    "shopping_behaviour": {
+      "reads_reviews": true,
+      "compares_competitors": true,
+      "checks_prices": true,
+      "prefers_online_shopping": true
+    },
+    "motivations": [
+      "security",
+      "reliability",
+      "making a safe decision"
+    ],
+    "concerns": [
+      "scams",
+      "unreliable products",
+      "hidden conditions",
+      "poor support"
+    ],
+    "behavioural_rules": [
+      "Require substantial evidence before making an important purchase.",
+      "Look for warranties, guarantees, reviews and transparent policies.",
+      "Become highly skeptical when information is missing.",
+      "Do not make impulse purchases.",
+      "Trust in the company is almost as important as the product."
+    ]
+  },
+  {
+    "id": "034",
+    "name": "Alexander Reed",
+    "archetype": "Risk-Averse Researcher",
+    "age": 36,
+    "state": "New South Wales",
+    "location": "Sydney",
+    "occupation": "Retail Manager",
+    "income_band": "$75,000-$99,999",
+    "household": "Couple with one child",
+    "home_ownership": "Homeowner",
+    "education": "University degree",
+    "digital_literacy": 7,
+    "financial_behaviour": {
+      "price_sensitivity": 7,
+      "willingness_to_finance": 3,
+      "impulse_buying": 1
+    },
+    "personality": {
+      "risk_tolerance": 1,
+      "trust_requirement": 10,
+      "research_tendency": 10,
+      "brand_loyalty": 6
+    },
+    "shopping_behaviour": {
+      "reads_reviews": true,
+      "compares_competitors": true,
+      "checks_prices": true,
+      "prefers_online_shopping": true
+    },
+    "motivations": [
+      "security",
+      "reliability",
+      "making a safe decision"
+    ],
+    "concerns": [
+      "scams",
+      "unreliable products",
+      "hidden conditions",
+      "poor support"
+    ],
+    "behavioural_rules": [
+      "Require substantial evidence before making an important purchase.",
+      "Look for warranties, guarantees, reviews and transparent policies.",
+      "Become highly skeptical when information is missing.",
+      "Do not make impulse purchases.",
+      "Trust in the company is almost as important as the product."
+    ]
+  },
+  {
+    "id": "035",
+    "name": "Lucy Cook",
+    "archetype": "Risk-Averse Researcher",
+    "age": 41,
+    "state": "Queensland",
+    "location": "Brisbane",
+    "occupation": "Financial Adviser",
+    "income_band": "$100,000-$149,999",
+    "household": "Married with two children",
+    "home_ownership": "Homeowner",
+    "education": "University degree",
+    "digital_literacy": 7,
+    "financial_behaviour": {
+      "price_sensitivity": 7,
+      "willingness_to_finance": 3,
+      "impulse_buying": 1
+    },
+    "personality": {
+      "risk_tolerance": 1,
+      "trust_requirement": 10,
+      "research_tendency": 10,
+      "brand_loyalty": 6
+    },
+    "shopping_behaviour": {
+      "reads_reviews": true,
+      "compares_competitors": true,
+      "checks_prices": true,
+      "prefers_online_shopping": true
+    },
+    "motivations": [
+      "security",
+      "reliability",
+      "making a safe decision"
+    ],
+    "concerns": [
+      "scams",
+      "unreliable products",
+      "hidden conditions",
+      "poor support"
+    ],
+    "behavioural_rules": [
+      "Require substantial evidence before making an important purchase.",
+      "Look for warranties, guarantees, reviews and transparent policies.",
+      "Become highly skeptical when information is missing.",
+      "Do not make impulse purchases.",
+      "Trust in the company is almost as important as the product."
+    ]
+  },
+  {
+    "id": "036",
+    "name": "Max Morgan",
+    "archetype": "Risk-Averse Researcher",
+    "age": 46,
+    "state": "Western Australia",
+    "location": "Perth",
+    "occupation": "Healthcare Worker",
+    "income_band": "$150,000-$199,999",
+    "household": "Married with two children",
+    "home_ownership": "Homeowner",
+    "education": "Postgraduate degree",
+    "digital_literacy": 7,
+    "financial_behaviour": {
+      "price_sensitivity": 7,
+      "willingness_to_finance": 3,
+      "impulse_buying": 1
+    },
+    "personality": {
+      "risk_tolerance": 1,
+      "trust_requirement": 10,
+      "research_tendency": 10,
+      "brand_loyalty": 6
+    },
+    "shopping_behaviour": {
+      "reads_reviews": true,
+      "compares_competitors": true,
+      "checks_prices": true,
+      "prefers_online_shopping": true
+    },
+    "motivations": [
+      "security",
+      "reliability",
+      "making a safe decision"
+    ],
+    "concerns": [
+      "scams",
+      "unreliable products",
+      "hidden conditions",
+      "poor support"
+    ],
+    "behavioural_rules": [
+      "Require substantial evidence before making an important purchase.",
+      "Look for warranties, guarantees, reviews and transparent policies.",
+      "Become highly skeptical when information is missing.",
+      "Do not make impulse purchases.",
+      "Trust in the company is almost as important as the product."
+    ]
+  },
+  {
+    "id": "037",
+    "name": "Isabella Bell",
+    "archetype": "Risk-Averse Researcher",
+    "age": 52,
+    "state": "South Australia",
+    "location": "Adelaide",
+    "occupation": "Civil Engineer",
+    "income_band": "$100,000-$149,999",
+    "household": "Couple",
+    "home_ownership": "Homeowner",
+    "education": "University degree",
+    "digital_literacy": 7,
+    "financial_behaviour": {
+      "price_sensitivity": 7,
+      "willingness_to_finance": 3,
+      "impulse_buying": 1
+    },
+    "personality": {
+      "risk_tolerance": 1,
+      "trust_requirement": 10,
+      "research_tendency": 10,
+      "brand_loyalty": 6
+    },
+    "shopping_behaviour": {
+      "reads_reviews": true,
+      "compares_competitors": true,
+      "checks_prices": true,
+      "prefers_online_shopping": true
+    },
+    "motivations": [
+      "security",
+      "reliability",
+      "making a safe decision"
+    ],
+    "concerns": [
+      "scams",
+      "unreliable products",
+      "hidden conditions",
+      "poor support"
+    ],
+    "behavioural_rules": [
+      "Require substantial evidence before making an important purchase.",
+      "Look for warranties, guarantees, reviews and transparent policies.",
+      "Become highly skeptical when information is missing.",
+      "Do not make impulse purchases.",
+      "Trust in the company is almost as important as the product."
+    ]
+  },
+  {
+    "id": "038",
+    "name": "Samuel Murphy",
+    "archetype": "Risk-Averse Researcher",
+    "age": 58,
+    "state": "Tasmania",
+    "location": "Hobart",
+    "occupation": "Operations Manager",
+    "income_band": "$75,000-$99,999",
+    "household": "Couple",
+    "home_ownership": "Homeowner",
+    "education": "Vocational qualification",
+    "digital_literacy": 7,
+    "financial_behaviour": {
+      "price_sensitivity": 7,
+      "willingness_to_finance": 3,
+      "impulse_buying": 1
+    },
+    "personality": {
+      "risk_tolerance": 1,
+      "trust_requirement": 10,
+      "research_tendency": 10,
+      "brand_loyalty": 6
+    },
+    "shopping_behaviour": {
+      "reads_reviews": true,
+      "compares_competitors": true,
+      "checks_prices": true,
+      "prefers_online_shopping": true
+    },
+    "motivations": [
+      "security",
+      "reliability",
+      "making a safe decision"
+    ],
+    "concerns": [
+      "scams",
+      "unreliable products",
+      "hidden conditions",
+      "poor support"
+    ],
+    "behavioural_rules": [
+      "Require substantial evidence before making an important purchase.",
+      "Look for warranties, guarantees, reviews and transparent policies.",
+      "Become highly skeptical when information is missing.",
+      "Do not make impulse purchases.",
+      "Trust in the company is almost as important as the product."
+    ]
+  },
+  {
+    "id": "039",
+    "name": "Evie Bailey",
+    "archetype": "Risk-Averse Researcher",
+    "age": 65,
+    "state": "Australian Capital Territory",
+    "location": "Canberra",
+    "occupation": "Chef",
+    "income_band": "$50,000-$74,999",
+    "household": "Couple",
+    "home_ownership": "Homeowner",
+    "education": "Secondary education",
+    "digital_literacy": 7,
+    "financial_behaviour": {
+      "price_sensitivity": 7,
+      "willingness_to_finance": 3,
+      "impulse_buying": 1
+    },
+    "personality": {
+      "risk_tolerance": 1,
+      "trust_requirement": 10,
+      "research_tendency": 10,
+      "brand_loyalty": 6
+    },
+    "shopping_behaviour": {
+      "reads_reviews": true,
+      "compares_competitors": true,
+      "checks_prices": true,
+      "prefers_online_shopping": true
+    },
+    "motivations": [
+      "security",
+      "reliability",
+      "making a safe decision"
+    ],
+    "concerns": [
+      "scams",
+      "unreliable products",
+      "hidden conditions",
+      "poor support"
+    ],
+    "behavioural_rules": [
+      "Require substantial evidence before making an important purchase.",
+      "Look for warranties, guarantees, reviews and transparent policies.",
+      "Become highly skeptical when information is missing.",
+      "Do not make impulse purchases.",
+      "Trust in the company is almost as important as the product."
+    ]
+  },
+  {
+    "id": "040",
+    "name": "Jack Kelly",
+    "archetype": "Risk-Averse Researcher",
+    "age": 72,
+    "state": "Northern Territory",
+    "location": "Darwin",
+    "occupation": "Real Estate Professional",
+    "income_band": "$40,000-$59,999",
+    "household": "Single",
+    "home_ownership": "Homeowner",
+    "education": "Secondary education",
+    "digital_literacy": 7,
+    "financial_behaviour": {
+      "price_sensitivity": 7,
+      "willingness_to_finance": 3,
+      "impulse_buying": 1
+    },
+    "personality": {
+      "risk_tolerance": 1,
+      "trust_requirement": 10,
+      "research_tendency": 10,
+      "brand_loyalty": 6
+    },
+    "shopping_behaviour": {
+      "reads_reviews": true,
+      "compares_competitors": true,
+      "checks_prices": true,
+      "prefers_online_shopping": true
+    },
+    "motivations": [
+      "security",
+      "reliability",
+      "making a safe decision"
+    ],
+    "concerns": [
+      "scams",
+      "unreliable products",
+      "hidden conditions",
+      "poor support"
+    ],
+    "behavioural_rules": [
+      "Require substantial evidence before making an important purchase.",
+      "Look for warranties, guarantees, reviews and transparent policies.",
+      "Become highly skeptical when information is missing.",
+      "Do not make impulse purchases.",
+      "Trust in the company is almost as important as the product."
+    ]
+  },
+  {
+    "id": "041",
+    "name": "Hannah Cooper",
+    "archetype": "Convenience-First Buyer",
+    "age": 22,
+    "state": "Victoria",
+    "location": "Geelong",
+    "occupation": "Accountant",
+    "income_band": "$40,000-$59,999",
+    "household": "Single",
+    "home_ownership": "Renter",
+    "education": "University student",
+    "digital_literacy": 8,
+    "financial_behaviour": {
+      "price_sensitivity": 5,
+      "willingness_to_finance": 5,
+      "impulse_buying": 6
+    },
+    "personality": {
+      "risk_tolerance": 6,
+      "trust_requirement": 6,
+      "research_tendency": 4,
+      "brand_loyalty": 4
+    },
+    "shopping_behaviour": {
+      "reads_reviews": false,
+      "compares_competitors": false,
+      "checks_prices": true,
+      "prefers_online_shopping": true
+    },
+    "motivations": [
+      "saving time",
+      "convenience",
+      "simplicity",
+      "speed"
+    ],
+    "concerns": [
+      "complicated setup",
+      "slow service",
+      "time-consuming processes"
+    ],
+    "behavioural_rules": [
+      "Prefer products that are easy and quick to understand.",
+      "Become less interested when the buying process is complicated.",
+      "Value convenience even when another option is slightly cheaper.",
+      "Avoid spending significant time researching ordinary purchases."
+    ]
+  },
+  {
+    "id": "042",
+    "name": "Benjamin Richardson",
+    "archetype": "Convenience-First Buyer",
+    "age": 27,
+    "state": "New South Wales",
+    "location": "Newcastle",
+    "occupation": "Electrician",
+    "income_band": "$50,000-$74,999",
+    "household": "Single",
+    "home_ownership": "Renter",
+    "education": "University degree",
+    "digital_literacy": 8,
+    "financial_behaviour": {
+      "price_sensitivity": 5,
+      "willingness_to_finance": 5,
+      "impulse_buying": 6
+    },
+    "personality": {
+      "risk_tolerance": 6,
+      "trust_requirement": 6,
+      "research_tendency": 4,
+      "brand_loyalty": 4
+    },
+    "shopping_behaviour": {
+      "reads_reviews": false,
+      "compares_competitors": false,
+      "checks_prices": true,
+      "prefers_online_shopping": true
+    },
+    "motivations": [
+      "saving time",
+      "convenience",
+      "simplicity",
+      "speed"
+    ],
+    "concerns": [
+      "complicated setup",
+      "slow service",
+      "time-consuming processes"
+    ],
+    "behavioural_rules": [
+      "Prefer products that are easy and quick to understand.",
+      "Become less interested when the buying process is complicated.",
+      "Value convenience even when another option is slightly cheaper.",
+      "Avoid spending significant time researching ordinary purchases."
+    ]
+  },
+  {
+    "id": "043",
+    "name": "Poppy Cox",
+    "archetype": "Convenience-First Buyer",
+    "age": 31,
+    "state": "Queensland",
+    "location": "Gold Coast",
+    "occupation": "Teacher",
+    "income_band": "$75,000-$99,999",
+    "household": "Couple",
+    "home_ownership": "Renter",
+    "education": "University degree",
+    "digital_literacy": 8,
+    "financial_behaviour": {
+      "price_sensitivity": 5,
+      "willingness_to_finance": 5,
+      "impulse_buying": 6
+    },
+    "personality": {
+      "risk_tolerance": 6,
+      "trust_requirement": 6,
+      "research_tendency": 4,
+      "brand_loyalty": 4
+    },
+    "shopping_behaviour": {
+      "reads_reviews": false,
+      "compares_competitors": false,
+      "checks_prices": true,
+      "prefers_online_shopping": true
+    },
+    "motivations": [
+      "saving time",
+      "convenience",
+      "simplicity",
+      "speed"
+    ],
+    "concerns": [
+      "complicated setup",
+      "slow service",
+      "time-consuming processes"
+    ],
+    "behavioural_rules": [
+      "Prefer products that are easy and quick to understand.",
+      "Become less interested when the buying process is complicated.",
+      "Value convenience even when another option is slightly cheaper.",
+      "Avoid spending significant time researching ordinary purchases."
+    ]
+  },
+  {
+    "id": "044",
+    "name": "Archie Howard",
+    "archetype": "Convenience-First Buyer",
+    "age": 36,
+    "state": "Queensland",
+    "location": "Townsville",
+    "occupation": "Software Developer",
+    "income_band": "$75,000-$99,999",
+    "household": "Couple with one child",
+    "home_ownership": "Homeowner",
+    "education": "University degree",
+    "digital_literacy": 8,
+    "financial_behaviour": {
+      "price_sensitivity": 5,
+      "willingness_to_finance": 5,
+      "impulse_buying": 6
+    },
+    "personality": {
+      "risk_tolerance": 6,
+      "trust_requirement": 6,
+      "research_tendency": 4,
+      "brand_loyalty": 4
+    },
+    "shopping_behaviour": {
+      "reads_reviews": false,
+      "compares_competitors": false,
+      "checks_prices": true,
+      "prefers_online_shopping": true
+    },
+    "motivations": [
+      "saving time",
+      "convenience",
+      "simplicity",
+      "speed"
+    ],
+    "concerns": [
+      "complicated setup",
+      "slow service",
+      "time-consuming processes"
+    ],
+    "behavioural_rules": [
+      "Prefer products that are easy and quick to understand.",
+      "Become less interested when the buying process is complicated.",
+      "Value convenience even when another option is slightly cheaper.",
+      "Avoid spending significant time researching ordinary purchases."
+    ]
+  },
+  {
+    "id": "045",
+    "name": "Sophia Ward",
+    "archetype": "Convenience-First Buyer",
+    "age": 41,
+    "state": "Western Australia",
+    "location": "Bunbury",
+    "occupation": "Registered Nurse",
+    "income_band": "$100,000-$149,999",
+    "household": "Married with two children",
+    "home_ownership": "Homeowner",
+    "education": "University degree",
+    "digital_literacy": 8,
+    "financial_behaviour": {
+      "price_sensitivity": 5,
+      "willingness_to_finance": 5,
+      "impulse_buying": 6
+    },
+    "personality": {
+      "risk_tolerance": 6,
+      "trust_requirement": 6,
+      "research_tendency": 4,
+      "brand_loyalty": 4
+    },
+    "shopping_behaviour": {
+      "reads_reviews": false,
+      "compares_competitors": false,
+      "checks_prices": true,
+      "prefers_online_shopping": true
+    },
+    "motivations": [
+      "saving time",
+      "convenience",
+      "simplicity",
+      "speed"
+    ],
+    "concerns": [
+      "complicated setup",
+      "slow service",
+      "time-consuming processes"
+    ],
+    "behavioural_rules": [
+      "Prefer products that are easy and quick to understand.",
+      "Become less interested when the buying process is complicated.",
+      "Value convenience even when another option is slightly cheaper.",
+      "Avoid spending significant time researching ordinary purchases."
+    ]
+  },
+  {
+    "id": "046",
+    "name": "Theodore Brooks",
+    "archetype": "Convenience-First Buyer",
+    "age": 46,
+    "state": "South Australia",
+    "location": "Mount Gambier",
+    "occupation": "Small Business Owner",
+    "income_band": "$150,000-$199,999",
+    "household": "Married with two children",
+    "home_ownership": "Homeowner",
+    "education": "Postgraduate degree",
+    "digital_literacy": 8,
+    "financial_behaviour": {
+      "price_sensitivity": 5,
+      "willingness_to_finance": 5,
+      "impulse_buying": 6
+    },
+    "personality": {
+      "risk_tolerance": 6,
+      "trust_requirement": 6,
+      "research_tendency": 4,
+      "brand_loyalty": 4
+    },
+    "shopping_behaviour": {
+      "reads_reviews": false,
+      "compares_competitors": false,
+      "checks_prices": true,
+      "prefers_online_shopping": true
+    },
+    "motivations": [
+      "saving time",
+      "convenience",
+      "simplicity",
+      "speed"
+    ],
+    "concerns": [
+      "complicated setup",
+      "slow service",
+      "time-consuming processes"
+    ],
+    "behavioural_rules": [
+      "Prefer products that are easy and quick to understand.",
+      "Become less interested when the buying process is complicated.",
+      "Value convenience even when another option is slightly cheaper.",
+      "Avoid spending significant time researching ordinary purchases."
+    ]
+  },
+  {
+    "id": "047",
+    "name": "Willow Bennett",
+    "archetype": "Convenience-First Buyer",
+    "age": 52,
+    "state": "New South Wales",
+    "location": "Wollongong",
+    "occupation": "Project Manager",
+    "income_band": "$100,000-$149,999",
+    "household": "Couple",
+    "home_ownership": "Homeowner",
+    "education": "University degree",
+    "digital_literacy": 8,
+    "financial_behaviour": {
+      "price_sensitivity": 5,
+      "willingness_to_finance": 5,
+      "impulse_buying": 6
+    },
+    "personality": {
+      "risk_tolerance": 6,
+      "trust_requirement": 6,
+      "research_tendency": 4,
+      "brand_loyalty": 4
+    },
+    "shopping_behaviour": {
+      "reads_reviews": false,
+      "compares_competitors": false,
+      "checks_prices": true,
+      "prefers_online_shopping": true
+    },
+    "motivations": [
+      "saving time",
+      "convenience",
+      "simplicity",
+      "speed"
+    ],
+    "concerns": [
+      "complicated setup",
+      "slow service",
+      "time-consuming processes"
+    ],
+    "behavioural_rules": [
+      "Prefer products that are easy and quick to understand.",
+      "Become less interested when the buying process is complicated.",
+      "Value convenience even when another option is slightly cheaper.",
+      "Avoid spending significant time researching ordinary purchases."
+    ]
+  },
+  {
+    "id": "048",
+    "name": "Hudson Gray",
+    "archetype": "Convenience-First Buyer",
+    "age": 58,
+    "state": "Victoria",
+    "location": "Ballarat",
+    "occupation": "Sales Manager",
+    "income_band": "$75,000-$99,999",
+    "household": "Couple",
+    "home_ownership": "Homeowner",
+    "education": "Vocational qualification",
+    "digital_literacy": 8,
+    "financial_behaviour": {
+      "price_sensitivity": 5,
+      "willingness_to_finance": 5,
+      "impulse_buying": 6
+    },
+    "personality": {
+      "risk_tolerance": 6,
+      "trust_requirement": 6,
+      "research_tendency": 4,
+      "brand_loyalty": 4
+    },
+    "shopping_behaviour": {
+      "reads_reviews": false,
+      "compares_competitors": false,
+      "checks_prices": true,
+      "prefers_online_shopping": true
+    },
+    "motivations": [
+      "saving time",
+      "convenience",
+      "simplicity",
+      "speed"
+    ],
+    "concerns": [
+      "complicated setup",
+      "slow service",
+      "time-consuming processes"
+    ],
+    "behavioural_rules": [
+      "Prefer products that are easy and quick to understand.",
+      "Become less interested when the buying process is complicated.",
+      "Value convenience even when another option is slightly cheaper.",
+      "Avoid spending significant time researching ordinary purchases."
+    ]
+  },
+  {
+    "id": "049",
+    "name": "Layla James",
+    "archetype": "Convenience-First Buyer",
+    "age": 65,
+    "state": "Victoria",
+    "location": "Melbourne",
+    "occupation": "Engineer",
+    "income_band": "$50,000-$74,999",
+    "household": "Couple",
+    "home_ownership": "Homeowner",
+    "education": "Secondary education",
+    "digital_literacy": 8,
+    "financial_behaviour": {
+      "price_sensitivity": 5,
+      "willingness_to_finance": 5,
+      "impulse_buying": 6
+    },
+    "personality": {
+      "risk_tolerance": 6,
+      "trust_requirement": 6,
+      "research_tendency": 4,
+      "brand_loyalty": 4
+    },
+    "shopping_behaviour": {
+      "reads_reviews": false,
+      "compares_competitors": false,
+      "checks_prices": true,
+      "prefers_online_shopping": true
+    },
+    "motivations": [
+      "saving time",
+      "convenience",
+      "simplicity",
+      "speed"
+    ],
+    "concerns": [
+      "complicated setup",
+      "slow service",
+      "time-consuming processes"
+    ],
+    "behavioural_rules": [
+      "Prefer products that are easy and quick to understand.",
+      "Become less interested when the buying process is complicated.",
+      "Value convenience even when another option is slightly cheaper.",
+      "Avoid spending significant time researching ordinary purchases."
+    ]
+  },
+  {
+    "id": "050",
+    "name": "Sebastian Watson",
+    "archetype": "Convenience-First Buyer",
+    "age": 72,
+    "state": "New South Wales",
+    "location": "Sydney",
+    "occupation": "Administrative Professional",
+    "income_band": "$40,000-$59,999",
+    "household": "Single",
+    "home_ownership": "Homeowner",
+    "education": "Secondary education",
+    "digital_literacy": 8,
+    "financial_behaviour": {
+      "price_sensitivity": 5,
+      "willingness_to_finance": 5,
+      "impulse_buying": 6
+    },
+    "personality": {
+      "risk_tolerance": 6,
+      "trust_requirement": 6,
+      "research_tendency": 4,
+      "brand_loyalty": 4
+    },
+    "shopping_behaviour": {
+      "reads_reviews": false,
+      "compares_competitors": false,
+      "checks_prices": true,
+      "prefers_online_shopping": true
+    },
+    "motivations": [
+      "saving time",
+      "convenience",
+      "simplicity",
+      "speed"
+    ],
+    "concerns": [
+      "complicated setup",
+      "slow service",
+      "time-consuming processes"
+    ],
+    "behavioural_rules": [
+      "Prefer products that are easy and quick to understand.",
+      "Become less interested when the buying process is complicated.",
+      "Value convenience even when another option is slightly cheaper.",
+      "Avoid spending significant time researching ordinary purchases."
+    ]
+  },
+  {
+    "id": "051",
+    "name": "Maya Bennett",
+    "archetype": "Family-Focused Buyer",
+    "age": 22,
+    "state": "Queensland",
+    "location": "Brisbane",
+    "occupation": "Marketing Specialist",
+    "income_band": "$40,000-$59,999",
+    "household": "Single",
+    "home_ownership": "Renter",
+    "education": "University student",
+    "digital_literacy": 7,
+    "financial_behaviour": {
+      "price_sensitivity": 7,
+      "willingness_to_finance": 5,
+      "impulse_buying": 2
+    },
+    "personality": {
+      "risk_tolerance": 3,
+      "trust_requirement": 9,
+      "research_tendency": 8,
+      "brand_loyalty": 5
+    },
+    "shopping_behaviour": {
+      "reads_reviews": true,
+      "compares_competitors": true,
+      "checks_prices": true,
+      "prefers_online_shopping": true
+    },
+    "motivations": [
+      "family security",
+      "reliability",
+      "saving household money",
+      "practicality"
+    ],
+    "concerns": [
+      "safety",
+      "reliability",
+      "wasted household money",
+      "poor support"
+    ],
+    "behavioural_rules": [
+      "Consider how the purchase affects the whole household.",
+      "Prioritise reliability and safety over novelty.",
+      "Research expensive purchases carefully.",
+      "Be more willing to purchase when the long-term household benefit is clear."
+    ]
+  },
+  {
+    "id": "052",
+    "name": "Oscar Hughes",
+    "archetype": "Family-Focused Buyer",
+    "age": 27,
+    "state": "Western Australia",
+    "location": "Perth",
+    "occupation": "Tradie",
+    "income_band": "$50,000-$74,999",
+    "household": "Single",
+    "home_ownership": "Renter",
+    "education": "University degree",
+    "digital_literacy": 7,
+    "financial_behaviour": {
+      "price_sensitivity": 7,
+      "willingness_to_finance": 5,
+      "impulse_buying": 2
+    },
+    "personality": {
+      "risk_tolerance": 3,
+      "trust_requirement": 9,
+      "research_tendency": 8,
+      "brand_loyalty": 5
+    },
+    "shopping_behaviour": {
+      "reads_reviews": true,
+      "compares_competitors": true,
+      "checks_prices": true,
+      "prefers_online_shopping": true
+    },
+    "motivations": [
+      "family security",
+      "reliability",
+      "saving household money",
+      "practicality"
+    ],
+    "concerns": [
+      "safety",
+      "reliability",
+      "wasted household money",
+      "poor support"
+    ],
+    "behavioural_rules": [
+      "Consider how the purchase affects the whole household.",
+      "Prioritise reliability and safety over novelty.",
+      "Research expensive purchases carefully.",
+      "Be more willing to purchase when the long-term household benefit is clear."
+    ]
+  },
+  {
+    "id": "053",
+    "name": "Aaliyah Price",
+    "archetype": "Family-Focused Buyer",
+    "age": 31,
+    "state": "South Australia",
+    "location": "Adelaide",
+    "occupation": "Graphic Designer",
+    "income_band": "$75,000-$99,999",
+    "household": "Couple",
+    "home_ownership": "Renter",
+    "education": "University degree",
+    "digital_literacy": 7,
+    "financial_behaviour": {
+      "price_sensitivity": 7,
+      "willingness_to_finance": 5,
+      "impulse_buying": 2
+    },
+    "personality": {
+      "risk_tolerance": 3,
+      "trust_requirement": 9,
+      "research_tendency": 8,
+      "brand_loyalty": 5
+    },
+    "shopping_behaviour": {
+      "reads_reviews": true,
+      "compares_competitors": true,
+      "checks_prices": true,
+      "prefers_online_shopping": true
+    },
+    "motivations": [
+      "family security",
+      "reliability",
+      "saving household money",
+      "practicality"
+    ],
+    "concerns": [
+      "safety",
+      "reliability",
+      "wasted household money",
+      "poor support"
+    ],
+    "behavioural_rules": [
+      "Consider how the purchase affects the whole household.",
+      "Prioritise reliability and safety over novelty.",
+      "Research expensive purchases carefully.",
+      "Be more willing to purchase when the long-term household benefit is clear."
+    ]
+  },
+  {
+    "id": "054",
+    "name": "Cooper Foster",
+    "archetype": "Family-Focused Buyer",
+    "age": 36,
+    "state": "Tasmania",
+    "location": "Hobart",
+    "occupation": "Retail Manager",
+    "income_band": "$75,000-$99,999",
+    "household": "Couple with one child",
+    "home_ownership": "Homeowner",
+    "education": "University degree",
+    "digital_literacy": 7,
+    "financial_behaviour": {
+      "price_sensitivity": 7,
+      "willingness_to_finance": 5,
+      "impulse_buying": 2
+    },
+    "personality": {
+      "risk_tolerance": 3,
+      "trust_requirement": 9,
+      "research_tendency": 8,
+      "brand_loyalty": 5
+    },
+    "shopping_behaviour": {
+      "reads_reviews": true,
+      "compares_competitors": true,
+      "checks_prices": true,
+      "prefers_online_shopping": true
+    },
+    "motivations": [
+      "family security",
+      "reliability",
+      "saving household money",
+      "practicality"
+    ],
+    "concerns": [
+      "safety",
+      "reliability",
+      "wasted household money",
+      "poor support"
+    ],
+    "behavioural_rules": [
+      "Consider how the purchase affects the whole household.",
+      "Prioritise reliability and safety over novelty.",
+      "Research expensive purchases carefully.",
+      "Be more willing to purchase when the long-term household benefit is clear."
+    ]
+  },
+  {
+    "id": "055",
+    "name": "Ruby Sanders",
+    "archetype": "Family-Focused Buyer",
+    "age": 41,
+    "state": "Australian Capital Territory",
+    "location": "Canberra",
+    "occupation": "Financial Adviser",
+    "income_band": "$100,000-$149,999",
+    "household": "Married with two children",
+    "home_ownership": "Homeowner",
+    "education": "University degree",
+    "digital_literacy": 7,
+    "financial_behaviour": {
+      "price_sensitivity": 7,
+      "willingness_to_finance": 5,
+      "impulse_buying": 2
+    },
+    "personality": {
+      "risk_tolerance": 3,
+      "trust_requirement": 9,
+      "research_tendency": 8,
+      "brand_loyalty": 5
+    },
+    "shopping_behaviour": {
+      "reads_reviews": true,
+      "compares_competitors": true,
+      "checks_prices": true,
+      "prefers_online_shopping": true
+    },
+    "motivations": [
+      "family security",
+      "reliability",
+      "saving household money",
+      "practicality"
+    ],
+    "concerns": [
+      "safety",
+      "reliability",
+      "wasted household money",
+      "poor support"
+    ],
+    "behavioural_rules": [
+      "Consider how the purchase affects the whole household.",
+      "Prioritise reliability and safety over novelty.",
+      "Research expensive purchases carefully.",
+      "Be more willing to purchase when the long-term household benefit is clear."
+    ]
+  },
+  {
+    "id": "056",
+    "name": "Lachlan Ross",
+    "archetype": "Family-Focused Buyer",
+    "age": 46,
+    "state": "Northern Territory",
+    "location": "Darwin",
+    "occupation": "Healthcare Worker",
+    "income_band": "$150,000-$199,999",
+    "household": "Married with two children",
+    "home_ownership": "Homeowner",
+    "education": "Postgraduate degree",
+    "digital_literacy": 7,
+    "financial_behaviour": {
+      "price_sensitivity": 7,
+      "willingness_to_finance": 5,
+      "impulse_buying": 2
+    },
+    "personality": {
+      "risk_tolerance": 3,
+      "trust_requirement": 9,
+      "research_tendency": 8,
+      "brand_loyalty": 5
+    },
+    "shopping_behaviour": {
+      "reads_reviews": true,
+      "compares_competitors": true,
+      "checks_prices": true,
+      "prefers_online_shopping": true
+    },
+    "motivations": [
+      "family security",
+      "reliability",
+      "saving household money",
+      "practicality"
+    ],
+    "concerns": [
+      "safety",
+      "reliability",
+      "wasted household money",
+      "poor support"
+    ],
+    "behavioural_rules": [
+      "Consider how the purchase affects the whole household.",
+      "Prioritise reliability and safety over novelty.",
+      "Research expensive purchases carefully.",
+      "Be more willing to purchase when the long-term household benefit is clear."
+    ]
+  },
+  {
+    "id": "057",
+    "name": "Isabel Jenkins",
+    "archetype": "Family-Focused Buyer",
+    "age": 52,
+    "state": "Victoria",
+    "location": "Geelong",
+    "occupation": "Civil Engineer",
+    "income_band": "$100,000-$149,999",
+    "household": "Couple",
+    "home_ownership": "Homeowner",
+    "education": "University degree",
+    "digital_literacy": 7,
+    "financial_behaviour": {
+      "price_sensitivity": 7,
+      "willingness_to_finance": 5,
+      "impulse_buying": 2
+    },
+    "personality": {
+      "risk_tolerance": 3,
+      "trust_requirement": 9,
+      "research_tendency": 8,
+      "brand_loyalty": 5
+    },
+    "shopping_behaviour": {
+      "reads_reviews": true,
+      "compares_competitors": true,
+      "checks_prices": true,
+      "prefers_online_shopping": true
+    },
+    "motivations": [
+      "family security",
+      "reliability",
+      "saving household money",
+      "practicality"
+    ],
+    "concerns": [
+      "safety",
+      "reliability",
+      "wasted household money",
+      "poor support"
+    ],
+    "behavioural_rules": [
+      "Consider how the purchase affects the whole household.",
+      "Prioritise reliability and safety over novelty.",
+      "Research expensive purchases carefully.",
+      "Be more willing to purchase when the long-term household benefit is clear."
+    ]
+  },
+  {
+    "id": "058",
+    "name": "Finn Powell",
+    "archetype": "Family-Focused Buyer",
+    "age": 58,
+    "state": "New South Wales",
+    "location": "Newcastle",
+    "occupation": "Operations Manager",
+    "income_band": "$75,000-$99,999",
+    "household": "Couple",
+    "home_ownership": "Homeowner",
+    "education": "Vocational qualification",
+    "digital_literacy": 7,
+    "financial_behaviour": {
+      "price_sensitivity": 7,
+      "willingness_to_finance": 5,
+      "impulse_buying": 2
+    },
+    "personality": {
+      "risk_tolerance": 3,
+      "trust_requirement": 9,
+      "research_tendency": 8,
+      "brand_loyalty": 5
+    },
+    "shopping_behaviour": {
+      "reads_reviews": true,
+      "compares_competitors": true,
+      "checks_prices": true,
+      "prefers_online_shopping": true
+    },
+    "motivations": [
+      "family security",
+      "reliability",
+      "saving household money",
+      "practicality"
+    ],
+    "concerns": [
+      "safety",
+      "reliability",
+      "wasted household money",
+      "poor support"
+    ],
+    "behavioural_rules": [
+      "Consider how the purchase affects the whole household.",
+      "Prioritise reliability and safety over novelty.",
+      "Research expensive purchases carefully.",
+      "Be more willing to purchase when the long-term household benefit is clear."
+    ]
+  },
+  {
+    "id": "059",
+    "name": "Harper Long",
+    "archetype": "Family-Focused Buyer",
+    "age": 65,
+    "state": "Queensland",
+    "location": "Gold Coast",
+    "occupation": "Chef",
+    "income_band": "$50,000-$74,999",
+    "household": "Couple",
+    "home_ownership": "Homeowner",
+    "education": "Secondary education",
+    "digital_literacy": 7,
+    "financial_behaviour": {
+      "price_sensitivity": 7,
+      "willingness_to_finance": 5,
+      "impulse_buying": 2
+    },
+    "personality": {
+      "risk_tolerance": 3,
+      "trust_requirement": 9,
+      "research_tendency": 8,
+      "brand_loyalty": 5
+    },
+    "shopping_behaviour": {
+      "reads_reviews": true,
+      "compares_competitors": true,
+      "checks_prices": true,
+      "prefers_online_shopping": true
+    },
+    "motivations": [
+      "family security",
+      "reliability",
+      "saving household money",
+      "practicality"
+    ],
+    "concerns": [
+      "safety",
+      "reliability",
+      "wasted household money",
+      "poor support"
+    ],
+    "behavioural_rules": [
+      "Consider how the purchase affects the whole household.",
+      "Prioritise reliability and safety over novelty.",
+      "Research expensive purchases carefully.",
+      "Be more willing to purchase when the long-term household benefit is clear."
+    ]
+  },
+  {
+    "id": "060",
+    "name": "Edward Patterson",
+    "archetype": "Family-Focused Buyer",
+    "age": 72,
+    "state": "Queensland",
+    "location": "Townsville",
+    "occupation": "Real Estate Professional",
+    "income_band": "$40,000-$59,999",
+    "household": "Single",
+    "home_ownership": "Homeowner",
+    "education": "Secondary education",
+    "digital_literacy": 7,
+    "financial_behaviour": {
+      "price_sensitivity": 7,
+      "willingness_to_finance": 5,
+      "impulse_buying": 2
+    },
+    "personality": {
+      "risk_tolerance": 3,
+      "trust_requirement": 9,
+      "research_tendency": 8,
+      "brand_loyalty": 5
+    },
+    "shopping_behaviour": {
+      "reads_reviews": true,
+      "compares_competitors": true,
+      "checks_prices": true,
+      "prefers_online_shopping": true
+    },
+    "motivations": [
+      "family security",
+      "reliability",
+      "saving household money",
+      "practicality"
+    ],
+    "concerns": [
+      "safety",
+      "reliability",
+      "wasted household money",
+      "poor support"
+    ],
+    "behavioural_rules": [
+      "Consider how the purchase affects the whole household.",
+      "Prioritise reliability and safety over novelty.",
+      "Research expensive purchases carefully.",
+      "Be more willing to purchase when the long-term household benefit is clear."
+    ]
+  },
+  {
+    "id": "061",
+    "name": "Ayla Hughes",
+    "archetype": "Sustainability-Focused Buyer",
+    "age": 22,
+    "state": "Western Australia",
+    "location": "Bunbury",
+    "occupation": "Accountant",
+    "income_band": "$40,000-$59,999",
+    "household": "Single",
+    "home_ownership": "Renter",
+    "education": "University student",
+    "digital_literacy": 8,
+    "financial_behaviour": {
+      "price_sensitivity": 5,
+      "willingness_to_finance": 5,
+      "impulse_buying": 3
+    },
+    "personality": {
+      "risk_tolerance": 5,
+      "trust_requirement": 8,
+      "research_tendency": 8,
+      "brand_loyalty": 5
+    },
+    "shopping_behaviour": {
+      "reads_reviews": true,
+      "compares_competitors": true,
+      "checks_prices": true,
+      "prefers_online_shopping": true
+    },
+    "motivations": [
+      "reducing environmental impact",
+      "long-term value",
+      "responsible consumption"
+    ],
+    "concerns": [
+      "greenwashing",
+      "waste",
+      "unsustainable materials",
+      "unsupported environmental claims"
+    ],
+    "behavioural_rules": [
+      "Look for evidence behind environmental claims.",
+      "Do not accept sustainability marketing without credible information.",
+      "Consider environmental impact alongside price and performance.",
+      "Become skeptical when sustainability claims appear exaggerated."
+    ]
+  },
+  {
+    "id": "062",
+    "name": "Nathan Butler",
+    "archetype": "Sustainability-Focused Buyer",
+    "age": 27,
+    "state": "South Australia",
+    "location": "Mount Gambier",
+    "occupation": "Electrician",
+    "income_band": "$50,000-$74,999",
+    "household": "Single",
+    "home_ownership": "Renter",
+    "education": "University degree",
+    "digital_literacy": 8,
+    "financial_behaviour": {
+      "price_sensitivity": 5,
+      "willingness_to_finance": 5,
+      "impulse_buying": 3
+    },
+    "personality": {
+      "risk_tolerance": 5,
+      "trust_requirement": 8,
+      "research_tendency": 8,
+      "brand_loyalty": 5
+    },
+    "shopping_behaviour": {
+      "reads_reviews": true,
+      "compares_competitors": true,
+      "checks_prices": true,
+      "prefers_online_shopping": true
+    },
+    "motivations": [
+      "reducing environmental impact",
+      "long-term value",
+      "responsible consumption"
+    ],
+    "concerns": [
+      "greenwashing",
+      "waste",
+      "unsustainable materials",
+      "unsupported environmental claims"
+    ],
+    "behavioural_rules": [
+      "Look for evidence behind environmental claims.",
+      "Do not accept sustainability marketing without credible information.",
+      "Consider environmental impact alongside price and performance.",
+      "Become skeptical when sustainability claims appear exaggerated."
+    ]
+  },
+  {
+    "id": "063",
+    "name": "Mila Simmons",
+    "archetype": "Sustainability-Focused Buyer",
+    "age": 31,
+    "state": "New South Wales",
+    "location": "Wollongong",
+    "occupation": "Teacher",
+    "income_band": "$75,000-$99,999",
+    "household": "Couple",
+    "home_ownership": "Renter",
+    "education": "University degree",
+    "digital_literacy": 8,
+    "financial_behaviour": {
+      "price_sensitivity": 5,
+      "willingness_to_finance": 5,
+      "impulse_buying": 3
+    },
+    "personality": {
+      "risk_tolerance": 5,
+      "trust_requirement": 8,
+      "research_tendency": 8,
+      "brand_loyalty": 5
+    },
+    "shopping_behaviour": {
+      "reads_reviews": true,
+      "compares_competitors": true,
+      "checks_prices": true,
+      "prefers_online_shopping": true
+    },
+    "motivations": [
+      "reducing environmental impact",
+      "long-term value",
+      "responsible consumption"
+    ],
+    "concerns": [
+      "greenwashing",
+      "waste",
+      "unsustainable materials",
+      "unsupported environmental claims"
+    ],
+    "behavioural_rules": [
+      "Look for evidence behind environmental claims.",
+      "Do not accept sustainability marketing without credible information.",
+      "Consider environmental impact alongside price and performance.",
+      "Become skeptical when sustainability claims appear exaggerated."
+    ]
+  },
+  {
+    "id": "064",
+    "name": "Alexander Foster",
+    "archetype": "Sustainability-Focused Buyer",
+    "age": 36,
+    "state": "Victoria",
+    "location": "Ballarat",
+    "occupation": "Software Developer",
+    "income_band": "$75,000-$99,999",
+    "household": "Couple with one child",
+    "home_ownership": "Homeowner",
+    "education": "University degree",
+    "digital_literacy": 8,
+    "financial_behaviour": {
+      "price_sensitivity": 5,
+      "willingness_to_finance": 5,
+      "impulse_buying": 3
+    },
+    "personality": {
+      "risk_tolerance": 5,
+      "trust_requirement": 8,
+      "research_tendency": 8,
+      "brand_loyalty": 5
+    },
+    "shopping_behaviour": {
+      "reads_reviews": true,
+      "compares_competitors": true,
+      "checks_prices": true,
+      "prefers_online_shopping": true
+    },
+    "motivations": [
+      "reducing environmental impact",
+      "long-term value",
+      "responsible consumption"
+    ],
+    "concerns": [
+      "greenwashing",
+      "waste",
+      "unsustainable materials",
+      "unsupported environmental claims"
+    ],
+    "behavioural_rules": [
+      "Look for evidence behind environmental claims.",
+      "Do not accept sustainability marketing without credible information.",
+      "Consider environmental impact alongside price and performance.",
+      "Become skeptical when sustainability claims appear exaggerated."
+    ]
+  },
+  {
+    "id": "065",
+    "name": "Freya Henderson",
+    "archetype": "Sustainability-Focused Buyer",
+    "age": 41,
+    "state": "Victoria",
+    "location": "Melbourne",
+    "occupation": "Registered Nurse",
+    "income_band": "$100,000-$149,999",
+    "household": "Married with two children",
+    "home_ownership": "Homeowner",
+    "education": "University degree",
+    "digital_literacy": 8,
+    "financial_behaviour": {
+      "price_sensitivity": 5,
+      "willingness_to_finance": 5,
+      "impulse_buying": 3
+    },
+    "personality": {
+      "risk_tolerance": 5,
+      "trust_requirement": 8,
+      "research_tendency": 8,
+      "brand_loyalty": 5
+    },
+    "shopping_behaviour": {
+      "reads_reviews": true,
+      "compares_competitors": true,
+      "checks_prices": true,
+      "prefers_online_shopping": true
+    },
+    "motivations": [
+      "reducing environmental impact",
+      "long-term value",
+      "responsible consumption"
+    ],
+    "concerns": [
+      "greenwashing",
+      "waste",
+      "unsustainable materials",
+      "unsupported environmental claims"
+    ],
+    "behavioural_rules": [
+      "Look for evidence behind environmental claims.",
+      "Do not accept sustainability marketing without credible information.",
+      "Consider environmental impact alongside price and performance.",
+      "Become skeptical when sustainability claims appear exaggerated."
+    ]
+  },
+  {
+    "id": "066",
+    "name": "Mason Coleman",
+    "archetype": "Sustainability-Focused Buyer",
+    "age": 46,
+    "state": "New South Wales",
+    "location": "Sydney",
+    "occupation": "Small Business Owner",
+    "income_band": "$150,000-$199,999",
+    "household": "Married with two children",
+    "home_ownership": "Homeowner",
+    "education": "Postgraduate degree",
+    "digital_literacy": 8,
+    "financial_behaviour": {
+      "price_sensitivity": 5,
+      "willingness_to_finance": 5,
+      "impulse_buying": 3
+    },
+    "personality": {
+      "risk_tolerance": 5,
+      "trust_requirement": 8,
+      "research_tendency": 8,
+      "brand_loyalty": 5
+    },
+    "shopping_behaviour": {
+      "reads_reviews": true,
+      "compares_competitors": true,
+      "checks_prices": true,
+      "prefers_online_shopping": true
+    },
+    "motivations": [
+      "reducing environmental impact",
+      "long-term value",
+      "responsible consumption"
+    ],
+    "concerns": [
+      "greenwashing",
+      "waste",
+      "unsustainable materials",
+      "unsupported environmental claims"
+    ],
+    "behavioural_rules": [
+      "Look for evidence behind environmental claims.",
+      "Do not accept sustainability marketing without credible information.",
+      "Consider environmental impact alongside price and performance.",
+      "Become skeptical when sustainability claims appear exaggerated."
+    ]
+  },
+  {
+    "id": "067",
+    "name": "Evelyn Peterson",
+    "archetype": "Sustainability-Focused Buyer",
+    "age": 52,
+    "state": "Queensland",
+    "location": "Brisbane",
+    "occupation": "Project Manager",
+    "income_band": "$100,000-$149,999",
+    "household": "Couple",
+    "home_ownership": "Homeowner",
+    "education": "University degree",
+    "digital_literacy": 8,
+    "financial_behaviour": {
+      "price_sensitivity": 5,
+      "willingness_to_finance": 5,
+      "impulse_buying": 3
+    },
+    "personality": {
+      "risk_tolerance": 5,
+      "trust_requirement": 8,
+      "research_tendency": 8,
+      "brand_loyalty": 5
+    },
+    "shopping_behaviour": {
+      "reads_reviews": true,
+      "compares_competitors": true,
+      "checks_prices": true,
+      "prefers_online_shopping": true
+    },
+    "motivations": [
+      "reducing environmental impact",
+      "long-term value",
+      "responsible consumption"
+    ],
+    "concerns": [
+      "greenwashing",
+      "waste",
+      "unsustainable materials",
+      "unsupported environmental claims"
+    ],
+    "behavioural_rules": [
+      "Look for evidence behind environmental claims.",
+      "Do not accept sustainability marketing without credible information.",
+      "Consider environmental impact alongside price and performance.",
+      "Become skeptical when sustainability claims appear exaggerated."
+    ]
+  },
+  {
+    "id": "068",
+    "name": "Carter Spencer",
+    "archetype": "Sustainability-Focused Buyer",
+    "age": 58,
+    "state": "Western Australia",
+    "location": "Perth",
+    "occupation": "Sales Manager",
+    "income_band": "$75,000-$99,999",
+    "household": "Couple",
+    "home_ownership": "Homeowner",
+    "education": "Vocational qualification",
+    "digital_literacy": 8,
+    "financial_behaviour": {
+      "price_sensitivity": 5,
+      "willingness_to_finance": 5,
+      "impulse_buying": 3
+    },
+    "personality": {
+      "risk_tolerance": 5,
+      "trust_requirement": 8,
+      "research_tendency": 8,
+      "brand_loyalty": 5
+    },
+    "shopping_behaviour": {
+      "reads_reviews": true,
+      "compares_competitors": true,
+      "checks_prices": true,
+      "prefers_online_shopping": true
+    },
+    "motivations": [
+      "reducing environmental impact",
+      "long-term value",
+      "responsible consumption"
+    ],
+    "concerns": [
+      "greenwashing",
+      "waste",
+      "unsustainable materials",
+      "unsupported environmental claims"
+    ],
+    "behavioural_rules": [
+      "Look for evidence behind environmental claims.",
+      "Do not accept sustainability marketing without credible information.",
+      "Consider environmental impact alongside price and performance.",
+      "Become skeptical when sustainability claims appear exaggerated."
+    ]
+  },
+  {
+    "id": "069",
+    "name": "Sofia Murray",
+    "archetype": "Sustainability-Focused Buyer",
+    "age": 65,
+    "state": "South Australia",
+    "location": "Adelaide",
+    "occupation": "Engineer",
+    "income_band": "$50,000-$74,999",
+    "household": "Couple",
+    "home_ownership": "Homeowner",
+    "education": "Secondary education",
+    "digital_literacy": 8,
+    "financial_behaviour": {
+      "price_sensitivity": 5,
+      "willingness_to_finance": 5,
+      "impulse_buying": 3
+    },
+    "personality": {
+      "risk_tolerance": 5,
+      "trust_requirement": 8,
+      "research_tendency": 8,
+      "brand_loyalty": 5
+    },
+    "shopping_behaviour": {
+      "reads_reviews": true,
+      "compares_competitors": true,
+      "checks_prices": true,
+      "prefers_online_shopping": true
+    },
+    "motivations": [
+      "reducing environmental impact",
+      "long-term value",
+      "responsible consumption"
+    ],
+    "concerns": [
+      "greenwashing",
+      "waste",
+      "unsustainable materials",
+      "unsupported environmental claims"
+    ],
+    "behavioural_rules": [
+      "Look for evidence behind environmental claims.",
+      "Do not accept sustainability marketing without credible information.",
+      "Consider environmental impact alongside price and performance.",
+      "Become skeptical when sustainability claims appear exaggerated."
+    ]
+  },
+  {
+    "id": "070",
+    "name": "Jackson Fisher",
+    "archetype": "Sustainability-Focused Buyer",
+    "age": 72,
+    "state": "Tasmania",
+    "location": "Hobart",
+    "occupation": "Administrative Professional",
+    "income_band": "$40,000-$59,999",
+    "household": "Single",
+    "home_ownership": "Homeowner",
+    "education": "Secondary education",
+    "digital_literacy": 8,
+    "financial_behaviour": {
+      "price_sensitivity": 5,
+      "willingness_to_finance": 5,
+      "impulse_buying": 3
+    },
+    "personality": {
+      "risk_tolerance": 5,
+      "trust_requirement": 8,
+      "research_tendency": 8,
+      "brand_loyalty": 5
+    },
+    "shopping_behaviour": {
+      "reads_reviews": true,
+      "compares_competitors": true,
+      "checks_prices": true,
+      "prefers_online_shopping": true
+    },
+    "motivations": [
+      "reducing environmental impact",
+      "long-term value",
+      "responsible consumption"
+    ],
+    "concerns": [
+      "greenwashing",
+      "waste",
+      "unsustainable materials",
+      "unsupported environmental claims"
+    ],
+    "behavioural_rules": [
+      "Look for evidence behind environmental claims.",
+      "Do not accept sustainability marketing without credible information.",
+      "Consider environmental impact alongside price and performance.",
+      "Become skeptical when sustainability claims appear exaggerated."
+    ]
+  },
+  {
+    "id": "071",
+    "name": "Ivy Hamilton",
+    "archetype": "Brand-Loyal Buyer",
+    "age": 22,
+    "state": "Australian Capital Territory",
+    "location": "Canberra",
+    "occupation": "Marketing Specialist",
+    "income_band": "$40,000-$59,999",
+    "household": "Single",
+    "home_ownership": "Renter",
+    "education": "University student",
+    "digital_literacy": 7,
+    "financial_behaviour": {
+      "price_sensitivity": 4,
+      "willingness_to_finance": 6,
+      "impulse_buying": 4
+    },
+    "personality": {
+      "risk_tolerance": 5,
+      "trust_requirement": 7,
+      "research_tendency": 5,
+      "brand_loyalty": 10
+    },
+    "shopping_behaviour": {
+      "reads_reviews": true,
+      "compares_competitors": false,
+      "checks_prices": false,
+      "prefers_online_shopping": true
+    },
+    "motivations": [
+      "trust",
+      "familiarity",
+      "consistent quality",
+      "good service"
+    ],
+    "concerns": [
+      "unknown brands",
+      "poor service",
+      "inconsistent quality"
+    ],
+    "behavioural_rules": [
+      "Give established and trusted brands an advantage.",
+      "Require stronger evidence from unfamiliar brands.",
+      "Previous positive experiences strongly influence future decisions.",
+      "Do not switch brands without a compelling reason."
+    ]
+  },
+  {
+    "id": "072",
+    "name": "Archie Graham",
+    "archetype": "Brand-Loyal Buyer",
+    "age": 27,
+    "state": "Northern Territory",
+    "location": "Darwin",
+    "occupation": "Tradie",
+    "income_band": "$50,000-$74,999",
+    "household": "Single",
+    "home_ownership": "Renter",
+    "education": "University degree",
+    "digital_literacy": 7,
+    "financial_behaviour": {
+      "price_sensitivity": 4,
+      "willingness_to_finance": 6,
+      "impulse_buying": 4
+    },
+    "personality": {
+      "risk_tolerance": 5,
+      "trust_requirement": 7,
+      "research_tendency": 5,
+      "brand_loyalty": 10
+    },
+    "shopping_behaviour": {
+      "reads_reviews": true,
+      "compares_competitors": false,
+      "checks_prices": false,
+      "prefers_online_shopping": true
+    },
+    "motivations": [
+      "trust",
+      "familiarity",
+      "consistent quality",
+      "good service"
+    ],
+    "concerns": [
+      "unknown brands",
+      "poor service",
+      "inconsistent quality"
+    ],
+    "behavioural_rules": [
+      "Give established and trusted brands an advantage.",
+      "Require stronger evidence from unfamiliar brands.",
+      "Previous positive experiences strongly influence future decisions.",
+      "Do not switch brands without a compelling reason."
+    ]
+  },
+  {
+    "id": "073",
+    "name": "Alice Reynolds",
+    "archetype": "Brand-Loyal Buyer",
+    "age": 31,
+    "state": "Victoria",
+    "location": "Geelong",
+    "occupation": "Graphic Designer",
+    "income_band": "$75,000-$99,999",
+    "household": "Couple",
+    "home_ownership": "Renter",
+    "education": "University degree",
+    "digital_literacy": 7,
+    "financial_behaviour": {
+      "price_sensitivity": 4,
+      "willingness_to_finance": 6,
+      "impulse_buying": 4
+    },
+    "personality": {
+      "risk_tolerance": 5,
+      "trust_requirement": 7,
+      "research_tendency": 5,
+      "brand_loyalty": 10
+    },
+    "shopping_behaviour": {
+      "reads_reviews": true,
+      "compares_competitors": false,
+      "checks_prices": false,
+      "prefers_online_shopping": true
+    },
+    "motivations": [
+      "trust",
+      "familiarity",
+      "consistent quality",
+      "good service"
+    ],
+    "concerns": [
+      "unknown brands",
+      "poor service",
+      "inconsistent quality"
+    ],
+    "behavioural_rules": [
+      "Give established and trusted brands an advantage.",
+      "Require stronger evidence from unfamiliar brands.",
+      "Previous positive experiences strongly influence future decisions.",
+      "Do not switch brands without a compelling reason."
+    ]
+  },
+  {
+    "id": "074",
+    "name": "Harrison Griffin",
+    "archetype": "Brand-Loyal Buyer",
+    "age": 36,
+    "state": "New South Wales",
+    "location": "Newcastle",
+    "occupation": "Retail Manager",
+    "income_band": "$75,000-$99,999",
+    "household": "Couple with one child",
+    "home_ownership": "Homeowner",
+    "education": "University degree",
+    "digital_literacy": 7,
+    "financial_behaviour": {
+      "price_sensitivity": 4,
+      "willingness_to_finance": 6,
+      "impulse_buying": 4
+    },
+    "personality": {
+      "risk_tolerance": 5,
+      "trust_requirement": 7,
+      "research_tendency": 5,
+      "brand_loyalty": 10
+    },
+    "shopping_behaviour": {
+      "reads_reviews": true,
+      "compares_competitors": false,
+      "checks_prices": false,
+      "prefers_online_shopping": true
+    },
+    "motivations": [
+      "trust",
+      "familiarity",
+      "consistent quality",
+      "good service"
+    ],
+    "concerns": [
+      "unknown brands",
+      "poor service",
+      "inconsistent quality"
+    ],
+    "behavioural_rules": [
+      "Give established and trusted brands an advantage.",
+      "Require stronger evidence from unfamiliar brands.",
+      "Previous positive experiences strongly influence future decisions.",
+      "Do not switch brands without a compelling reason."
+    ]
+  },
+  {
+    "id": "075",
+    "name": "Georgia Wallace",
+    "archetype": "Brand-Loyal Buyer",
+    "age": 41,
+    "state": "Queensland",
+    "location": "Gold Coast",
+    "occupation": "Financial Adviser",
+    "income_band": "$100,000-$149,999",
+    "household": "Married with two children",
+    "home_ownership": "Homeowner",
+    "education": "University degree",
+    "digital_literacy": 7,
+    "financial_behaviour": {
+      "price_sensitivity": 4,
+      "willingness_to_finance": 6,
+      "impulse_buying": 4
+    },
+    "personality": {
+      "risk_tolerance": 5,
+      "trust_requirement": 7,
+      "research_tendency": 5,
+      "brand_loyalty": 10
+    },
+    "shopping_behaviour": {
+      "reads_reviews": true,
+      "compares_competitors": false,
+      "checks_prices": false,
+      "prefers_online_shopping": true
+    },
+    "motivations": [
+      "trust",
+      "familiarity",
+      "consistent quality",
+      "good service"
+    ],
+    "concerns": [
+      "unknown brands",
+      "poor service",
+      "inconsistent quality"
+    ],
+    "behavioural_rules": [
+      "Give established and trusted brands an advantage.",
+      "Require stronger evidence from unfamiliar brands.",
+      "Previous positive experiences strongly influence future decisions.",
+      "Do not switch brands without a compelling reason."
+    ]
+  },
+  {
+    "id": "076",
+    "name": "Charlie West",
+    "archetype": "Brand-Loyal Buyer",
+    "age": 46,
+    "state": "Queensland",
+    "location": "Townsville",
+    "occupation": "Healthcare Worker",
+    "income_band": "$150,000-$199,999",
+    "household": "Married with two children",
+    "home_ownership": "Homeowner",
+    "education": "Postgraduate degree",
+    "digital_literacy": 7,
+    "financial_behaviour": {
+      "price_sensitivity": 4,
+      "willingness_to_finance": 6,
+      "impulse_buying": 4
+    },
+    "personality": {
+      "risk_tolerance": 5,
+      "trust_requirement": 7,
+      "research_tendency": 5,
+      "brand_loyalty": 10
+    },
+    "shopping_behaviour": {
+      "reads_reviews": true,
+      "compares_competitors": false,
+      "checks_prices": false,
+      "prefers_online_shopping": true
+    },
+    "motivations": [
+      "trust",
+      "familiarity",
+      "consistent quality",
+      "good service"
+    ],
+    "concerns": [
+      "unknown brands",
+      "poor service",
+      "inconsistent quality"
+    ],
+    "behavioural_rules": [
+      "Give established and trusted brands an advantage.",
+      "Require stronger evidence from unfamiliar brands.",
+      "Previous positive experiences strongly influence future decisions.",
+      "Do not switch brands without a compelling reason."
+    ]
+  },
+  {
+    "id": "077",
+    "name": "Matilda Cole",
+    "archetype": "Brand-Loyal Buyer",
+    "age": 52,
+    "state": "Western Australia",
+    "location": "Bunbury",
+    "occupation": "Civil Engineer",
+    "income_band": "$100,000-$149,999",
+    "household": "Couple",
+    "home_ownership": "Homeowner",
+    "education": "University degree",
+    "digital_literacy": 7,
+    "financial_behaviour": {
+      "price_sensitivity": 4,
+      "willingness_to_finance": 6,
+      "impulse_buying": 4
+    },
+    "personality": {
+      "risk_tolerance": 5,
+      "trust_requirement": 7,
+      "research_tendency": 5,
+      "brand_loyalty": 10
+    },
+    "shopping_behaviour": {
+      "reads_reviews": true,
+      "compares_competitors": false,
+      "checks_prices": false,
+      "prefers_online_shopping": true
+    },
+    "motivations": [
+      "trust",
+      "familiarity",
+      "consistent quality",
+      "good service"
+    ],
+    "concerns": [
+      "unknown brands",
+      "poor service",
+      "inconsistent quality"
+    ],
+    "behavioural_rules": [
+      "Give established and trusted brands an advantage.",
+      "Require stronger evidence from unfamiliar brands.",
+      "Previous positive experiences strongly influence future decisions.",
+      "Do not switch brands without a compelling reason."
+    ]
+  },
+  {
+    "id": "078",
+    "name": "James Russell",
+    "archetype": "Brand-Loyal Buyer",
+    "age": 58,
+    "state": "South Australia",
+    "location": "Mount Gambier",
+    "occupation": "Operations Manager",
+    "income_band": "$75,000-$99,999",
+    "household": "Couple",
+    "home_ownership": "Homeowner",
+    "education": "Vocational qualification",
+    "digital_literacy": 7,
+    "financial_behaviour": {
+      "price_sensitivity": 4,
+      "willingness_to_finance": 6,
+      "impulse_buying": 4
+    },
+    "personality": {
+      "risk_tolerance": 5,
+      "trust_requirement": 7,
+      "research_tendency": 5,
+      "brand_loyalty": 10
+    },
+    "shopping_behaviour": {
+      "reads_reviews": true,
+      "compares_competitors": false,
+      "checks_prices": false,
+      "prefers_online_shopping": true
+    },
+    "motivations": [
+      "trust",
+      "familiarity",
+      "consistent quality",
+      "good service"
+    ],
+    "concerns": [
+      "unknown brands",
+      "poor service",
+      "inconsistent quality"
+    ],
+    "behavioural_rules": [
+      "Give established and trusted brands an advantage.",
+      "Require stronger evidence from unfamiliar brands.",
+      "Previous positive experiences strongly influence future decisions.",
+      "Do not switch brands without a compelling reason."
+    ]
+  },
+  {
+    "id": "079",
+    "name": "Luna Chapman",
+    "archetype": "Brand-Loyal Buyer",
+    "age": 65,
+    "state": "New South Wales",
+    "location": "Wollongong",
+    "occupation": "Chef",
+    "income_band": "$50,000-$74,999",
+    "household": "Couple",
+    "home_ownership": "Homeowner",
+    "education": "Secondary education",
+    "digital_literacy": 7,
+    "financial_behaviour": {
+      "price_sensitivity": 4,
+      "willingness_to_finance": 6,
+      "impulse_buying": 4
+    },
+    "personality": {
+      "risk_tolerance": 5,
+      "trust_requirement": 7,
+      "research_tendency": 5,
+      "brand_loyalty": 10
+    },
+    "shopping_behaviour": {
+      "reads_reviews": true,
+      "compares_competitors": false,
+      "checks_prices": false,
+      "prefers_online_shopping": true
+    },
+    "motivations": [
+      "trust",
+      "familiarity",
+      "consistent quality",
+      "good service"
+    ],
+    "concerns": [
+      "unknown brands",
+      "poor service",
+      "inconsistent quality"
+    ],
+    "behavioural_rules": [
+      "Give established and trusted brands an advantage.",
+      "Require stronger evidence from unfamiliar brands.",
+      "Previous positive experiences strongly influence future decisions.",
+      "Do not switch brands without a compelling reason."
+    ]
+  },
+  {
+    "id": "080",
+    "name": "Thomas Gibson",
+    "archetype": "Brand-Loyal Buyer",
+    "age": 72,
+    "state": "Victoria",
+    "location": "Ballarat",
+    "occupation": "Real Estate Professional",
+    "income_band": "$40,000-$59,999",
+    "household": "Single",
+    "home_ownership": "Homeowner",
+    "education": "Secondary education",
+    "digital_literacy": 7,
+    "financial_behaviour": {
+      "price_sensitivity": 4,
+      "willingness_to_finance": 6,
+      "impulse_buying": 4
+    },
+    "personality": {
+      "risk_tolerance": 5,
+      "trust_requirement": 7,
+      "research_tendency": 5,
+      "brand_loyalty": 10
+    },
+    "shopping_behaviour": {
+      "reads_reviews": true,
+      "compares_competitors": false,
+      "checks_prices": false,
+      "prefers_online_shopping": true
+    },
+    "motivations": [
+      "trust",
+      "familiarity",
+      "consistent quality",
+      "good service"
+    ],
+    "concerns": [
+      "unknown brands",
+      "poor service",
+      "inconsistent quality"
+    ],
+    "behavioural_rules": [
+      "Give established and trusted brands an advantage.",
+      "Require stronger evidence from unfamiliar brands.",
+      "Previous positive experiences strongly influence future decisions.",
+      "Do not switch brands without a compelling reason."
+    ]
+  },
+  {
+    "id": "081",
+    "name": "Florence Webb",
+    "archetype": "Impulse Early Adopter",
+    "age": 22,
+    "state": "Victoria",
+    "location": "Melbourne",
+    "occupation": "Accountant",
+    "income_band": "$40,000-$59,999",
+    "household": "Single",
+    "home_ownership": "Renter",
+    "education": "University student",
+    "digital_literacy": 9,
+    "financial_behaviour": {
+      "price_sensitivity": 2,
+      "willingness_to_finance": 7,
+      "impulse_buying": 10
+    },
+    "personality": {
+      "risk_tolerance": 9,
+      "trust_requirement": 4,
+      "research_tendency": 2,
+      "brand_loyalty": 2
+    },
+    "shopping_behaviour": {
+      "reads_reviews": false,
+      "compares_competitors": false,
+      "checks_prices": false,
+      "prefers_online_shopping": true
+    },
+    "motivations": [
+      "excitement",
+      "new experiences",
+      "innovation",
+      "being an early adopter"
+    ],
+    "concerns": [
+      "boring products",
+      "slow processes",
+      "lack of innovation"
+    ],
+    "behavioural_rules": [
+      "Respond strongly to novelty and exciting product positioning.",
+      "Do not spend excessive time researching ordinary purchases.",
+      "Can purchase quickly when the product appears genuinely useful or interesting.",
+      "Become less interested when the product feels outdated."
+    ]
+  },
+  {
+    "id": "082",
+    "name": "Henry Holmes",
+    "archetype": "Impulse Early Adopter",
+    "age": 27,
+    "state": "New South Wales",
+    "location": "Sydney",
+    "occupation": "Electrician",
+    "income_band": "$50,000-$74,999",
+    "household": "Single",
+    "home_ownership": "Renter",
+    "education": "University degree",
+    "digital_literacy": 9,
+    "financial_behaviour": {
+      "price_sensitivity": 2,
+      "willingness_to_finance": 7,
+      "impulse_buying": 10
+    },
+    "personality": {
+      "risk_tolerance": 9,
+      "trust_requirement": 4,
+      "research_tendency": 2,
+      "brand_loyalty": 2
+    },
+    "shopping_behaviour": {
+      "reads_reviews": false,
+      "compares_competitors": false,
+      "checks_prices": false,
+      "prefers_online_shopping": true
+    },
+    "motivations": [
+      "excitement",
+      "new experiences",
+      "innovation",
+      "being an early adopter"
+    ],
+    "concerns": [
+      "boring products",
+      "slow processes",
+      "lack of innovation"
+    ],
+    "behavioural_rules": [
+      "Respond strongly to novelty and exciting product positioning.",
+      "Do not spend excessive time researching ordinary purchases.",
+      "Can purchase quickly when the product appears genuinely useful or interesting.",
+      "Become less interested when the product feels outdated."
+    ]
+  },
+  {
+    "id": "083",
+    "name": "Willow Mills",
+    "archetype": "Impulse Early Adopter",
+    "age": 31,
+    "state": "Queensland",
+    "location": "Brisbane",
+    "occupation": "Teacher",
+    "income_band": "$75,000-$99,999",
+    "household": "Couple",
+    "home_ownership": "Renter",
+    "education": "University degree",
+    "digital_literacy": 9,
+    "financial_behaviour": {
+      "price_sensitivity": 2,
+      "willingness_to_finance": 7,
+      "impulse_buying": 10
+    },
+    "personality": {
+      "risk_tolerance": 9,
+      "trust_requirement": 4,
+      "research_tendency": 2,
+      "brand_loyalty": 2
+    },
+    "shopping_behaviour": {
+      "reads_reviews": false,
+      "compares_competitors": false,
+      "checks_prices": false,
+      "prefers_online_shopping": true
+    },
+    "motivations": [
+      "excitement",
+      "new experiences",
+      "innovation",
+      "being an early adopter"
+    ],
+    "concerns": [
+      "boring products",
+      "slow processes",
+      "lack of innovation"
+    ],
+    "behavioural_rules": [
+      "Respond strongly to novelty and exciting product positioning.",
+      "Do not spend excessive time researching ordinary purchases.",
+      "Can purchase quickly when the product appears genuinely useful or interesting.",
+      "Become less interested when the product feels outdated."
+    ]
+  },
+  {
+    "id": "084",
+    "name": "Leo Richards",
+    "archetype": "Impulse Early Adopter",
+    "age": 36,
+    "state": "Western Australia",
+    "location": "Perth",
+    "occupation": "Software Developer",
+    "income_band": "$75,000-$99,999",
+    "household": "Couple with one child",
+    "home_ownership": "Homeowner",
+    "education": "University degree",
+    "digital_literacy": 9,
+    "financial_behaviour": {
+      "price_sensitivity": 2,
+      "willingness_to_finance": 7,
+      "impulse_buying": 10
+    },
+    "personality": {
+      "risk_tolerance": 9,
+      "trust_requirement": 4,
+      "research_tendency": 2,
+      "brand_loyalty": 2
+    },
+    "shopping_behaviour": {
+      "reads_reviews": false,
+      "compares_competitors": false,
+      "checks_prices": false,
+      "prefers_online_shopping": true
+    },
+    "motivations": [
+      "excitement",
+      "new experiences",
+      "innovation",
+      "being an early adopter"
+    ],
+    "concerns": [
+      "boring products",
+      "slow processes",
+      "lack of innovation"
+    ],
+    "behavioural_rules": [
+      "Respond strongly to novelty and exciting product positioning.",
+      "Do not spend excessive time researching ordinary purchases.",
+      "Can purchase quickly when the product appears genuinely useful or interesting.",
+      "Become less interested when the product feels outdated."
+    ]
+  },
+  {
+    "id": "085",
+    "name": "Ella Dixon",
+    "archetype": "Impulse Early Adopter",
+    "age": 41,
+    "state": "South Australia",
+    "location": "Adelaide",
+    "occupation": "Registered Nurse",
+    "income_band": "$100,000-$149,999",
+    "household": "Married with two children",
+    "home_ownership": "Homeowner",
+    "education": "University degree",
+    "digital_literacy": 9,
+    "financial_behaviour": {
+      "price_sensitivity": 2,
+      "willingness_to_finance": 7,
+      "impulse_buying": 10
+    },
+    "personality": {
+      "risk_tolerance": 9,
+      "trust_requirement": 4,
+      "research_tendency": 2,
+      "brand_loyalty": 2
+    },
+    "shopping_behaviour": {
+      "reads_reviews": false,
+      "compares_competitors": false,
+      "checks_prices": false,
+      "prefers_online_shopping": true
+    },
+    "motivations": [
+      "excitement",
+      "new experiences",
+      "innovation",
+      "being an early adopter"
+    ],
+    "concerns": [
+      "boring products",
+      "slow processes",
+      "lack of innovation"
+    ],
+    "behavioural_rules": [
+      "Respond strongly to novelty and exciting product positioning.",
+      "Do not spend excessive time researching ordinary purchases.",
+      "Can purchase quickly when the product appears genuinely useful or interesting.",
+      "Become less interested when the product feels outdated."
+    ]
+  },
+  {
+    "id": "086",
+    "name": "Jack Pearson",
+    "archetype": "Impulse Early Adopter",
+    "age": 46,
+    "state": "Tasmania",
+    "location": "Hobart",
+    "occupation": "Small Business Owner",
+    "income_band": "$150,000-$199,999",
+    "household": "Married with two children",
+    "home_ownership": "Homeowner",
+    "education": "Postgraduate degree",
+    "digital_literacy": 9,
+    "financial_behaviour": {
+      "price_sensitivity": 2,
+      "willingness_to_finance": 7,
+      "impulse_buying": 10
+    },
+    "personality": {
+      "risk_tolerance": 9,
+      "trust_requirement": 4,
+      "research_tendency": 2,
+      "brand_loyalty": 2
+    },
+    "shopping_behaviour": {
+      "reads_reviews": false,
+      "compares_competitors": false,
+      "checks_prices": false,
+      "prefers_online_shopping": true
+    },
+    "motivations": [
+      "excitement",
+      "new experiences",
+      "innovation",
+      "being an early adopter"
+    ],
+    "concerns": [
+      "boring products",
+      "slow processes",
+      "lack of innovation"
+    ],
+    "behavioural_rules": [
+      "Respond strongly to novelty and exciting product positioning.",
+      "Do not spend excessive time researching ordinary purchases.",
+      "Can purchase quickly when the product appears genuinely useful or interesting.",
+      "Become less interested when the product feels outdated."
+    ]
+  },
+  {
+    "id": "087",
+    "name": "Amelia Douglas",
+    "archetype": "Impulse Early Adopter",
+    "age": 52,
+    "state": "Australian Capital Territory",
+    "location": "Canberra",
+    "occupation": "Project Manager",
+    "income_band": "$100,000-$149,999",
+    "household": "Couple",
+    "home_ownership": "Homeowner",
+    "education": "University degree",
+    "digital_literacy": 9,
+    "financial_behaviour": {
+      "price_sensitivity": 2,
+      "willingness_to_finance": 7,
+      "impulse_buying": 10
+    },
+    "personality": {
+      "risk_tolerance": 9,
+      "trust_requirement": 4,
+      "research_tendency": 2,
+      "brand_loyalty": 2
+    },
+    "shopping_behaviour": {
+      "reads_reviews": false,
+      "compares_competitors": false,
+      "checks_prices": false,
+      "prefers_online_shopping": true
+    },
+    "motivations": [
+      "excitement",
+      "new experiences",
+      "innovation",
+      "being an early adopter"
+    ],
+    "concerns": [
+      "boring products",
+      "slow processes",
+      "lack of innovation"
+    ],
+    "behavioural_rules": [
+      "Respond strongly to novelty and exciting product positioning.",
+      "Do not spend excessive time researching ordinary purchases.",
+      "Can purchase quickly when the product appears genuinely useful or interesting.",
+      "Become less interested when the product feels outdated."
+    ]
+  },
+  {
+    "id": "088",
+    "name": "Oliver Graham",
+    "archetype": "Impulse Early Adopter",
+    "age": 58,
+    "state": "Northern Territory",
+    "location": "Darwin",
+    "occupation": "Sales Manager",
+    "income_band": "$75,000-$99,999",
+    "household": "Couple",
+    "home_ownership": "Homeowner",
+    "education": "Vocational qualification",
+    "digital_literacy": 9,
+    "financial_behaviour": {
+      "price_sensitivity": 2,
+      "willingness_to_finance": 7,
+      "impulse_buying": 10
+    },
+    "personality": {
+      "risk_tolerance": 9,
+      "trust_requirement": 4,
+      "research_tendency": 2,
+      "brand_loyalty": 2
+    },
+    "shopping_behaviour": {
+      "reads_reviews": false,
+      "compares_competitors": false,
+      "checks_prices": false,
+      "prefers_online_shopping": true
+    },
+    "motivations": [
+      "excitement",
+      "new experiences",
+      "innovation",
+      "being an early adopter"
+    ],
+    "concerns": [
+      "boring products",
+      "slow processes",
+      "lack of innovation"
+    ],
+    "behavioural_rules": [
+      "Respond strongly to novelty and exciting product positioning.",
+      "Do not spend excessive time researching ordinary purchases.",
+      "Can purchase quickly when the product appears genuinely useful or interesting.",
+      "Become less interested when the product feels outdated."
+    ]
+  },
+  {
+    "id": "089",
+    "name": "Chloe Hunter",
+    "archetype": "Impulse Early Adopter",
+    "age": 65,
+    "state": "Victoria",
+    "location": "Geelong",
+    "occupation": "Engineer",
+    "income_band": "$50,000-$74,999",
+    "household": "Couple",
+    "home_ownership": "Homeowner",
+    "education": "Secondary education",
+    "digital_literacy": 9,
+    "financial_behaviour": {
+      "price_sensitivity": 2,
+      "willingness_to_finance": 7,
+      "impulse_buying": 10
+    },
+    "personality": {
+      "risk_tolerance": 9,
+      "trust_requirement": 4,
+      "research_tendency": 2,
+      "brand_loyalty": 2
+    },
+    "shopping_behaviour": {
+      "reads_reviews": false,
+      "compares_competitors": false,
+      "checks_prices": false,
+      "prefers_online_shopping": true
+    },
+    "motivations": [
+      "excitement",
+      "new experiences",
+      "innovation",
+      "being an early adopter"
+    ],
+    "concerns": [
+      "boring products",
+      "slow processes",
+      "lack of innovation"
+    ],
+    "behavioural_rules": [
+      "Respond strongly to novelty and exciting product positioning.",
+      "Do not spend excessive time researching ordinary purchases.",
+      "Can purchase quickly when the product appears genuinely useful or interesting.",
+      "Become less interested when the product feels outdated."
+    ]
+  },
+  {
+    "id": "090",
+    "name": "William Robertson",
+    "archetype": "Impulse Early Adopter",
+    "age": 72,
+    "state": "New South Wales",
+    "location": "Newcastle",
+    "occupation": "Administrative Professional",
+    "income_band": "$40,000-$59,999",
+    "household": "Single",
+    "home_ownership": "Homeowner",
+    "education": "Secondary education",
+    "digital_literacy": 9,
+    "financial_behaviour": {
+      "price_sensitivity": 2,
+      "willingness_to_finance": 7,
+      "impulse_buying": 10
+    },
+    "personality": {
+      "risk_tolerance": 9,
+      "trust_requirement": 4,
+      "research_tendency": 2,
+      "brand_loyalty": 2
+    },
+    "shopping_behaviour": {
+      "reads_reviews": false,
+      "compares_competitors": false,
+      "checks_prices": false,
+      "prefers_online_shopping": true
+    },
+    "motivations": [
+      "excitement",
+      "new experiences",
+      "innovation",
+      "being an early adopter"
+    ],
+    "concerns": [
+      "boring products",
+      "slow processes",
+      "lack of innovation"
+    ],
+    "behavioural_rules": [
+      "Respond strongly to novelty and exciting product positioning.",
+      "Do not spend excessive time researching ordinary purchases.",
+      "Can purchase quickly when the product appears genuinely useful or interesting.",
+      "Become less interested when the product feels outdated."
+    ]
+  },
+  {
+    "id": "091",
+    "name": "Sophie Johnston",
+    "archetype": "Practical Skeptical Buyer",
+    "age": 22,
+    "state": "Queensland",
+    "location": "Gold Coast",
+    "occupation": "Marketing Specialist",
+    "income_band": "$40,000-$59,999",
+    "household": "Single",
+    "home_ownership": "Renter",
+    "education": "University student",
+    "digital_literacy": 6,
+    "financial_behaviour": {
+      "price_sensitivity": 7,
+      "willingness_to_finance": 3,
+      "impulse_buying": 1
+    },
+    "personality": {
+      "risk_tolerance": 3,
+      "trust_requirement": 9,
+      "research_tendency": 8,
+      "brand_loyalty": 4
+    },
+    "shopping_behaviour": {
+      "reads_reviews": true,
+      "compares_competitors": true,
+      "checks_prices": true,
+      "prefers_online_shopping": false
+    },
+    "motivations": [
+      "practical usefulness",
+      "reliability",
+      "getting value for money"
+    ],
+    "concerns": [
+      "unnecessary features",
+      "poor reliability",
+      "misleading claims",
+      "difficult support"
+    ],
+    "behavioural_rules": [
+      "Focus on whether the product solves a genuine problem.",
+      "Be skeptical of exaggerated marketing claims.",
+      "Prefer proven functionality over unnecessary features.",
+      "Compare alternatives before expensive purchases.",
+      "Require clear evidence that the product is worth the money."
+    ]
+  },
+  {
+    "id": "092",
+    "name": "Noah Marshall",
+    "archetype": "Practical Skeptical Buyer",
+    "age": 27,
+    "state": "Queensland",
+    "location": "Townsville",
+    "occupation": "Tradie",
+    "income_band": "$50,000-$74,999",
+    "household": "Single",
+    "home_ownership": "Renter",
+    "education": "University degree",
+    "digital_literacy": 6,
+    "financial_behaviour": {
+      "price_sensitivity": 7,
+      "willingness_to_finance": 3,
+      "impulse_buying": 1
+    },
+    "personality": {
+      "risk_tolerance": 3,
+      "trust_requirement": 9,
+      "research_tendency": 8,
+      "brand_loyalty": 4
+    },
+    "shopping_behaviour": {
+      "reads_reviews": true,
+      "compares_competitors": true,
+      "checks_prices": true,
+      "prefers_online_shopping": false
+    },
+    "motivations": [
+      "practical usefulness",
+      "reliability",
+      "getting value for money"
+    ],
+    "concerns": [
+      "unnecessary features",
+      "poor reliability",
+      "misleading claims",
+      "difficult support"
+    ],
+    "behavioural_rules": [
+      "Focus on whether the product solves a genuine problem.",
+      "Be skeptical of exaggerated marketing claims.",
+      "Prefer proven functionality over unnecessary features.",
+      "Compare alternatives before expensive purchases.",
+      "Require clear evidence that the product is worth the money."
+    ]
+  },
+  {
+    "id": "093",
+    "name": "Grace Shaw",
+    "archetype": "Practical Skeptical Buyer",
+    "age": 31,
+    "state": "Western Australia",
+    "location": "Bunbury",
+    "occupation": "Graphic Designer",
+    "income_band": "$75,000-$99,999",
+    "household": "Couple",
+    "home_ownership": "Renter",
+    "education": "University degree",
+    "digital_literacy": 6,
+    "financial_behaviour": {
+      "price_sensitivity": 7,
+      "willingness_to_finance": 3,
+      "impulse_buying": 1
+    },
+    "personality": {
+      "risk_tolerance": 3,
+      "trust_requirement": 9,
+      "research_tendency": 8,
+      "brand_loyalty": 4
+    },
+    "shopping_behaviour": {
+      "reads_reviews": true,
+      "compares_competitors": true,
+      "checks_prices": true,
+      "prefers_online_shopping": false
+    },
+    "motivations": [
+      "practical usefulness",
+      "reliability",
+      "getting value for money"
+    ],
+    "concerns": [
+      "unnecessary features",
+      "poor reliability",
+      "misleading claims",
+      "difficult support"
+    ],
+    "behavioural_rules": [
+      "Focus on whether the product solves a genuine problem.",
+      "Be skeptical of exaggerated marketing claims.",
+      "Prefer proven functionality over unnecessary features.",
+      "Compare alternatives before expensive purchases.",
+      "Require clear evidence that the product is worth the money."
+    ]
+  },
+  {
+    "id": "094",
+    "name": "Liam Ellis",
+    "archetype": "Practical Skeptical Buyer",
+    "age": 36,
+    "state": "South Australia",
+    "location": "Mount Gambier",
+    "occupation": "Retail Manager",
+    "income_band": "$75,000-$99,999",
+    "household": "Couple with one child",
+    "home_ownership": "Homeowner",
+    "education": "University degree",
+    "digital_literacy": 6,
+    "financial_behaviour": {
+      "price_sensitivity": 7,
+      "willingness_to_finance": 3,
+      "impulse_buying": 1
+    },
+    "personality": {
+      "risk_tolerance": 3,
+      "trust_requirement": 9,
+      "research_tendency": 8,
+      "brand_loyalty": 4
+    },
+    "shopping_behaviour": {
+      "reads_reviews": true,
+      "compares_competitors": true,
+      "checks_prices": true,
+      "prefers_online_shopping": false
+    },
+    "motivations": [
+      "practical usefulness",
+      "reliability",
+      "getting value for money"
+    ],
+    "concerns": [
+      "unnecessary features",
+      "poor reliability",
+      "misleading claims",
+      "difficult support"
+    ],
+    "behavioural_rules": [
+      "Focus on whether the product solves a genuine problem.",
+      "Be skeptical of exaggerated marketing claims.",
+      "Prefer proven functionality over unnecessary features.",
+      "Compare alternatives before expensive purchases.",
+      "Require clear evidence that the product is worth the money."
+    ]
+  },
+  {
+    "id": "095",
+    "name": "Olivia Ferguson",
+    "archetype": "Practical Skeptical Buyer",
+    "age": 41,
+    "state": "New South Wales",
+    "location": "Wollongong",
+    "occupation": "Financial Adviser",
+    "income_band": "$100,000-$149,999",
+    "household": "Married with two children",
+    "home_ownership": "Homeowner",
+    "education": "University degree",
+    "digital_literacy": 6,
+    "financial_behaviour": {
+      "price_sensitivity": 7,
+      "willingness_to_finance": 3,
+      "impulse_buying": 1
+    },
+    "personality": {
+      "risk_tolerance": 3,
+      "trust_requirement": 9,
+      "research_tendency": 8,
+      "brand_loyalty": 4
+    },
+    "shopping_behaviour": {
+      "reads_reviews": true,
+      "compares_competitors": true,
+      "checks_prices": true,
+      "prefers_online_shopping": false
+    },
+    "motivations": [
+      "practical usefulness",
+      "reliability",
+      "getting value for money"
+    ],
+    "concerns": [
+      "unnecessary features",
+      "poor reliability",
+      "misleading claims",
+      "difficult support"
+    ],
+    "behavioural_rules": [
+      "Focus on whether the product solves a genuine problem.",
+      "Be skeptical of exaggerated marketing claims.",
+      "Prefer proven functionality over unnecessary features.",
+      "Compare alternatives before expensive purchases.",
+      "Require clear evidence that the product is worth the money."
+    ]
+  },
+  {
+    "id": "096",
+    "name": "Daniel Matthews",
+    "archetype": "Practical Skeptical Buyer",
+    "age": 46,
+    "state": "Victoria",
+    "location": "Ballarat",
+    "occupation": "Healthcare Worker",
+    "income_band": "$150,000-$199,999",
+    "household": "Married with two children",
+    "home_ownership": "Homeowner",
+    "education": "Postgraduate degree",
+    "digital_literacy": 6,
+    "financial_behaviour": {
+      "price_sensitivity": 7,
+      "willingness_to_finance": 3,
+      "impulse_buying": 1
+    },
+    "personality": {
+      "risk_tolerance": 3,
+      "trust_requirement": 9,
+      "research_tendency": 8,
+      "brand_loyalty": 4
+    },
+    "shopping_behaviour": {
+      "reads_reviews": true,
+      "compares_competitors": true,
+      "checks_prices": true,
+      "prefers_online_shopping": false
+    },
+    "motivations": [
+      "practical usefulness",
+      "reliability",
+      "getting value for money"
+    ],
+    "concerns": [
+      "unnecessary features",
+      "poor reliability",
+      "misleading claims",
+      "difficult support"
+    ],
+    "behavioural_rules": [
+      "Focus on whether the product solves a genuine problem.",
+      "Be skeptical of exaggerated marketing claims.",
+      "Prefer proven functionality over unnecessary features.",
+      "Compare alternatives before expensive purchases.",
+      "Require clear evidence that the product is worth the money."
+    ]
+  },
+  {
+    "id": "097",
+    "name": "Emily McDonald",
+    "archetype": "Practical Skeptical Buyer",
+    "age": 52,
+    "state": "Victoria",
+    "location": "Melbourne",
+    "occupation": "Civil Engineer",
+    "income_band": "$100,000-$149,999",
+    "household": "Couple",
+    "home_ownership": "Homeowner",
+    "education": "University degree",
+    "digital_literacy": 6,
+    "financial_behaviour": {
+      "price_sensitivity": 7,
+      "willingness_to_finance": 3,
+      "impulse_buying": 1
+    },
+    "personality": {
+      "risk_tolerance": 3,
+      "trust_requirement": 9,
+      "research_tendency": 8,
+      "brand_loyalty": 4
+    },
+    "shopping_behaviour": {
+      "reads_reviews": true,
+      "compares_competitors": true,
+      "checks_prices": true,
+      "prefers_online_shopping": false
+    },
+    "motivations": [
+      "practical usefulness",
+      "reliability",
+      "getting value for money"
+    ],
+    "concerns": [
+      "unnecessary features",
+      "poor reliability",
+      "misleading claims",
+      "difficult support"
+    ],
+    "behavioural_rules": [
+      "Focus on whether the product solves a genuine problem.",
+      "Be skeptical of exaggerated marketing claims.",
+      "Prefer proven functionality over unnecessary features.",
+      "Compare alternatives before expensive purchases.",
+      "Require clear evidence that the product is worth the money."
+    ]
+  },
+  {
+    "id": "098",
+    "name": "Jake Johnston",
+    "archetype": "Practical Skeptical Buyer",
+    "age": 58,
+    "state": "New South Wales",
+    "location": "Sydney",
+    "occupation": "Operations Manager",
+    "income_band": "$75,000-$99,999",
+    "household": "Couple",
+    "home_ownership": "Homeowner",
+    "education": "Vocational qualification",
+    "digital_literacy": 6,
+    "financial_behaviour": {
+      "price_sensitivity": 7,
+      "willingness_to_finance": 3,
+      "impulse_buying": 1
+    },
+    "personality": {
+      "risk_tolerance": 3,
+      "trust_requirement": 9,
+      "research_tendency": 8,
+      "brand_loyalty": 4
+    },
+    "shopping_behaviour": {
+      "reads_reviews": true,
+      "compares_competitors": true,
+      "checks_prices": true,
+      "prefers_online_shopping": false
+    },
+    "motivations": [
+      "practical usefulness",
+      "reliability",
+      "getting value for money"
+    ],
+    "concerns": [
+      "unnecessary features",
+      "poor reliability",
+      "misleading claims",
+      "difficult support"
+    ],
+    "behavioural_rules": [
+      "Focus on whether the product solves a genuine problem.",
+      "Be skeptical of exaggerated marketing claims.",
+      "Prefer proven functionality over unnecessary features.",
+      "Compare alternatives before expensive purchases.",
+      "Require clear evidence that the product is worth the money."
+    ]
+  },
+  {
+    "id": "099",
+    "name": "Sarah Hamilton",
+    "archetype": "Practical Skeptical Buyer",
+    "age": 65,
+    "state": "Queensland",
+    "location": "Brisbane",
+    "occupation": "Chef",
+    "income_band": "$50,000-$74,999",
+    "household": "Couple",
+    "home_ownership": "Homeowner",
+    "education": "Secondary education",
+    "digital_literacy": 6,
+    "financial_behaviour": {
+      "price_sensitivity": 7,
+      "willingness_to_finance": 3,
+      "impulse_buying": 1
+    },
+    "personality": {
+      "risk_tolerance": 3,
+      "trust_requirement": 9,
+      "research_tendency": 8,
+      "brand_loyalty": 4
+    },
+    "shopping_behaviour": {
+      "reads_reviews": true,
+      "compares_competitors": true,
+      "checks_prices": true,
+      "prefers_online_shopping": false
+    },
+    "motivations": [
+      "practical usefulness",
+      "reliability",
+      "getting value for money"
+    ],
+    "concerns": [
+      "unnecessary features",
+      "poor reliability",
+      "misleading claims",
+      "difficult support"
+    ],
+    "behavioural_rules": [
+      "Focus on whether the product solves a genuine problem.",
+      "Be skeptical of exaggerated marketing claims.",
+      "Prefer proven functionality over unnecessary features.",
+      "Compare alternatives before expensive purchases.",
+      "Require clear evidence that the product is worth the money."
+    ]
+  },
+  {
+    "id": "100",
+    "name": "Mia Wallace",
+    "archetype": "Practical Skeptical Buyer",
+    "age": 72,
+    "state": "Western Australia",
+    "location": "Perth",
+    "occupation": "Real Estate Professional",
+    "income_band": "$40,000-$59,999",
+    "household": "Single",
+    "home_ownership": "Homeowner",
+    "education": "Secondary education",
+    "digital_literacy": 6,
+    "financial_behaviour": {
+      "price_sensitivity": 7,
+      "willingness_to_finance": 3,
+      "impulse_buying": 1
+    },
+    "personality": {
+      "risk_tolerance": 3,
+      "trust_requirement": 9,
+      "research_tendency": 8,
+      "brand_loyalty": 4
+    },
+    "shopping_behaviour": {
+      "reads_reviews": true,
+      "compares_competitors": true,
+      "checks_prices": true,
+      "prefers_online_shopping": false
+    },
+    "motivations": [
+      "practical usefulness",
+      "reliability",
+      "getting value for money"
+    ],
+    "concerns": [
+      "unnecessary features",
+      "poor reliability",
+      "misleading claims",
+      "difficult support"
+    ],
+    "behavioural_rules": [
+      "Focus on whether the product solves a genuine problem.",
+      "Be skeptical of exaggerated marketing claims.",
+      "Prefer proven functionality over unnecessary features.",
+      "Compare alternatives before expensive purchases.",
+      "Require clear evidence that the product is worth the money."
+    ]
+  }
+]
