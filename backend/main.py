@@ -1,9 +1,12 @@
 from fastapi import FastAPI, HTTPException
 
+from models.simulation import SimulationResult
+from models.test_input import ProductTestInput
 from services.customer_service import (
     get_all_customers,
     get_customer_by_id,
 )
+from services.simulation_service import run_simulation
 
 
 app = FastAPI(
@@ -30,10 +33,6 @@ def health():
 
 @app.get("/customers")
 def get_customers():
-    """
-    Return all 100 Customer Lab customer profiles.
-    """
-
     customers = get_all_customers()
 
     return {
@@ -44,10 +43,6 @@ def get_customers():
 
 @app.get("/customers/{customer_id}")
 def get_customer(customer_id: str):
-    """
-    Return one customer by ID.
-    """
-
     customer = get_customer_by_id(customer_id)
 
     if customer is None:
@@ -57,3 +52,8 @@ def get_customer(customer_id: str):
         )
 
     return customer
+
+
+@app.post("/simulations", response_model=SimulationResult)
+def create_simulation(product: ProductTestInput):
+    return run_simulation(product)
