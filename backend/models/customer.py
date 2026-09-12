@@ -25,6 +25,7 @@ class ShoppingBehaviour(BaseModel):
 class CustomerProfile(BaseModel):
     id: str
     name: str
+    archetype: str
     age: int
     state: str
     location: str
