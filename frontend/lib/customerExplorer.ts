@@ -9,7 +9,7 @@ export type PreviewIdentity = {
 
 export type PreviewCustomer = CustomerResponse & PreviewIdentity;
 
-const FALLBACK_ARCHETYPE = "Simulated Customer";
+export const FALLBACK_ARCHETYPE = "Simulated Customer";
 
 export function decisionFromResponse(response: {
   would_buy: boolean;

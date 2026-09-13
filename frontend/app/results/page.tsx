@@ -8,11 +8,17 @@ import {
 } from "react";
 
 import CustomerExplorer from "./CustomerExplorer";
+import DecisionDriversPanel from "./DecisionDriversPanel";
 import {
   selectPreviewCustomers,
   decisionFromResponse,
   type PreviewCustomer,
 } from "@/lib/customerExplorer";
+import {
+  buildDecisionDrivers,
+  calculatePercentage,
+  type DecisionDriversResult,
+} from "@/lib/decisionDrivers";
 import {
   SIMULATION_RESULT_KEY,
   getCustomerById,
@@ -29,16 +35,6 @@ type ArchetypeResult = {
   purchaseIntent: number;
 };
 
-type ObjectionResult = {
-  label: string;
-  percentage: number;
-};
-
-type SignalResult = {
-  title: string;
-  description: string;
-};
-
 type Takeaway = {
   headline: string;
   supportingText: string;
@@ -52,8 +48,7 @@ type Analysis = {
   wouldBuyPercentage: number;
   wouldConsiderPercentage: number;
   rejectedPercentage: number;
-  topObjections: ObjectionResult[];
-  strongestSignals: SignalResult[];
+  drivers: DecisionDriversResult;
   archetypes: ArchetypeResult[];
   previewCustomers: PreviewCustomer[];
   takeaway: Takeaway;
@@ -71,17 +66,6 @@ function subscribeToStorage() {
 
 function roundToOneDecimal(value: number) {
   return Math.round(value * 10) / 10;
-}
-
-function calculatePercentage(
-  value: number,
-  total: number,
-) {
-  if (total === 0) {
-    return 0;
-  }
-
-  return Math.round((value / total) * 100);
 }
 
 function analyseBackendSimulation(
@@ -145,79 +129,14 @@ function analyseBackendSimulation(
       !response.would_consider,
   ).length;
 
-  const objectionCounts = new Map<
-    string,
-    number
-  >();
-
-  responses.forEach((response) => {
-    const objection =
-      response.primary_objection.trim();
-
-    if (!objection) {
-      return;
-    }
-
-    objectionCounts.set(
-      objection,
-      (objectionCounts.get(objection) ?? 0) + 1,
-    );
-  });
-
-  const topObjections: ObjectionResult[] =
-    Array.from(objectionCounts.entries())
-      .sort((a, b) => b[1] - a[1])
-      .slice(0, 4)
-      .map(([label, count]) => ({
-        label,
-        percentage: calculatePercentage(
-          count,
-          totalResponses,
-        ),
-      }));
-
-  const positiveFactorCounts = new Map<
-    string,
-    number
-  >();
-
-  responses.forEach((response) => {
-    response.positive_factors.forEach(
-      (factor) => {
-        const cleanFactor = factor.trim();
-
-        if (!cleanFactor) {
-          return;
-        }
-
-        positiveFactorCounts.set(
-          cleanFactor,
-          (positiveFactorCounts.get(cleanFactor) ??
-            0) + 1,
-        );
-      },
-    );
-  });
-
-  const strongestSignals: SignalResult[] =
-    Array.from(positiveFactorCounts.entries())
-      .sort((a, b) => b[1] - a[1])
-      .slice(0, 3)
-      .map(([title, count]) => ({
-        title,
-        description: `${calculatePercentage(
-          count,
-          totalResponses,
-        )}% of responding customers identified this as a positive factor.`,
-      }));
-
-  if (strongestSignals.length === 0) {
-    strongestSignals.push({
-      title: "Customer relevance",
-      description:
-        "Customers responded to the concept based on their individual simulated profiles.",
-    });
-  }
+  const drivers = buildDecisionDrivers(
+    responses,
+    customerMap,
+    {
+      totalCustomers: result.total_customers,
+      failedCustomers: result.failed_customers,
+    },
+  );
 
   const archetypeMap = new Map<
     string,
@@ -313,8 +232,7 @@ function analyseBackendSimulation(
       rejectedCount,
       totalResponses,
     ),
-    topObjections,
-    strongestSignals,
+    drivers,
     archetypes,
     previewCustomers: selectPreviewCustomers(
       responses,
@@ -619,91 +537,7 @@ export default function ResultsPage() {
         </div>
       </section>
 
-      <section className="results-grid">
-        <div className="result-panel">
-          <div className="panel-heading">
-            <div>
-              <p className="section-label">
-                WHAT CUSTOMERS LIKE
-              </p>
-
-              <h2>Strongest signals</h2>
-            </div>
-          </div>
-
-          <div className="signal-list">
-            {analysis.strongestSignals.map(
-              (signal, index) => (
-                <div
-                  className="signal"
-                  key={signal.title}
-                >
-                  <span className="signal-number">
-                    {String(index + 1).padStart(
-                      2,
-                      "0",
-                    )}
-                  </span>
-
-                  <div>
-                    <strong>
-                      {signal.title}
-                    </strong>
-
-                    <p>
-                      {signal.description}
-                    </p>
-                  </div>
-                </div>
-              ),
-            )}
-          </div>
-        </div>
-
-        <div className="result-panel">
-          <div className="panel-heading">
-            <div>
-              <p className="section-label">
-                TOP OBJECTIONS
-              </p>
-
-              <h2>
-                Why customers hesitate
-              </h2>
-            </div>
-          </div>
-
-          <div className="objection-list">
-            {analysis.topObjections.map(
-              (objection) => (
-                <div
-                  className="objection"
-                  key={objection.label}
-                >
-                  <div className="objection-top">
-                    <span>
-                      {objection.label}
-                    </span>
-
-                    <strong>
-                      {objection.percentage}%
-                    </strong>
-                  </div>
-
-                  <div className="progress-track">
-                    <div
-                      className="progress-fill"
-                      style={{
-                        width: `${objection.percentage}%`,
-                      }}
-                    />
-                  </div>
-                </div>
-              ),
-            )}
-          </div>
-        </div>
-      </section>
+      <DecisionDriversPanel drivers={analysis.drivers} />
 
       <section className="archetype-panel">
         <div className="panel-heading">
