@@ -1,4 +1,5 @@
 from fastapi import FastAPI, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
 
 from models.simulation import SimulationResult
 from models.test_input import ProductTestInput
@@ -13,6 +14,17 @@ app = FastAPI(
     title="Customer Lab API",
     description="AI-powered customer simulation platform",
     version="0.1.0",
+)
+
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=[
+        "http://localhost:3000",
+    ],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
 
 
