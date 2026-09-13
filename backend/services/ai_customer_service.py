@@ -1,10 +1,15 @@
+import json
 import os
 
 from dotenv import load_dotenv
 from google import genai
+from pydantic import ValidationError
 
 from models.customer import CustomerProfile
-from models.customer_response import CustomerResponse
+from models.customer_response import (
+    CustomerResponse,
+    ensure_response_for_customer,
+)
 from models.test_input import ProductTestInput
 
 
@@ -57,7 +62,7 @@ def _yes_no(value: bool) -> str:
     return "yes" if value else "no"
 
 
-def _redact_secrets(text: str) -> str:
+def redact_secrets(text: str) -> str:
     redacted = text
     api_key = os.getenv("GEMINI_API_KEY")
 
@@ -96,7 +101,7 @@ def is_quota_or_rate_limit_error(error: Exception) -> bool:
 
 
 def _gemini_evaluation_error(error: Exception) -> Exception:
-    message = _redact_secrets(str(error))
+    message = redact_secrets(str(error))
 
     if is_quota_or_rate_limit_error(error):
         return RuntimeError(
@@ -273,6 +278,46 @@ JSON fields:
 """
 
 
+def _json_preview(text: str) -> str:
+    preview = " ".join(text.split())
+    return redact_secrets(preview[:200])
+
+
+def parse_customer_response(
+    output_text: str | None,
+    customer_id: str,
+) -> CustomerResponse:
+    if output_text is None or not str(output_text).strip():
+        raise ValueError("Gemini returned no output.")
+
+    json_text = _extract_json_text(str(output_text))
+
+    try:
+        payload = json.loads(json_text)
+    except json.JSONDecodeError as error:
+        raise ValueError(
+            "Gemini returned invalid JSON: "
+            f"{error.msg} (preview: {_json_preview(json_text)!r})"
+        ) from error
+
+    if not isinstance(payload, dict):
+        raise ValueError(
+            "Gemini returned JSON that was not an object "
+            f"(preview: {_json_preview(json_text)!r})."
+        )
+
+    try:
+        response = CustomerResponse.model_validate(payload)
+    except ValidationError as error:
+        raise ValueError(
+            "Gemini returned JSON that did not match "
+            "CustomerResponse: "
+            f"{redact_secrets(str(error))}"
+        ) from error
+
+    return ensure_response_for_customer(response, customer_id)
+
+
 def evaluate_customer(
     customer: CustomerProfile,
     product: ProductTestInput,
@@ -292,23 +337,7 @@ def evaluate_customer(
     except Exception as error:
         raise _gemini_evaluation_error(error) from error
 
-    if not interaction.output_text:
-        raise ValueError("Gemini returned no output.")
-
-    try:
-        response = CustomerResponse.model_validate_json(
-            _extract_json_text(interaction.output_text)
-        )
-    except Exception as error:
-        raise ValueError(
-            "Gemini returned JSON that did not match "
-            "CustomerResponse: "
-            f"{_redact_secrets(str(error))}"
-        ) from error
-
-    if response.customer_id != customer.id:
-        return response.model_copy(
-            update={"customer_id": customer.id}
-        )
-
-    return response
+    return parse_customer_response(
+        interaction.output_text,
+        customer.id,
+    )

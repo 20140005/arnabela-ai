@@ -11,6 +11,7 @@ from services.ai_customer_service import (
     get_gemini_client,
     get_gemini_model,
     is_quota_or_rate_limit_error,
+    parse_customer_response,
 )
 from services.customer_service import get_customer_by_id
 
@@ -228,7 +229,7 @@ def test_evaluate_customer_uses_fake_gemini_and_profile_prompt(
     )
 
 
-def test_evaluate_customer_corrects_customer_id(monkeypatch):
+def test_evaluate_customer_rejects_customer_id_mismatch(monkeypatch):
     customer = get_customer_by_id("001")
 
     assert customer is not None
@@ -242,9 +243,57 @@ def test_evaluate_customer_corrects_customer_id(monkeypatch):
         lambda: fake_client,
     )
 
-    response = evaluate_customer(customer, PRODUCT)
+    try:
+        evaluate_customer(customer, PRODUCT)
+    except ValueError as error:
+        message = str(error)
+        assert "customer_id '999'" in message
+        assert "evaluated customer '001'" in message
+    else:
+        raise AssertionError("Expected ValueError was not raised.")
 
-    assert response.customer_id == customer.id
+
+def test_parse_customer_response_rejects_invalid_json():
+    try:
+        parse_customer_response("{not json", "001")
+    except ValueError as error:
+        message = str(error)
+        assert "Gemini returned invalid JSON" in message
+        assert "{not json" in message
+    else:
+        raise AssertionError("Expected ValueError was not raised.")
+
+
+def test_parse_customer_response_rejects_empty_output():
+    try:
+        parse_customer_response("   ", "001")
+    except ValueError as error:
+        assert str(error) == "Gemini returned no output."
+    else:
+        raise AssertionError("Expected ValueError was not raised.")
+
+
+def test_parse_customer_response_rejects_schema_violations():
+    payload = valid_response_payload("001")
+    payload["purchase_intent"] = 0
+    payload["would_buy"] = "true"
+    payload["reasoning"] = ""
+
+    try:
+        parse_customer_response(json.dumps(payload), "001")
+    except ValueError as error:
+        message = str(error)
+        assert "did not match CustomerResponse" in message
+    else:
+        raise AssertionError("Expected ValueError was not raised.")
+
+
+def test_parse_customer_response_accepts_matching_customer_id():
+    payload = valid_response_payload("002")
+    response = parse_customer_response(json.dumps(payload), "002")
+
+    assert response.customer_id == "002"
+    assert response.purchase_intent == 3
 
 
 def test_evaluate_customer_accepts_fenced_json(monkeypatch):

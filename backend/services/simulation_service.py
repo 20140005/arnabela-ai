@@ -6,10 +6,17 @@ from collections.abc import Callable
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
 from models.customer import CustomerProfile
-from models.customer_response import CustomerResponse
+from models.customer_response import (
+    CustomerResponse,
+    ensure_response_for_customer,
+)
 from models.simulation import SimulationResult
 from models.test_input import ProductTestInput
-from services.ai_customer_service import evaluate_customer
+from services.ai_customer_service import (
+    evaluate_customer,
+    is_quota_or_rate_limit_error,
+    redact_secrets,
+)
 from services.customer_service import get_all_customers
 
 
@@ -17,12 +24,10 @@ MAX_CONCURRENT_CUSTOMERS = 5
 MAX_RETRIES = 2
 RETRY_DELAYS = [2, 5]
 
-# Use the deterministic evaluator by default during development.
-# Set CUSTOMER_LAB_USE_MOCK=false when real Gemini evaluation is ready.
-USE_MOCK_EVALUATOR = (
-    os.getenv("CUSTOMER_LAB_USE_MOCK", "true").lower()
-    == "true"
-)
+# CUSTOMER_LAB_USE_MOCK=true (default) uses evaluate_customer_mock
+# and never calls Gemini. Set CUSTOMER_LAB_USE_MOCK=false to use
+# evaluate_customer_with_retry -> Gemini. Injected evaluators
+# bypass both.
 
 
 CustomerEvaluator = Callable[
@@ -98,16 +103,7 @@ def evaluate_customer_with_retry(
         except Exception as error:
             last_error = error
 
-            error_text = str(error).lower()
-
-            is_quota_error = (
-                "429" in error_text
-                or "quota exceeded" in error_text
-                or "rate limit" in error_text
-                or "too many requests" in error_text
-            )
-
-            if is_quota_error:
+            if is_quota_or_rate_limit_error(error):
                 raise
 
             if attempt >= MAX_RETRIES:
@@ -588,8 +584,15 @@ def evaluate_customer_mock(
     )
 
 
+def use_mock_evaluator() -> bool:
+    return (
+        os.getenv("CUSTOMER_LAB_USE_MOCK", "true").lower()
+        == "true"
+    )
+
+
 def get_default_evaluator() -> CustomerEvaluator:
-    if USE_MOCK_EVALUATOR:
+    if use_mock_evaluator():
         return evaluate_customer_mock
 
     return evaluate_customer_with_retry
@@ -667,7 +670,10 @@ def run_simulation(
             customer = future_to_customer[future]
 
             try:
-                response = future.result()
+                response = ensure_response_for_customer(
+                    future.result(),
+                    customer.id,
+                )
 
                 responses_by_customer_id[
                     customer.id
@@ -675,7 +681,8 @@ def run_simulation(
 
             except Exception as error:
                 print(
-                    f"Customer {customer.id} failed: {error}"
+                    f"Customer {customer.id} failed: "
+                    f"{redact_secrets(str(error))}"
                 )
 
                 failed_customer_ids.append(

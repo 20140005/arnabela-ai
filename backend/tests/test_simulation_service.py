@@ -3,10 +3,12 @@ from services.simulation_service import (
     evaluate_customer_with_retry,
     get_default_evaluator,
     run_simulation,
+    use_mock_evaluator,
 )
 from services.customer_service import get_customer_by_id
 from models.customer_response import CustomerResponse
 from models.test_input import ProductTestInput
+from services import ai_customer_service as ai_module
 from services import simulation_service as simulation_module
 
 
@@ -209,3 +211,124 @@ def test_transient_errors_are_retried_then_succeed(monkeypatch):
     assert response.customer_id == customer.id
     assert calls["count"] == 2
     assert slept == [2]
+
+
+def test_default_simulation_uses_mock_and_does_not_call_gemini(
+    monkeypatch,
+):
+    monkeypatch.setenv("CUSTOMER_LAB_USE_MOCK", "true")
+
+    def blocked_gemini_client():
+        raise AssertionError("Gemini client was requested")
+
+    monkeypatch.setattr(
+        ai_module,
+        "get_gemini_client",
+        blocked_gemini_client,
+    )
+
+    assert use_mock_evaluator() is True
+    assert get_default_evaluator() is evaluate_customer_mock
+
+    result = run_simulation(
+        PRODUCT,
+        customer_ids=["001"],
+    )
+
+    assert result.total_customers == 1
+    assert result.completed_customers == 1
+    assert result.failed_customers == 0
+    assert result.responses[0].customer_id == "001"
+
+
+def test_injected_evaluator_is_used_instead_of_default():
+    calls = []
+
+    def injected(customer, product):
+        calls.append(customer.id)
+        return fake_response(customer)
+
+    result = run_simulation(
+        PRODUCT,
+        customer_ids=["001", "011"],
+        evaluator=injected,
+    )
+
+    assert sorted(calls) == ["001", "011"]
+    assert result.total_customers == 2
+    assert result.completed_customers == 2
+    assert result.failed_customers == 0
+    assert result.failed_customer_ids == []
+    assert [
+        response.customer_id for response in result.responses
+    ] == ["001", "011"]
+
+
+def test_failed_customer_is_isolated_from_the_rest():
+    def mixed(customer, product):
+        if customer.id == "001":
+            raise ValueError("malformed AI response")
+
+        return evaluate_customer_mock(customer, product)
+
+    result = run_simulation(
+        PRODUCT,
+        customer_ids=["001", "011"],
+        evaluator=mixed,
+    )
+
+    assert result.total_customers == 2
+    assert result.completed_customers == 1
+    assert result.failed_customers == 1
+    assert result.failed_customer_ids == ["001"]
+    assert len(result.responses) == 1
+    assert result.responses[0].customer_id == "011"
+
+
+def test_customer_id_mismatch_is_isolated_not_silently_accepted():
+    def mismatched(customer, product):
+        response = evaluate_customer_mock(customer, product)
+
+        if customer.id == "001":
+            return response.model_copy(
+                update={"customer_id": "999"}
+            )
+
+        return response
+
+    result = run_simulation(
+        PRODUCT,
+        customer_ids=["001", "011"],
+        evaluator=mismatched,
+    )
+
+    assert result.total_customers == 2
+    assert result.completed_customers == 1
+    assert result.failed_customers == 1
+    assert result.failed_customer_ids == ["001"]
+    assert result.responses[0].customer_id == "011"
+
+
+def test_invalid_evaluator_payload_does_not_crash_simulation():
+    def mixed(customer, product):
+        if customer.id == "001":
+            return {
+                "customer_id": customer.id,
+                "purchase_intent": 3,
+            }
+
+        return evaluate_customer_mock(customer, product)
+
+    result = run_simulation(
+        PRODUCT,
+        customer_ids=["001", "011"],
+        evaluator=mixed,
+    )
+
+    assert result.total_customers == 2
+    assert result.completed_customers == 1
+    assert result.failed_customers == 1
+    assert result.failed_customer_ids == ["001"]
+    assert result.completed_customers + result.failed_customers == (
+        result.total_customers
+    )
