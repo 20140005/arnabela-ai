@@ -1,69 +1,263 @@
-import Image from "next/image";
+"use client";
+
+import { FormEvent, useState } from "react";
+import { useRouter } from "next/navigation";
+
+import { createMockSimulation } from "../lib/mockSimulation";
+
+const testTypes = [
+  "Product",
+  "Advertisement",
+  "Website",
+  "Offer / Pricing",
+  "Business Concept",
+];
 
 export default function Home() {
+  const router = useRouter();
+  const [testType, setTestType] = useState("Product");
+  const [productName, setProductName] = useState("");
+  const [description, setDescription] = useState("");
+  const [price, setPrice] = useState("");
+  const [features, setFeatures] = useState("");
+  const [targetMarket, setTargetMarket] = useState("");
+
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [error, setError] = useState("");
+
+  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+  event.preventDefault();
+
+  setError("");
+  setIsSubmitting(true);
+
+  const keyFeatures = features
+    .split("\n")
+    .map((feature) => feature.trim())
+    .filter(Boolean);
+
+  const simulation = createMockSimulation({
+    testId: crypto.randomUUID(),
+    productName: productName.trim(),
+    testType,
+    description: description.trim(),
+    price: Number(price),
+    targetMarket: targetMarket.trim(),
+    keyFeatures,
+  });
+
+  sessionStorage.setItem(
+    "customerLabSimulation",
+    JSON.stringify(simulation)
+  );
+
+  setTimeout(() => {
+    router.push("/results");
+  }, 500);
+}
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert h-5 w-[100px]"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the{" "}
-            <code className="rounded bg-black/[.06] px-1.5 py-0.5 font-mono text-[0.9em] dark:bg-white/[.08]">
-              page.tsx
-            </code>{" "}
-            file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <main className="page-shell">
+      <nav className="topbar">
+        <div className="brand">
+          <div className="brand-mark">C</div>
+          <span>Customer Lab</span>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert h-[14px] w-4"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+
+        <div className="nav-status">
+          <span className="status-dot" />
+          AI Customer Simulation
         </div>
-      </main>
-    </div>
+      </nav>
+
+      <section className="hero">
+        <div className="eyebrow">
+          <span>100 AI CUSTOMERS</span>
+          <span className="eyebrow-line" />
+          <span>IN MINUTES</span>
+        </div>
+
+        <h1>
+          Test your idea
+          <br />
+          <span>before the market does.</span>
+        </h1>
+
+        <p className="hero-copy">
+          Put your product, offer or concept in front of 100 distinct
+          simulated AI customers and discover what they would actually think,
+          question and buy.
+        </p>
+
+        <div className="value-row">
+          <div>
+            <strong>100</strong>
+            <span>AI customers</span>
+          </div>
+
+          <div>
+            <strong>100</strong>
+            <span>different decisions</span>
+          </div>
+
+          <div>
+            <strong>1</strong>
+            <span>business insight</span>
+          </div>
+        </div>
+      </section>
+
+      <section className="workspace">
+        <div className="workspace-header">
+          <div>
+            <p className="section-label">START A TEST</p>
+            <h2>What do you want to test?</h2>
+          </div>
+
+          <div className="simulation-badge">
+            <span className="status-dot" />
+            Simulation ready
+          </div>
+        </div>
+
+        <div className="test-type-grid">
+          {testTypes.map((type) => (
+            <button
+              key={type}
+              type="button"
+              className={`test-type ${
+                testType === type ? "selected" : ""
+              }`}
+              onClick={() => setTestType(type)}
+            >
+              <span>{type}</span>
+              {testType === type && <span className="check">✓</span>}
+            </button>
+          ))}
+        </div>
+
+        <form onSubmit={handleSubmit} className="test-form">
+          <div className="form-grid">
+            <div className="field field-full">
+              <label htmlFor="productName">
+                {testType === "Product"
+                  ? "Product name"
+                  : `${testType} name`}
+              </label>
+
+              <input
+                id="productName"
+                type="text"
+                placeholder="e.g. AI Field Service Assistant"
+                value={productName}
+                onChange={(event) =>
+                  setProductName(event.target.value)
+                }
+                required
+              />
+            </div>
+
+            <div className="field field-full">
+              <label htmlFor="description">What are you testing?</label>
+
+              <textarea
+                id="description"
+                placeholder="Describe the product, offer or concept in plain language..."
+                rows={5}
+                value={description}
+                onChange={(event) =>
+                  setDescription(event.target.value)
+                }
+                required
+              />
+            </div>
+
+            <div className="field">
+              <label htmlFor="price">Price</label>
+
+              <div className="input-prefix">
+                <span>$</span>
+                <input
+                  id="price"
+                  type="number"
+                  min="0"
+                  step="0.01"
+                  placeholder="199"
+                  value={price}
+                  onChange={(event) => setPrice(event.target.value)}
+                />
+              </div>
+            </div>
+
+            <div className="field">
+              <label htmlFor="targetMarket">Target market</label>
+
+              <input
+                id="targetMarket"
+                type="text"
+                placeholder="e.g. Australian tradespeople"
+                value={targetMarket}
+                onChange={(event) =>
+                  setTargetMarket(event.target.value)
+                }
+                required
+              />
+            </div>
+
+            <div className="field field-full">
+              <label htmlFor="features">
+                Key features <span>(one per line)</span>
+              </label>
+
+              <textarea
+                id="features"
+                placeholder={
+                  "Voice-to-job-note conversion\nAutomatic quote generation\nCustomer follow-up messages"
+                }
+                rows={5}
+                value={features}
+                onChange={(event) =>
+                  setFeatures(event.target.value)
+                }
+              />
+            </div>
+          </div>
+
+          {error && (
+            <div className="error-message" role="alert">
+              {error}
+            </div>
+          )}
+
+          <div className="form-footer">
+            <div className="privacy-note">
+              <span className="lock">◆</span>
+              Your test is private. Customers are simulated AI profiles.
+            </div>
+
+            <button
+              type="submit"
+              className="submit-button"
+              disabled={isSubmitting}
+            >
+              <span>
+                {isSubmitting
+                  ? "STARTING SIMULATION..."
+                  : "TEST WITH 100 CUSTOMERS"}
+              </span>
+
+              <span className="arrow">
+                {isSubmitting ? "…" : "→"}
+              </span>
+            </button>
+          </div>
+        </form>
+      </section>
+
+      <footer>
+        <span>Customer Lab</span>
+        <span>Simulated AI customers · Not human market research</span>
+      </footer>
+    </main>
   );
 }
