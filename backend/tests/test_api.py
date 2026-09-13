@@ -116,12 +116,7 @@ def fake_customer_evaluator(customer, product):
     )
 
 
-def test_create_simulation(monkeypatch):
-    monkeypatch.setattr(
-        "services.simulation_service.evaluate_customer_with_retry",
-        fake_customer_evaluator,
-    )
-
+def test_create_simulation():
     response = client.post(
         "/simulations",
         json={

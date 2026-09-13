@@ -1,4 +1,5 @@
 import hashlib
+import os
 import time
 import uuid
 from collections.abc import Callable
@@ -16,9 +17,12 @@ MAX_CONCURRENT_CUSTOMERS = 5
 MAX_RETRIES = 2
 RETRY_DELAYS = [2, 5]
 
-# Keep this True while developing without Gemini.
-# Change to False when we are ready for real AI evaluations.
-USE_MOCK_EVALUATOR = True
+# Use the deterministic evaluator by default during development.
+# Set CUSTOMER_LAB_USE_MOCK=false when real Gemini evaluation is ready.
+USE_MOCK_EVALUATOR = (
+    os.getenv("CUSTOMER_LAB_USE_MOCK", "true").lower()
+    == "true"
+)
 
 
 CustomerEvaluator = Callable[
@@ -130,9 +134,7 @@ def stable_variation(
     if amount <= 0:
         return 0
 
-    seed = (
-        f"{customer_id}:{product_name}"
-    ).encode("utf-8")
+    seed = f"{customer_id}:{product_name}".encode("utf-8")
 
     digest = hashlib.sha256(seed).hexdigest()
 
@@ -274,31 +276,23 @@ def calculate_price_effect(
     if price <= 0:
         return 2
 
-    sensitivity = (
-        customer.financial_behaviour.price_sensitivity
-    )
+    sensitivity = customer.financial_behaviour.price_sensitivity
 
     if price < 100:
         base_effect = 1
-
     elif price < 500:
         base_effect = 0
-
     elif price < 2000:
         base_effect = -1
-
     elif price < 5000:
         base_effect = -2
-
     elif price < 10000:
         base_effect = -3
-
     else:
         base_effect = -4
 
     if sensitivity >= 8:
         base_effect -= 1
-
     elif sensitivity <= 3:
         base_effect += 1
 
@@ -485,10 +479,7 @@ def evaluate_customer_mock(
 
     trust = clamp_score(
         6
-        + (
-            customer.personality.trust_requirement
-            * 0.25
-        )
+        + customer.personality.trust_requirement * 0.25
         + trust_effect
         + variation * 0.5
     )
@@ -519,11 +510,9 @@ def evaluate_customer_mock(
         + len(product.product_name)
     ) % len(secondary_objection_options)
 
-    secondary_objection = (
-        secondary_objection_options[
-            secondary_index
-        ]
-    )
+    secondary_objection = secondary_objection_options[
+        secondary_index
+    ]
 
     positive_factors = []
 
@@ -572,12 +561,11 @@ def evaluate_customer_mock(
         )
 
     reasoning = (
-        f"As a {customer.archetype}, this customer "
-        f"responds based on their individual price "
-        f"sensitivity, risk tolerance, trust requirements, "
-        f"digital behaviour and motivations. "
-        f"The product received a relevance adjustment of "
-        f"{relevance}, a price adjustment of "
+        f"As a {customer.archetype}, this customer responds "
+        f"based on their individual price sensitivity, risk "
+        f"tolerance, trust requirements, digital behaviour and "
+        f"motivations. The product received a relevance "
+        f"adjustment of {relevance}, a price adjustment of "
         f"{price_effect}, and a trust adjustment of "
         f"{trust_effect}."
     )
@@ -600,6 +588,13 @@ def evaluate_customer_mock(
     )
 
 
+def get_default_evaluator() -> CustomerEvaluator:
+    if USE_MOCK_EVALUATOR:
+        return evaluate_customer_mock
+
+    return evaluate_customer_with_retry
+
+
 def run_simulation(
     product: ProductTestInput,
     customer_ids: list[str] | None = None,
@@ -607,11 +602,7 @@ def run_simulation(
     evaluator: CustomerEvaluator | None = None,
 ) -> SimulationResult:
     if evaluator is None:
-        evaluator = (
-            evaluate_customer_mock
-            if USE_MOCK_EVALUATOR
-            else evaluate_customer_with_retry
-        )
+        evaluator = get_default_evaluator()
 
     all_customers = get_all_customers()
 
@@ -628,9 +619,7 @@ def run_simulation(
             for customer in all_customers
         }
 
-        missing_ids = (
-            requested_ids - customers_by_id.keys()
-        )
+        missing_ids = requested_ids - customers_by_id.keys()
 
         if missing_ids:
             raise ValueError(
@@ -665,7 +654,6 @@ def run_simulation(
     with ThreadPoolExecutor(
         max_workers=MAX_CONCURRENT_CUSTOMERS
     ) as executor:
-
         future_to_customer = {
             executor.submit(
                 evaluator,
@@ -675,9 +663,7 @@ def run_simulation(
             for customer in customers
         }
 
-        for future in as_completed(
-            future_to_customer
-        ):
+        for future in as_completed(future_to_customer):
             customer = future_to_customer[future]
 
             try:
@@ -699,19 +685,14 @@ def run_simulation(
     responses = [
         responses_by_customer_id[customer.id]
         for customer in customers
-        if customer.id
-        in responses_by_customer_id
+        if customer.id in responses_by_customer_id
     ]
 
     return SimulationResult(
         test_id=str(uuid.uuid4()),
         total_customers=len(customers),
         completed_customers=len(responses),
-        failed_customers=len(
-            failed_customer_ids
-        ),
-        failed_customer_ids=sorted(
-            failed_customer_ids
-        ),
+        failed_customers=len(failed_customer_ids),
+        failed_customer_ids=sorted(failed_customer_ids),
         responses=responses,
     )
