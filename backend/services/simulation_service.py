@@ -1,3 +1,4 @@
+import hashlib
 import time
 import uuid
 from collections.abc import Callable
@@ -14,12 +15,70 @@ from services.customer_service import get_all_customers
 MAX_CONCURRENT_CUSTOMERS = 5
 MAX_RETRIES = 2
 RETRY_DELAYS = [2, 5]
+
+# Keep this True while developing without Gemini.
+# Change to False when we are ready for real AI evaluations.
 USE_MOCK_EVALUATOR = True
+
 
 CustomerEvaluator = Callable[
     [CustomerProfile, ProductTestInput],
     CustomerResponse,
 ]
+
+
+ARCHETYPE_BASE_SCORES = {
+    "Budget-Focused Buyer": {
+        "interest": 4,
+        "purchase": 3,
+        "price": 3,
+    },
+    "Premium Value Buyer": {
+        "interest": 7,
+        "purchase": 6,
+        "price": 7,
+    },
+    "Tech Enthusiast": {
+        "interest": 9,
+        "purchase": 8,
+        "price": 8,
+    },
+    "Risk-Averse Researcher": {
+        "interest": 5,
+        "purchase": 3,
+        "price": 5,
+    },
+    "Convenience-First Buyer": {
+        "interest": 8,
+        "purchase": 7,
+        "price": 7,
+    },
+    "Family-Focused Buyer": {
+        "interest": 6,
+        "purchase": 5,
+        "price": 5,
+    },
+    "Sustainability-Focused Buyer": {
+        "interest": 8,
+        "purchase": 7,
+        "price": 7,
+    },
+    "Brand-Loyal Buyer": {
+        "interest": 5,
+        "purchase": 4,
+        "price": 5,
+    },
+    "Impulse Early Adopter": {
+        "interest": 8,
+        "purchase": 7,
+        "price": 8,
+    },
+    "Practical Skeptical Buyer": {
+        "interest": 5,
+        "purchase": 3,
+        "price": 4,
+    },
+}
 
 
 def evaluate_customer_with_retry(
@@ -54,64 +113,313 @@ def evaluate_customer_with_retry(
 
     raise last_error
 
+
+def stable_variation(
+    customer_id: str,
+    product_name: str,
+    amount: int,
+) -> int:
+    """
+    Generate a deterministic variation based on the customer
+    and product.
+
+    The same customer/product combination always produces
+    the same value.
+    """
+
+    if amount <= 0:
+        return 0
+
+    seed = (
+        f"{customer_id}:{product_name}"
+    ).encode("utf-8")
+
+    digest = hashlib.sha256(seed).hexdigest()
+
+    return (
+        int(digest[:8], 16) % (amount * 2 + 1)
+    ) - amount
+
+
+def clamp_score(value: float) -> int:
+    return max(1, min(10, round(value)))
+
+
+def calculate_target_relevance(
+    customer: CustomerProfile,
+    product: ProductTestInput,
+) -> int:
+    text = (
+        f"{product.product_name} "
+        f"{product.description} "
+        f"{product.target_market} "
+        f"{' '.join(product.key_features)}"
+    ).lower()
+
+    relevance = 0
+
+    occupation = customer.occupation.lower()
+    location = customer.location.lower()
+    archetype = customer.archetype.lower()
+
+    if any(
+        word in text
+        for word in occupation.split()
+        if len(word) >= 5
+    ):
+        relevance += 2
+
+    if any(
+        word in text
+        for word in [
+            "australia",
+            customer.state.lower(),
+            location,
+        ]
+    ):
+        relevance += 1
+
+    archetype_keywords = {
+        "budget": [
+            "affordable",
+            "save",
+            "saving",
+            "low cost",
+            "value",
+            "cheap",
+        ],
+        "premium": [
+            "premium",
+            "high-end",
+            "quality",
+            "luxury",
+            "performance",
+        ],
+        "tech": [
+            "ai",
+            "automation",
+            "software",
+            "smart",
+            "technology",
+            "digital",
+        ],
+        "risk": [
+            "warranty",
+            "guarantee",
+            "secure",
+            "reliable",
+            "proven",
+        ],
+        "convenience": [
+            "automatic",
+            "easy",
+            "simple",
+            "convenient",
+            "time",
+        ],
+        "family": [
+            "family",
+            "children",
+            "household",
+            "home",
+            "safety",
+        ],
+        "sustainability": [
+            "solar",
+            "energy",
+            "sustainable",
+            "environment",
+            "renewable",
+            "green",
+        ],
+        "brand": [
+            "trusted",
+            "brand",
+            "established",
+            "reputation",
+        ],
+        "impulse": [
+            "new",
+            "latest",
+            "launch",
+            "innovation",
+            "first",
+        ],
+        "practical": [
+            "durable",
+            "reliable",
+            "practical",
+            "simple",
+            "efficient",
+        ],
+    }
+
+    for keyword in archetype_keywords:
+        if keyword in archetype:
+            if any(
+                phrase in text
+                for phrase in archetype_keywords[keyword]
+            ):
+                relevance += 2
+
+    return min(relevance, 5)
+
+
+def calculate_price_effect(
+    customer: CustomerProfile,
+    product: ProductTestInput,
+) -> int:
+    price = product.price
+
+    if price <= 0:
+        return 2
+
+    sensitivity = (
+        customer.financial_behaviour.price_sensitivity
+    )
+
+    if price < 100:
+        base_effect = 1
+
+    elif price < 500:
+        base_effect = 0
+
+    elif price < 2000:
+        base_effect = -1
+
+    elif price < 5000:
+        base_effect = -2
+
+    elif price < 10000:
+        base_effect = -3
+
+    else:
+        base_effect = -4
+
+    if sensitivity >= 8:
+        base_effect -= 1
+
+    elif sensitivity <= 3:
+        base_effect += 1
+
+    return max(-5, min(2, base_effect))
+
+
+def calculate_trust_effect(
+    customer: CustomerProfile,
+    product: ProductTestInput,
+) -> int:
+    text = (
+        f"{product.description} "
+        f"{' '.join(product.key_features)}"
+    ).lower()
+
+    effect = 0
+
+    trust_signals = [
+        "warranty",
+        "guarantee",
+        "certified",
+        "secure",
+        "tested",
+        "proven",
+        "support",
+        "trial",
+    ]
+
+    for signal in trust_signals:
+        if signal in text:
+            effect += 1
+
+    if customer.personality.trust_requirement >= 8:
+        if effect == 0:
+            return -2
+
+        return min(effect, 2)
+
+    if customer.personality.trust_requirement <= 3:
+        return min(effect, 1)
+
+    return min(effect, 2)
+
+
+def calculate_digital_fit(
+    customer: CustomerProfile,
+    product: ProductTestInput,
+) -> int:
+    text = (
+        f"{product.description} "
+        f"{' '.join(product.key_features)}"
+    ).lower()
+
+    digital_keywords = [
+        "app",
+        "software",
+        "online",
+        "digital",
+        "ai",
+        "automation",
+        "mobile",
+        "smart",
+        "platform",
+    ]
+
+    digital_product = any(
+        keyword in text
+        for keyword in digital_keywords
+    )
+
+    if not digital_product:
+        return 0
+
+    if customer.digital_literacy >= 8:
+        return 2
+
+    if customer.digital_literacy <= 3:
+        return -2
+
+    return 0
+
+
+def choose_primary_objection(
+    customer: CustomerProfile,
+    product: ProductTestInput,
+    purchase_intent: int,
+) -> str:
+    price = product.price
+
+    if (
+        customer.financial_behaviour.price_sensitivity >= 8
+        and price >= 500
+    ):
+        return "Price feels too high"
+
+    if customer.personality.risk_tolerance <= 4:
+        return "Need proof it actually works"
+
+    if customer.shopping_behaviour.compares_competitors:
+        return "Would compare alternatives"
+
+    if customer.personality.trust_requirement >= 8:
+        return "Needs stronger trust signals"
+
+    if purchase_intent <= 4:
+        return "Needs more information"
+
+    if (
+        customer.financial_behaviour.willingness_to_finance <= 3
+        and price >= 5000
+    ):
+        return "Would need a more flexible payment option"
+
+    return "Needs more information"
+
+
 def evaluate_customer_mock(
     customer: CustomerProfile,
     product: ProductTestInput,
 ) -> CustomerResponse:
-    archetype_scores = {
-        "Budget-Focused Buyer": {
-            "interest": 4,
-            "purchase": 3,
-            "price": 3,
-        },
-        "Premium Value Buyer": {
-            "interest": 7,
-            "purchase": 6,
-            "price": 7,
-        },
-        "Tech Enthusiast": {
-            "interest": 9,
-            "purchase": 8,
-            "price": 8,
-        },
-        "Risk-Averse Researcher": {
-            "interest": 5,
-            "purchase": 3,
-            "price": 5,
-        },
-        "Convenience-First Buyer": {
-            "interest": 8,
-            "purchase": 7,
-            "price": 7,
-        },
-        "Family-Focused Buyer": {
-            "interest": 6,
-            "purchase": 5,
-            "price": 5,
-        },
-        "Sustainability-Focused Buyer": {
-            "interest": 8,
-            "purchase": 7,
-            "price": 7,
-        },
-        "Brand-Loyal Buyer": {
-            "interest": 5,
-            "purchase": 4,
-            "price": 5,
-        },
-        "Impulse Early Adopter": {
-            "interest": 8,
-            "purchase": 7,
-            "price": 8,
-        },
-        "Practical Skeptical Buyer": {
-            "interest": 5,
-            "purchase": 3,
-            "price": 4,
-        },
-    }
-
-    scores = archetype_scores.get(
+    base = ARCHETYPE_BASE_SCORES.get(
         customer.archetype,
         {
             "interest": 5,
@@ -120,61 +428,177 @@ def evaluate_customer_mock(
         },
     )
 
-    purchase_intent = scores["purchase"]
+    relevance = calculate_target_relevance(
+        customer,
+        product,
+    )
+
+    price_effect = calculate_price_effect(
+        customer,
+        product,
+    )
+
+    trust_effect = calculate_trust_effect(
+        customer,
+        product,
+    )
+
+    digital_effect = calculate_digital_fit(
+        customer,
+        product,
+    )
+
+    variation = stable_variation(
+        customer.id,
+        product.product_name,
+        1,
+    )
+
+    interest = clamp_score(
+        base["interest"]
+        + relevance * 0.5
+        + digital_effect * 0.5
+        + variation
+    )
+
+    purchase_intent = clamp_score(
+        base["purchase"]
+        + relevance * 0.6
+        + price_effect
+        + trust_effect * 0.5
+        + digital_effect * 0.5
+        + variation
+    )
+
+    price_acceptance = clamp_score(
+        base["price"]
+        + price_effect
+        + variation
+    )
+
+    understanding = clamp_score(
+        6
+        + customer.digital_literacy * 0.25
+        + relevance * 0.4
+        + variation * 0.5
+    )
+
+    trust = clamp_score(
+        6
+        + (
+            customer.personality.trust_requirement
+            * 0.25
+        )
+        + trust_effect
+        + variation * 0.5
+    )
 
     would_buy = purchase_intent >= 7
+
     would_consider = (
         not would_buy
         and purchase_intent >= 4
     )
 
-    if customer.financial_behaviour.price_sensitivity >= 8:
-        primary_objection = "Price feels too high"
-    elif customer.personality.risk_tolerance <= 4:
-        primary_objection = (
-            "Need proof it actually works"
+    primary_objection = choose_primary_objection(
+        customer,
+        product,
+        purchase_intent,
+    )
+
+    secondary_objection_options = [
+        "Would want to compare alternatives",
+        "Needs more information before purchasing",
+        "Would want to see real customer results",
+        "Would want clearer evidence of value",
+        "Would want to understand ongoing costs",
+    ]
+
+    secondary_index = (
+        int(customer.id)
+        + len(product.product_name)
+    ) % len(secondary_objection_options)
+
+    secondary_objection = (
+        secondary_objection_options[
+            secondary_index
+        ]
+    )
+
+    positive_factors = []
+
+    if relevance >= 2:
+        positive_factors.append(
+            "Relevant to the customer's needs"
         )
-    elif customer.shopping_behaviour.compares_competitors:
-        primary_objection = (
-            "Would compare alternatives"
+
+    if price_acceptance >= 6:
+        positive_factors.append(
+            "Price feels reasonably acceptable"
         )
-    else:
-        primary_objection = (
-            "Needs more information"
+
+    if digital_effect > 0:
+        positive_factors.append(
+            "Strong fit with digital behaviour"
         )
+
+    if trust >= 7:
+        positive_factors.append(
+            "The proposition feels trustworthy"
+        )
+
+    if not positive_factors:
+        positive_factors.append(
+            "The product has some potential value"
+        )
+
+    negative_factors = [
+        primary_objection,
+        secondary_objection,
+    ]
+
+    questions = [
+        "What evidence supports the product's claims?",
+    ]
+
+    if product.price >= 5000:
+        questions.append(
+            "What payment or financing options are available?"
+        )
+
+    if customer.personality.trust_requirement >= 8:
+        questions.append(
+            "What warranty, guarantee or support is included?"
+        )
+
+    reasoning = (
+        f"As a {customer.archetype}, this customer "
+        f"responds based on their individual price "
+        f"sensitivity, risk tolerance, trust requirements, "
+        f"digital behaviour and motivations. "
+        f"The product received a relevance adjustment of "
+        f"{relevance}, a price adjustment of "
+        f"{price_effect}, and a trust adjustment of "
+        f"{trust_effect}."
+    )
 
     return CustomerResponse(
         customer_id=customer.id,
-        overall_interest=scores["interest"],
-        understanding=7,
-        trust=7,
-        price_acceptance=scores["price"],
+        overall_interest=interest,
+        understanding=understanding,
+        trust=trust,
+        price_acceptance=price_acceptance,
         purchase_intent=purchase_intent,
         would_buy=would_buy,
         would_consider=would_consider,
         primary_objection=primary_objection,
-        secondary_objection=(
-            "Would want more information before purchasing"
-        ),
-        positive_factors=[
-            product.key_features[0]
-            if product.key_features
-            else "Clear product value",
-            "Relevant to the customer's needs",
-        ],
-        negative_factors=[
-            primary_objection,
-        ],
-        questions=[
-            "What evidence supports the product's claims?"
-        ],
-        reasoning=(
-            f"This is a simulated response from the "
-            f"{customer.archetype} customer archetype. "
-            f"The response is based on the customer's "
-            f"behavioural profile and the supplied product."
-        ),
+        secondary_objection=secondary_objection,
+        positive_factors=positive_factors,
+        negative_factors=negative_factors,
+        questions=questions,
+        reasoning=reasoning,
     )
+
 
 def run_simulation(
     product: ProductTestInput,
@@ -204,7 +628,9 @@ def run_simulation(
             for customer in all_customers
         }
 
-        missing_ids = requested_ids - customers_by_id.keys()
+        missing_ids = (
+            requested_ids - customers_by_id.keys()
+        )
 
         if missing_ids:
             raise ValueError(
@@ -229,7 +655,11 @@ def run_simulation(
 
             customers = customers[:max_customers]
 
-    responses_by_customer_id: dict[str, CustomerResponse] = {}
+    responses_by_customer_id: dict[
+        str,
+        CustomerResponse,
+    ] = {}
+
     failed_customer_ids: list[str] = []
 
     with ThreadPoolExecutor(
@@ -245,30 +675,43 @@ def run_simulation(
             for customer in customers
         }
 
-        for future in as_completed(future_to_customer):
+        for future in as_completed(
+            future_to_customer
+        ):
             customer = future_to_customer[future]
 
             try:
                 response = future.result()
-                responses_by_customer_id[customer.id] = response
+
+                responses_by_customer_id[
+                    customer.id
+                ] = response
 
             except Exception as error:
                 print(
                     f"Customer {customer.id} failed: {error}"
                 )
-                failed_customer_ids.append(customer.id)
+
+                failed_customer_ids.append(
+                    customer.id
+                )
 
     responses = [
         responses_by_customer_id[customer.id]
         for customer in customers
-        if customer.id in responses_by_customer_id
+        if customer.id
+        in responses_by_customer_id
     ]
 
     return SimulationResult(
         test_id=str(uuid.uuid4()),
         total_customers=len(customers),
         completed_customers=len(responses),
-        failed_customers=len(failed_customer_ids),
-        failed_customer_ids=sorted(failed_customer_ids),
+        failed_customers=len(
+            failed_customer_ids
+        ),
+        failed_customer_ids=sorted(
+            failed_customer_ids
+        ),
         responses=responses,
     )
