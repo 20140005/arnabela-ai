@@ -13,6 +13,7 @@ import {
   getSimulationJob,
   readSimulationJobMeta,
   storeCompletedSimulation,
+  subscribeToSessionStore,
   type CustomerProgress,
   type CustomerSimulationState,
   type SimulationJobStatus,
@@ -21,8 +22,8 @@ import {
 
 const POLL_INTERVAL_MS = 300;
 
-function subscribeToStorage() {
-  return () => {};
+function subscribeToStorage(onStoreChange: () => void) {
+  return subscribeToSessionStore(onStoreChange);
 }
 
 function getStoredJobMeta() {
@@ -79,8 +80,11 @@ export default function SimulationPage() {
   const [job, setJob] = useState<SimulationJobStatus | null>(
     null,
   );
-  const [error, setError] = useState("");
-  const persistedRef = useRef(false);
+  const [error, setError] = useState<{
+    jobId: string;
+    message: string;
+  } | null>(null);
+  const persistedJobIdRef = useRef<string | null>(null);
 
   useEffect(() => {
     if (!storedMeta) {
@@ -111,14 +115,14 @@ export default function SimulationPage() {
         }
 
         setJob(snapshot);
-        setError("");
+        setError(null);
 
         if (
           snapshot.status === "completed" &&
           snapshot.result &&
-          !persistedRef.current
+          persistedJobIdRef.current !== snapshot.job_id
         ) {
-          persistedRef.current = true;
+          persistedJobIdRef.current = snapshot.job_id;
           storeCompletedSimulation(
             currentMeta,
             snapshot.result,
@@ -143,7 +147,10 @@ export default function SimulationPage() {
             ? pollError.message
             : "Unable to load simulation progress.";
 
-        setError(message);
+        setError({
+          jobId: currentMeta.jobId,
+          message,
+        });
 
         if (message.toLowerCase().includes("not found")) {
           return;
@@ -169,7 +176,7 @@ export default function SimulationPage() {
       <main className="sim-shell">
         <nav className="sim-topbar">
           <Link href="/" className="brand">
-            <div className="brand-mark">C</div>
+            <div className="brand-mark">A</div>
             <span>arnabela</span>
           </Link>
         </nav>
@@ -189,19 +196,23 @@ export default function SimulationPage() {
     );
   }
 
-  const customers = job?.customers ?? [];
-  const total = job?.total_customers ?? 100;
+  const activeJob =
+    job && job.job_id === meta.jobId ? job : null;
+  const activeError =
+    error && error.jobId === meta.jobId ? error.message : "";
+  const customers = activeJob?.customers ?? [];
+  const total = activeJob?.total_customers ?? 100;
   const resolved =
-    (job?.completed_customers ?? 0) +
-    (job?.failed_customers ?? 0);
-  const isComplete = job?.status === "completed";
-  const isFailed = job?.status === "failed";
+    (activeJob?.completed_customers ?? 0) +
+    (activeJob?.failed_customers ?? 0);
+  const isComplete = activeJob?.status === "completed";
+  const isFailed = activeJob?.status === "failed";
 
   return (
     <main className="sim-shell">
       <nav className="sim-topbar">
         <Link href="/" className="brand">
-          <div className="brand-mark">C</div>
+          <div className="brand-mark">A</div>
           <span>arnabela</span>
         </Link>
 
@@ -213,7 +224,9 @@ export default function SimulationPage() {
           />
           {isComplete
             ? "Simulation complete"
-            : "Live audience"}
+            : isFailed
+              ? "Simulation failed"
+              : "Live audience"}
         </div>
       </nav>
 
@@ -222,7 +235,9 @@ export default function SimulationPage() {
         <h1>
           {isComplete
             ? "Audience simulated."
-            : "Simulating audience"}
+            : isFailed
+              ? "Simulation failed."
+              : "Simulating audience"}
         </h1>
         <p className="sim-product">{meta.productName}</p>
       </section>
@@ -235,28 +250,28 @@ export default function SimulationPage() {
           <span>Customers</span>
         </div>
         <div>
-          <strong>{job?.buy_count ?? 0}</strong>
+          <strong>{activeJob?.buy_count ?? 0}</strong>
           <span>Buy</span>
         </div>
         <div>
-          <strong>{job?.consider_count ?? 0}</strong>
+          <strong>{activeJob?.consider_count ?? 0}</strong>
           <span>Consider</span>
         </div>
         <div>
-          <strong>{job?.reject_count ?? 0}</strong>
+          <strong>{activeJob?.reject_count ?? 0}</strong>
           <span>Reject</span>
         </div>
       </section>
 
-      {error && (
+      {activeError && (
         <p className="sim-error" role="alert">
-          {error}
+          {activeError}
         </p>
       )}
 
       {isFailed && (
         <p className="sim-error" role="alert">
-          {job?.error || "The simulation job failed."}
+          {activeJob?.error || "The simulation job failed."}
         </p>
       )}
 
@@ -301,6 +316,10 @@ export default function SimulationPage() {
       </section>
 
       <footer className="sim-footer">
+        <p className="sim-disclaimer">
+          Simulated AI customers · Not human market research
+        </p>
+
         {isComplete ? (
           <button
             type="button"
@@ -309,6 +328,13 @@ export default function SimulationPage() {
           >
             VIEW RESULTS →
           </button>
+        ) : isFailed ||
+          (Boolean(activeError) &&
+            (activeJob === null ||
+              activeError.toLowerCase().includes("not found"))) ? (
+          <Link href="/" className="sim-cta">
+            START A NEW TEST →
+          </Link>
         ) : (
           <p>Individual customers resolve as they are evaluated.</p>
         )}

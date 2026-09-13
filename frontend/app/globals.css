@@ -455,6 +455,24 @@ footer {
   line-height: 1.5;
 }
 
+.draft-notice {
+  margin: 0 0 22px;
+  padding: 16px 18px;
+  border: 1px solid #d7e89a;
+  background: #f7fbe8;
+}
+
+.draft-notice .section-label {
+  margin-bottom: 6px;
+}
+
+.draft-notice p:last-child {
+  margin: 0;
+  color: var(--text);
+  font-size: 13px;
+  line-height: 1.6;
+}
+
 .submit-button:disabled {
   cursor: not-allowed;
   opacity: 0.65;
@@ -503,6 +521,7 @@ footer {
   font-size: clamp(48px, 6vw, 78px);
   line-height: 0.95;
   letter-spacing: -4px;
+  overflow-wrap: anywhere;
 }
 
 .results-header h1 span {
@@ -677,7 +696,9 @@ footer {
 }
 
 .driver-top span {
+  min-width: 0;
   color: #33332f;
+  overflow-wrap: anywhere;
 }
 
 .driver-top strong {
@@ -734,6 +755,7 @@ footer {
 .driver-quotes p {
   margin: 0;
   color: #555550;
+  overflow-wrap: anywhere;
 }
 
 .driver-empty {
@@ -868,35 +890,85 @@ footer {
 .archetype-name {
   color: var(--text) !important;
   font-weight: 700;
+  overflow-wrap: anywhere;
 }
 
-.insight-banner {
+.insight-panel {
   margin-top: 20px;
   padding: 42px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 30px;
   background: var(--accent);
+  color: var(--text);
 }
 
-.insight-banner .section-label {
+.insight-panel .section-label {
   color: #4d5c19;
 }
 
-.insight-banner h2 {
+.insight-panel h2 {
+  margin: 10px 0 16px;
+  max-width: 920px;
+  font-size: 32px;
+  line-height: 1.15;
+  letter-spacing: -1.2px;
+  overflow-wrap: anywhere;
+}
+
+.insight-explanation {
+  max-width: 820px;
   margin: 0;
-  font-size: 27px;
-  line-height: 1.2;
-  letter-spacing: -1px;
+  color: #3f4c16;
+  font-size: 15px;
+  line-height: 1.7;
+  overflow-wrap: anywhere;
 }
 
-.insight-banner h2 span {
-  color: #59671e;
+.insight-blocks {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 28px;
 }
 
-.insight-arrow {
-  font-size: 42px;
+.insight-block,
+.insight-next {
+  padding: 20px 22px;
+  border: 1px solid rgba(17, 17, 17, 0.12);
+  background: rgba(255, 255, 255, 0.32);
+}
+
+.insight-block p:last-child,
+.insight-next p:last-child {
+  margin: 8px 0 0;
+  color: var(--text);
+  overflow-wrap: anywhere;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.insight-next {
+  margin-top: 12px;
+  background: rgba(17, 17, 17, 0.08);
+}
+
+.insight-test-button {
+  margin-top: 24px;
+  min-height: 56px;
+  padding: 0 22px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  border: 0;
+  background: var(--text);
+  color: var(--accent);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  text-decoration: none;
+}
+
+.insight-test-button .arrow {
+  font-size: 20px;
 }
 
 .customer-preview {
@@ -914,7 +986,7 @@ footer {
   width: 100%;
   min-height: 76px;
   display: grid;
-  grid-template-columns: 40px 1fr auto auto;
+  grid-template-columns: 40px minmax(0, 1fr) auto auto;
   align-items: center;
   gap: 13px;
   padding: 12px;
@@ -954,9 +1026,15 @@ button.customer-card.selected .customer-card-score span {
 }
 
 .customer-card-info {
+  min-width: 0;
   display: flex;
   flex-direction: column;
   gap: 4px;
+}
+
+.customer-card-info strong,
+.customer-card-info span {
+  overflow-wrap: anywhere;
 }
 
 .customer-card-info strong {
@@ -1081,6 +1159,7 @@ button.customer-card.selected .customer-card-score span {
   margin: 8px 0 6px;
   font-size: 32px;
   letter-spacing: -1.4px;
+  overflow-wrap: anywhere;
 }
 
 .explorer-archetype {
@@ -1145,6 +1224,7 @@ button.customer-card.selected .customer-card-score span {
 
 .explorer-fact strong {
   font-size: 13px;
+  overflow-wrap: anywhere;
 }
 
 .explorer-score-row {
@@ -1165,6 +1245,7 @@ button.customer-card.selected .customer-card-score span {
   color: #33332f;
   font-size: 14px;
   line-height: 1.7;
+  overflow-wrap: anywhere;
 }
 
 .explorer-section ul {
@@ -1173,6 +1254,7 @@ button.customer-card.selected .customer-card-score span {
   color: #33332f;
   font-size: 13px;
   line-height: 1.6;
+  overflow-wrap: anywhere;
 }
 
 .explorer-empty,
@@ -1281,12 +1363,20 @@ button.customer-card.selected .customer-card-score span {
     font-size: 7px;
   }
 
-  .insight-banner {
+  .insight-panel {
     padding: 28px;
   }
 
-  .insight-banner h2 {
-    font-size: 21px;
+  .insight-panel h2 {
+    font-size: 24px;
+  }
+
+  .insight-blocks {
+    grid-template-columns: 1fr;
+  }
+
+  .insight-test-button {
+    width: 100%;
   }
 
   .results-footer {
@@ -1299,6 +1389,7 @@ button.customer-card.selected .customer-card-score span {
   margin: 10px 0 0;
   color: #8a8a83;
   font-size: 12px;
+  overflow-wrap: anywhere;
 }
 
 .empty-results {
@@ -1410,6 +1501,7 @@ button.customer-card.selected .customer-card-score span {
   margin: 16px 0 0;
   color: #a4aa97;
   font-size: 15px;
+  overflow-wrap: anywhere;
 }
 
 .sim-metrics {
@@ -1541,6 +1633,16 @@ button.customer-card.selected .customer-card-score span {
 
 .sim-footer {
   padding: 36px 56px 48px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  color: #8c927f;
+  font-size: 12px;
+}
+
+.sim-disclaimer {
+  margin: 0;
   color: #8c927f;
   font-size: 12px;
 }
@@ -1610,6 +1712,11 @@ button.customer-card.selected .customer-card-score span {
   .sim-error {
     padding-left: 28px;
     padding-right: 28px;
+  }
+
+  .sim-footer {
+    flex-direction: column;
+    align-items: flex-start;
   }
 
   .sim-metrics {

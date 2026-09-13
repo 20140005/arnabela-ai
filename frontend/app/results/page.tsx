@@ -7,8 +7,13 @@ import {
   useSyncExternalStore,
 } from "react";
 
+import ArnabelaInsightPanel from "./ArnabelaInsightPanel";
 import CustomerExplorer from "./CustomerExplorer";
 import DecisionDriversPanel from "./DecisionDriversPanel";
+import {
+  buildArnabelaInsight,
+  type ArnabelaInsight,
+} from "@/lib/arnabelaInsight";
 import {
   selectPreviewCustomers,
   decisionFromResponse,
@@ -23,6 +28,7 @@ import {
   SIMULATION_RESULT_KEY,
   getCustomerById,
   getCustomers,
+  subscribeToSessionStore,
   type CustomerProfile,
   type CustomerResponse,
   type StoredSimulation,
@@ -33,11 +39,6 @@ type ArchetypeResult = {
   customers: number;
   interest: number;
   purchaseIntent: number;
-};
-
-type Takeaway = {
-  headline: string;
-  supportingText: string;
 };
 
 type Analysis = {
@@ -51,7 +52,7 @@ type Analysis = {
   drivers: DecisionDriversResult;
   archetypes: ArchetypeResult[];
   previewCustomers: PreviewCustomer[];
-  takeaway: Takeaway;
+  insight: ArnabelaInsight;
 };
 
 function getStoredSimulation() {
@@ -60,12 +61,32 @@ function getStoredSimulation() {
   );
 }
 
-function subscribeToStorage() {
-  return () => {};
+function subscribeToStorage(onStoreChange: () => void) {
+  return subscribeToSessionStore(onStoreChange);
 }
 
 function roundToOneDecimal(value: number) {
   return Math.round(value * 10) / 10;
+}
+
+function averageScore(
+  responses: CustomerResponse[],
+  key:
+    | "overall_interest"
+    | "understanding"
+    | "trust"
+    | "price_acceptance",
+) {
+  if (responses.length === 0) {
+    return 0;
+  }
+
+  const total = responses.reduce(
+    (sum, response) => sum + response[key],
+    0,
+  );
+
+  return roundToOneDecimal(total / responses.length);
 }
 
 function analyseBackendSimulation(
@@ -186,52 +207,65 @@ function analyseBackendSimulation(
           b.purchaseIntent - a.purchaseIntent,
       );
 
-  let takeaway: Takeaway;
+  const overallPurchaseIntent = roundToOneDecimal(
+    averagePurchaseIntent,
+  );
+  const wouldBuyPercentage = calculatePercentage(
+    wouldBuyCount,
+    totalResponses,
+  );
+  const wouldConsiderPercentage = calculatePercentage(
+    wouldConsiderCount,
+    totalResponses,
+  );
+  const rejectedPercentage = calculatePercentage(
+    rejectedCount,
+    totalResponses,
+  );
 
-  if (averagePurchaseIntent >= 7) {
-    takeaway = {
-      headline:
-        "Strong customer purchase signal.",
-      supportingText:
-        "The simulated audience shows meaningful purchase intent, suggesting the concept has a strong foundation to test further.",
-    };
-  } else if (averagePurchaseIntent >= 5) {
-    takeaway = {
-      headline:
-        "The concept shows promising customer interest.",
-      supportingText:
-        "Customers see value in the concept, but the current proposition does not consistently convert interest into purchase intent.",
-    };
-  } else {
-    takeaway = {
-      headline:
-        "The concept needs stronger customer validation.",
-      supportingText:
-        "Customer interest is limited, suggesting the value proposition, positioning or offer may need refinement.",
-    };
-  }
+  const topArchetype = archetypes[0]
+    ? {
+        name: archetypes[0].name,
+        customers: archetypes[0].customers,
+        purchaseIntent: roundToOneDecimal(
+          archetypes[0].purchaseIntent / 10,
+        ),
+      }
+    : null;
+
+  const insight = buildArnabelaInsight({
+    respondingCustomers: totalResponses,
+    overallPurchaseIntent,
+    wouldBuyPercentage,
+    wouldConsiderPercentage,
+    rejectedPercentage,
+    averageInterest: averageScore(
+      responses,
+      "overall_interest",
+    ),
+    averageUnderstanding: averageScore(
+      responses,
+      "understanding",
+    ),
+    averageTrust: averageScore(responses, "trust"),
+    averagePriceAcceptance: averageScore(
+      responses,
+      "price_acceptance",
+    ),
+    positiveDrivers: drivers.positive,
+    negativeDrivers: drivers.negative,
+    topArchetype,
+  });
 
   return {
     totalCustomers: result.total_customers,
     completedCustomers:
       result.completed_customers,
     failedCustomers: result.failed_customers,
-    overallPurchaseIntent:
-      roundToOneDecimal(
-        averagePurchaseIntent,
-      ),
-    wouldBuyPercentage: calculatePercentage(
-      wouldBuyCount,
-      totalResponses,
-    ),
-    wouldConsiderPercentage: calculatePercentage(
-      wouldConsiderCount,
-      totalResponses,
-    ),
-    rejectedPercentage: calculatePercentage(
-      rejectedCount,
-      totalResponses,
-    ),
+    overallPurchaseIntent,
+    wouldBuyPercentage,
+    wouldConsiderPercentage,
+    rejectedPercentage,
     drivers,
     archetypes,
     previewCustomers: selectPreviewCustomers(
@@ -239,7 +273,7 @@ function analyseBackendSimulation(
       customerMap,
       6,
     ),
-    takeaway,
+    insight,
   };
 }
 
@@ -346,7 +380,7 @@ export default function ResultsPage() {
       <main className="results-shell">
         <nav className="results-topbar">
           <Link href="/" className="brand">
-            <div className="brand-mark">C</div>
+            <div className="brand-mark">A</div>
             <span>arnabela</span>
           </Link>
         </nav>
@@ -380,7 +414,7 @@ export default function ResultsPage() {
       <main className="results-shell">
         <nav className="results-topbar">
           <Link href="/" className="brand">
-            <div className="brand-mark">C</div>
+            <div className="brand-mark">A</div>
             <span>arnabela</span>
           </Link>
 
@@ -428,7 +462,7 @@ export default function ResultsPage() {
     <main className="results-shell">
       <nav className="results-topbar">
         <Link href="/" className="brand">
-          <div className="brand-mark">C</div>
+          <div className="brand-mark">A</div>
           <span>arnabela</span>
         </Link>
 
@@ -456,6 +490,16 @@ export default function ResultsPage() {
             Target market:{" "}
             {simulation.targetMarket}
           </p>
+
+          {analysis.failedCustomers > 0 && (
+            <p className="results-target">
+              {analysis.failedCustomers}{" "}
+              {analysis.failedCustomers === 1
+                ? "simulated customer did not complete and is"
+                : "simulated customers did not complete and are"}{" "}
+              excluded from the decision totals.
+            </p>
+          )}
         </div>
 
         <div className="test-meta">
@@ -490,7 +534,7 @@ export default function ResultsPage() {
       <section className="verdict-card">
         <div className="verdict-main">
           <p className="section-label">
-            OVERALL CUSTOMER SIGNAL
+            WHAT HAPPENED
           </p>
 
           <div className="verdict-score">
@@ -501,12 +545,10 @@ export default function ResultsPage() {
             <span>/ 10</span>
           </div>
 
-          <h2>
-            {analysis.takeaway.headline}
-          </h2>
-
           <p>
-            {analysis.takeaway.supportingText}
+            Average purchase intent across{" "}
+            {analysis.completedCustomers} responding
+            simulated customers.
           </p>
         </div>
 
@@ -537,6 +579,11 @@ export default function ResultsPage() {
         </div>
       </section>
 
+      <ArnabelaInsightPanel
+        insight={analysis.insight}
+        simulation={simulation}
+      />
+
       <DecisionDriversPanel drivers={analysis.drivers} />
 
       <section className="archetype-panel">
@@ -553,68 +600,54 @@ export default function ResultsPage() {
 
           <span className="segment-count">
             {analysis.archetypes.length} segments ·{" "}
-            {analysis.totalCustomers} customers
+            {analysis.completedCustomers} responding
           </span>
         </div>
 
-        <div className="archetype-table">
-          <div className="table-row table-header">
-            <span>Customer type</span>
-            <span>Customers</span>
-            <span>Interest</span>
-            <span>Purchase intent</span>
-          </div>
-
-          {analysis.archetypes.map(
-            (archetype) => (
-              <div
-                className="table-row"
-                key={archetype.name}
-              >
-                <span className="archetype-name">
-                  {archetype.name}
-                </span>
-
-                <span>
-                  {archetype.customers}
-                </span>
-
-                <span>
-                  <b>
-                    {archetype.interest}%
-                  </b>
-                </span>
-
-                <span>
-                  <b>
-                    {archetype.purchaseIntent}%
-                  </b>
-                </span>
-              </div>
-            ),
-          )}
-        </div>
-      </section>
-
-      <section className="insight-banner">
-        <div>
-          <p className="section-label">
-            ARNABELA TAKEAWAY
+        {analysis.archetypes.length === 0 ? (
+          <p className="driver-empty">
+            No completed customer responses were available
+            to group into segments.
           </p>
+        ) : (
+          <div className="archetype-table">
+            <div className="table-row table-header">
+              <span>Customer type</span>
+              <span>Customers</span>
+              <span>Interest</span>
+              <span>Purchase intent</span>
+            </div>
 
-          <h2>
-            {analysis.takeaway.headline}
-            <br />
+            {analysis.archetypes.map(
+              (archetype) => (
+                <div
+                  className="table-row"
+                  key={archetype.name}
+                >
+                  <span className="archetype-name">
+                    {archetype.name}
+                  </span>
 
-            <span>
-              {analysis.takeaway.supportingText}
-            </span>
-          </h2>
-        </div>
+                  <span>
+                    {archetype.customers}
+                  </span>
 
-        <div className="insight-arrow">
-          →
-        </div>
+                  <span>
+                    <b>
+                      {archetype.interest}%
+                    </b>
+                  </span>
+
+                  <span>
+                    <b>
+                      {archetype.purchaseIntent}%
+                    </b>
+                  </span>
+                </div>
+              ),
+            )}
+          </div>
+        )}
       </section>
 
       <section className="customer-preview">
@@ -638,13 +671,20 @@ export default function ResultsPage() {
           <span className="segment-count">
             Showing{" "}
             {analysis.previewCustomers.length} of{" "}
-            {analysis.totalCustomers}
+            {analysis.completedCustomers}
           </span>
         </div>
 
         {customerLoadError && (
           <p className="error-message">
             {customerLoadError}
+          </p>
+        )}
+
+        {analysis.previewCustomers.length === 0 && (
+          <p className="driver-empty">
+            No individual customer responses are available
+            to explore.
           </p>
         )}
 

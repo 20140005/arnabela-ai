@@ -1,11 +1,16 @@
 "use client";
 
-import { FormEvent, useRef, useState } from "react";
+import { FormEvent, useRef, useState, useSyncExternalStore } from "react";
 import { useRouter } from "next/navigation";
 
 import {
+  NEXT_TEST_DRAFT_KEY,
+  clearCompletedSimulation,
+  clearNextTestDraft,
   startSimulationJob,
   storeSimulationJobMeta,
+  subscribeToSessionStore,
+  type NextTestDraft,
 } from "@/lib/simulationClient";
 
 const testTypes = [
@@ -16,19 +21,76 @@ const testTypes = [
   "Business Concept",
 ];
 
+function subscribeToNextTestDraft(onStoreChange: () => void) {
+  return subscribeToSessionStore(onStoreChange);
+}
+
+function getNextTestDraftSnapshot() {
+  return sessionStorage.getItem(NEXT_TEST_DRAFT_KEY);
+}
+
+function parseNextTestDraft(raw: string | null): NextTestDraft | null {
+  if (!raw) {
+    return null;
+  }
+
+  try {
+    return JSON.parse(raw) as NextTestDraft;
+  } catch {
+    return null;
+  }
+}
+
 export default function Home() {
   const router = useRouter();
+  const rawDraft = useSyncExternalStore(
+    subscribeToNextTestDraft,
+    getNextTestDraftSnapshot,
+    () => null,
+  );
+  const draft = parseNextTestDraft(rawDraft);
 
-  const [testType, setTestType] = useState("Product");
-  const [productName, setProductName] = useState("");
-  const [description, setDescription] = useState("");
-  const [price, setPrice] = useState("");
-  const [features, setFeatures] = useState("");
-  const [targetMarket, setTargetMarket] = useState("");
+  const [testType, setTestType] = useState<string | null>(null);
+  const [productName, setProductName] = useState<string | null>(null);
+  const [description, setDescription] = useState<string | null>(null);
+  const [price, setPrice] = useState<string | null>(null);
+  const [features, setFeatures] = useState<string | null>(null);
+  const [targetMarket, setTargetMarket] = useState<string | null>(null);
+
+  const resolvedTestType = testType ?? draft?.testType ?? "Product";
+  const resolvedProductName = productName ?? draft?.productName ?? "";
+  const resolvedDescription = description ?? draft?.description ?? "";
+  const resolvedPrice =
+    price ??
+    (draft && draft.price > 0 ? String(draft.price) : "");
+  const resolvedFeatures =
+    features ?? (draft?.keyFeatures ?? []).join("\n");
+  const resolvedTargetMarket =
+    targetMarket ?? draft?.targetMarket ?? "";
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState("");
   const submitLock = useRef(false);
+  const [appliedDraft, setAppliedDraft] = useState(rawDraft);
+
+  if (rawDraft !== appliedDraft) {
+    setAppliedDraft(rawDraft);
+    setTestType(null);
+    setProductName(null);
+    setDescription(null);
+    setPrice(null);
+    setFeatures(null);
+    setTargetMarket(null);
+  }
+
+  let draftNotice = "";
+
+  if (draft) {
+    draftNotice =
+      draft.nextExperimentKind === "none"
+        ? "The previous simulation did not produce a recommended variant. The last test has been loaded so you can adjust it."
+        : `This form was prefilled from the previous Arnabela Insight: ${draft.insightHeadline}`;
+  }
 
   async function handleSubmit(
     event: FormEvent<HTMLFormElement>,
@@ -43,29 +105,33 @@ export default function Home() {
     setError("");
     setIsSubmitting(true);
 
-    const keyFeatures = features
+    const keyFeatures = resolvedFeatures
       .split("\n")
       .map((feature) => feature.trim())
       .filter(Boolean);
 
     try {
       const job = await startSimulationJob({
-        product_name: productName.trim(),
-        description: description.trim(),
-        price: Number(price),
+        product_name: resolvedProductName.trim(),
+        description: resolvedDescription.trim(),
+        price: Number(resolvedPrice),
         key_features: keyFeatures,
-        target_market: targetMarket.trim(),
+        target_market: resolvedTargetMarket.trim(),
       });
+
+      clearCompletedSimulation();
 
       storeSimulationJobMeta({
         jobId: job.job_id,
-        productName: productName.trim(),
-        testType,
-        description: description.trim(),
-        price: Number(price),
-        targetMarket: targetMarket.trim(),
+        productName: resolvedProductName.trim(),
+        testType: resolvedTestType,
+        description: resolvedDescription.trim(),
+        price: Number(resolvedPrice),
+        targetMarket: resolvedTargetMarket.trim(),
         keyFeatures,
       });
+
+      clearNextTestDraft();
 
       router.push("/simulation");
     } catch (submitError) {
@@ -86,7 +152,7 @@ export default function Home() {
     <main className="page-shell">
       <nav className="topbar">
         <div className="brand">
-          <div className="brand-mark">C</div>
+          <div className="brand-mark">A</div>
           <span>arnabela</span>
         </div>
 
@@ -146,19 +212,28 @@ export default function Home() {
           </div>
         </div>
 
+        {draftNotice && (
+          <div className="draft-notice" role="status">
+            <p className="section-label">
+              NEXT TEST FROM ARNABELA INSIGHT
+            </p>
+            <p>{draftNotice}</p>
+          </div>
+        )}
+
         <div className="test-type-grid">
           {testTypes.map((type) => (
             <button
               key={type}
               type="button"
               className={`test-type ${
-                testType === type ? "selected" : ""
+                resolvedTestType === type ? "selected" : ""
               }`}
               onClick={() => setTestType(type)}
             >
               <span>{type}</span>
 
-              {testType === type && (
+              {resolvedTestType === type && (
                 <span className="check">✓</span>
               )}
             </button>
@@ -169,16 +244,16 @@ export default function Home() {
           <div className="form-grid">
             <div className="field field-full">
               <label htmlFor="productName">
-                {testType === "Product"
+                {resolvedTestType === "Product"
                   ? "Product name"
-                  : `${testType} name`}
+                  : `${resolvedTestType} name`}
               </label>
 
               <input
                 id="productName"
                 type="text"
                 placeholder="e.g. AI Field Service Assistant"
-                value={productName}
+                value={resolvedProductName}
                 onChange={(event) =>
                   setProductName(event.target.value)
                 }
@@ -195,7 +270,7 @@ export default function Home() {
                 id="description"
                 placeholder="Describe the product, offer or concept in plain language..."
                 rows={5}
-                value={description}
+                value={resolvedDescription}
                 onChange={(event) =>
                   setDescription(event.target.value)
                 }
@@ -215,7 +290,7 @@ export default function Home() {
                   min="0"
                   step="0.01"
                   placeholder="199"
-                  value={price}
+                  value={resolvedPrice}
                   onChange={(event) =>
                     setPrice(event.target.value)
                   }
@@ -232,7 +307,7 @@ export default function Home() {
                 id="targetMarket"
                 type="text"
                 placeholder="e.g. Australian tradespeople"
-                value={targetMarket}
+                value={resolvedTargetMarket}
                 onChange={(event) =>
                   setTargetMarket(event.target.value)
                 }
@@ -251,7 +326,7 @@ export default function Home() {
                   "Voice-to-job-note conversion\nAutomatic quote generation\nCustomer follow-up messages"
                 }
                 rows={5}
-                value={features}
+                value={resolvedFeatures}
                 onChange={(event) =>
                   setFeatures(event.target.value)
                 }

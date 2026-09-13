@@ -130,6 +130,27 @@ export type CustomerProfile = {
 
 export const SIMULATION_RESULT_KEY = "customerLabSimulation";
 export const SIMULATION_JOB_KEY = "customerLabSimulationJob";
+export const NEXT_TEST_DRAFT_KEY = "customerLabNextTest";
+export const SESSION_UPDATED_EVENT = "arnabela-session-updated";
+
+function notifySessionUpdated() {
+  window.dispatchEvent(new Event(SESSION_UPDATED_EVENT));
+}
+
+export function subscribeToSessionStore(
+  onStoreChange: () => void,
+) {
+  window.addEventListener("storage", onStoreChange);
+  window.addEventListener(SESSION_UPDATED_EVENT, onStoreChange);
+
+  return () => {
+    window.removeEventListener("storage", onStoreChange);
+    window.removeEventListener(
+      SESSION_UPDATED_EVENT,
+      onStoreChange,
+    );
+  };
+}
 
 const API_URL =
   process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
@@ -223,6 +244,7 @@ export function storeSimulationJobMeta(
     SIMULATION_JOB_KEY,
     JSON.stringify(meta),
   );
+  notifySessionUpdated();
 }
 
 export function readSimulationJobMeta():
@@ -260,6 +282,51 @@ export function storeCompletedSimulation(
     SIMULATION_RESULT_KEY,
     JSON.stringify(stored),
   );
+  notifySessionUpdated();
+}
+
+export function clearCompletedSimulation(): void {
+  sessionStorage.removeItem(SIMULATION_RESULT_KEY);
+  notifySessionUpdated();
+}
+
+export type NextTestDraft = {
+  productName: string;
+  testType: string;
+  description: string;
+  price: number;
+  targetMarket: string;
+  keyFeatures: string[];
+  insightHeadline: string;
+  nextExperiment: string;
+  nextExperimentKind: string;
+};
+
+export function storeNextTestDraft(draft: NextTestDraft): void {
+  sessionStorage.setItem(
+    NEXT_TEST_DRAFT_KEY,
+    JSON.stringify(draft),
+  );
+  notifySessionUpdated();
+}
+
+export function readNextTestDraft(): NextTestDraft | null {
+  const raw = sessionStorage.getItem(NEXT_TEST_DRAFT_KEY);
+
+  if (!raw) {
+    return null;
+  }
+
+  try {
+    return JSON.parse(raw) as NextTestDraft;
+  } catch {
+    return null;
+  }
+}
+
+export function clearNextTestDraft(): void {
+  sessionStorage.removeItem(NEXT_TEST_DRAFT_KEY);
+  notifySessionUpdated();
 }
 
 export async function getCustomers(): Promise<
