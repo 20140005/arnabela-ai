@@ -3,7 +3,7 @@
 import { FormEvent, useState } from "react";
 import { useRouter } from "next/navigation";
 
-import { createMockSimulation } from "../lib/mockSimulation";
+import { runSimulation } from "@/lib/simulationClient";
 
 const testTypes = [
   "Product",
@@ -15,6 +15,7 @@ const testTypes = [
 
 export default function Home() {
   const router = useRouter();
+
   const [testType, setTestType] = useState("Product");
   const [productName, setProductName] = useState("");
   const [description, setDescription] = useState("");
@@ -25,36 +26,55 @@ export default function Home() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState("");
 
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
-  event.preventDefault();
+  async function handleSubmit(
+    event: FormEvent<HTMLFormElement>,
+  ) {
+    event.preventDefault();
 
-  setError("");
-  setIsSubmitting(true);
+    setError("");
+    setIsSubmitting(true);
 
-  const keyFeatures = features
-    .split("\n")
-    .map((feature) => feature.trim())
-    .filter(Boolean);
+    const keyFeatures = features
+      .split("\n")
+      .map((feature) => feature.trim())
+      .filter(Boolean);
 
-  const simulation = createMockSimulation({
-    testId: crypto.randomUUID(),
-    productName: productName.trim(),
-    testType,
-    description: description.trim(),
-    price: Number(price),
-    targetMarket: targetMarket.trim(),
-    keyFeatures,
-  });
+    try {
+      const result = await runSimulation({
+        product_name: productName.trim(),
+        description: description.trim(),
+        price: Number(price),
+        key_features: keyFeatures,
+        target_market: targetMarket.trim(),
+      });
 
-  sessionStorage.setItem(
-    "customerLabSimulation",
-    JSON.stringify(simulation)
-  );
+      sessionStorage.setItem(
+        "customerLabSimulation",
+        JSON.stringify({
+          testId: result.test_id,
+          productName: productName.trim(),
+          testType,
+          description: description.trim(),
+          price: Number(price),
+          targetMarket: targetMarket.trim(),
+          keyFeatures,
+          backendResult: result,
+        }),
+      );
 
-  setTimeout(() => {
-    router.push("/results");
-  }, 500);
-}
+      router.push("/results");
+    } catch (submitError) {
+      console.error("Simulation failed:", submitError);
+
+      setIsSubmitting(false);
+
+      setError(
+        submitError instanceof Error
+          ? submitError.message
+          : "Something went wrong while running the simulation.",
+      );
+    }
+  }
 
   return (
     <main className="page-shell">
@@ -131,7 +151,10 @@ export default function Home() {
               onClick={() => setTestType(type)}
             >
               <span>{type}</span>
-              {testType === type && <span className="check">✓</span>}
+
+              {testType === type && (
+                <span className="check">✓</span>
+              )}
             </button>
           ))}
         </div>
@@ -158,7 +181,9 @@ export default function Home() {
             </div>
 
             <div className="field field-full">
-              <label htmlFor="description">What are you testing?</label>
+              <label htmlFor="description">
+                What are you testing?
+              </label>
 
               <textarea
                 id="description"
@@ -177,6 +202,7 @@ export default function Home() {
 
               <div className="input-prefix">
                 <span>$</span>
+
                 <input
                   id="price"
                   type="number"
@@ -184,13 +210,17 @@ export default function Home() {
                   step="0.01"
                   placeholder="199"
                   value={price}
-                  onChange={(event) => setPrice(event.target.value)}
+                  onChange={(event) =>
+                    setPrice(event.target.value)
+                  }
                 />
               </div>
             </div>
 
             <div className="field">
-              <label htmlFor="targetMarket">Target market</label>
+              <label htmlFor="targetMarket">
+                Target market
+              </label>
 
               <input
                 id="targetMarket"
@@ -242,7 +272,7 @@ export default function Home() {
             >
               <span>
                 {isSubmitting
-                  ? "STARTING SIMULATION..."
+                  ? "RUNNING SIMULATION..."
                   : "TEST WITH 100 CUSTOMERS"}
               </span>
 
@@ -256,7 +286,9 @@ export default function Home() {
 
       <footer>
         <span>Customer Lab</span>
-        <span>Simulated AI customers · Not human market research</span>
+        <span>
+          Simulated AI customers · Not human market research
+        </span>
       </footer>
     </main>
   );

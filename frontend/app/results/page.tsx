@@ -1,43 +1,422 @@
 "use client";
 
 import Link from "next/link";
-import { useSyncExternalStore } from "react";
-
 import {
-  analyseSimulation,
-  type SimulationAnalysis,
-  type SimulationInput,
-} from "../../lib/simulationAnalysis";
+  useEffect,
+  useState,
+  useSyncExternalStore,
+} from "react";
+
+type CustomerResponse = {
+  customer_id: string;
+  overall_interest: number;
+  understanding: number;
+  trust: number;
+  price_acceptance: number;
+  purchase_intent: number;
+  would_buy: boolean;
+  would_consider: boolean;
+  primary_objection: string;
+  secondary_objection: string;
+  positive_factors: string[];
+  negative_factors: string[];
+  questions: string[];
+  reasoning: string;
+};
+
+type BackendSimulationResult = {
+  test_id: string;
+  total_customers: number;
+  completed_customers: number;
+  failed_customers: number;
+  failed_customer_ids: string[];
+  responses: CustomerResponse[];
+};
+
+type StoredSimulation = {
+  testId: string;
+  productName: string;
+  testType: string;
+  description: string;
+  price: number;
+  targetMarket: string;
+  keyFeatures: string[];
+  backendResult: BackendSimulationResult;
+};
+
+type CustomerProfile = {
+  id: string;
+  name: string;
+  archetype: string;
+};
+
+type PreviewCustomer = CustomerResponse & {
+  name: string;
+  archetype: string;
+};
+
+type ArchetypeResult = {
+  name: string;
+  customers: number;
+  interest: number;
+  purchaseIntent: number;
+};
+
+type ObjectionResult = {
+  label: string;
+  percentage: number;
+};
+
+type SignalResult = {
+  title: string;
+  description: string;
+};
+
+type Takeaway = {
+  headline: string;
+  supportingText: string;
+};
+
+type Analysis = {
+  totalCustomers: number;
+  completedCustomers: number;
+  failedCustomers: number;
+  overallPurchaseIntent: number;
+  wouldBuyPercentage: number;
+  wouldConsiderPercentage: number;
+  rejectedPercentage: number;
+  topObjections: ObjectionResult[];
+  strongestSignals: SignalResult[];
+  archetypes: ArchetypeResult[];
+  previewCustomers: PreviewCustomer[];
+  takeaway: Takeaway;
+};
+
+function getStoredSimulation() {
+  return sessionStorage.getItem(
+    "customerLabSimulation",
+  );
+}
+
+function subscribeToStorage() {
+  return () => {};
+}
+
+function roundToOneDecimal(value: number) {
+  return Math.round(value * 10) / 10;
+}
+
+function calculatePercentage(
+  value: number,
+  total: number,
+) {
+  if (total === 0) {
+    return 0;
+  }
+
+  return Math.round((value / total) * 100);
+}
+
+function analyseBackendSimulation(
+  simulation: StoredSimulation,
+  customers: CustomerProfile[],
+): Analysis {
+  const result = simulation.backendResult;
+  const responses = result.responses;
+
+  const customerMap = new Map(
+    customers.map((customer) => [
+      customer.id,
+      customer,
+    ]),
+  );
+
+  const enrichedResponses: PreviewCustomer[] =
+    responses.map((response) => {
+      const profile = customerMap.get(
+        response.customer_id,
+      );
+
+      return {
+        ...response,
+        name:
+          profile?.name ??
+          `Customer ${response.customer_id}`,
+        archetype:
+          profile?.archetype ??
+          "Simulated Customer",
+      };
+    });
+
+  const totalResponses = responses.length;
+
+  const averagePurchaseIntent =
+    totalResponses > 0
+      ? responses.reduce(
+          (sum, response) =>
+            sum + response.purchase_intent,
+          0,
+        ) / totalResponses
+      : 0;
+
+  const wouldBuyCount = responses.filter(
+    (response) => response.would_buy,
+  ).length;
+
+  const wouldConsiderCount = responses.filter(
+    (response) =>
+      !response.would_buy &&
+      response.would_consider,
+  ).length;
+
+  const rejectedCount = responses.filter(
+    (response) =>
+      !response.would_buy &&
+      !response.would_consider,
+  ).length;
+
+  const objectionCounts = new Map<
+    string,
+    number
+  >();
+
+  responses.forEach((response) => {
+    const objection =
+      response.primary_objection.trim();
+
+    if (!objection) {
+      return;
+    }
+
+    objectionCounts.set(
+      objection,
+      (objectionCounts.get(objection) ?? 0) + 1,
+    );
+  });
+
+  const topObjections: ObjectionResult[] =
+    Array.from(objectionCounts.entries())
+      .sort((a, b) => b[1] - a[1])
+      .slice(0, 4)
+      .map(([label, count]) => ({
+        label,
+        percentage: calculatePercentage(
+          count,
+          totalResponses,
+        ),
+      }));
+
+  const positiveFactorCounts = new Map<
+    string,
+    number
+  >();
+
+  responses.forEach((response) => {
+    response.positive_factors.forEach(
+      (factor) => {
+        const cleanFactor = factor.trim();
+
+        if (!cleanFactor) {
+          return;
+        }
+
+        positiveFactorCounts.set(
+          cleanFactor,
+          (positiveFactorCounts.get(cleanFactor) ??
+            0) + 1,
+        );
+      },
+    );
+  });
+
+  const strongestSignals: SignalResult[] =
+    Array.from(positiveFactorCounts.entries())
+      .sort((a, b) => b[1] - a[1])
+      .slice(0, 3)
+      .map(([title, count]) => ({
+        title,
+        description: `${calculatePercentage(
+          count,
+          totalResponses,
+        )}% of responding customers identified this as a positive factor.`,
+      }));
+
+  if (strongestSignals.length === 0) {
+    strongestSignals.push({
+      title: "Customer relevance",
+      description:
+        "Customers responded to the concept based on their individual simulated profiles.",
+    });
+  }
+
+  const archetypeMap = new Map<
+    string,
+    CustomerResponse[]
+  >();
+
+  enrichedResponses.forEach((response) => {
+    const existing =
+      archetypeMap.get(response.archetype) ?? [];
+
+    existing.push(response);
+
+    archetypeMap.set(
+      response.archetype,
+      existing,
+    );
+  });
+
+  const archetypes: ArchetypeResult[] =
+    Array.from(archetypeMap.entries())
+      .map(([name, archetypeResponses]) => {
+        const interest =
+          archetypeResponses.reduce(
+            (sum, response) =>
+              sum + response.overall_interest,
+            0,
+          ) / archetypeResponses.length;
+
+        const purchaseIntent =
+          archetypeResponses.reduce(
+            (sum, response) =>
+              sum + response.purchase_intent,
+            0,
+          ) / archetypeResponses.length;
+
+        return {
+          name,
+          customers: archetypeResponses.length,
+          interest: Math.round(interest * 10),
+          purchaseIntent: Math.round(
+            purchaseIntent * 10,
+          ),
+        };
+      })
+      .sort(
+        (a, b) =>
+          b.purchaseIntent - a.purchaseIntent,
+      );
+
+  let takeaway: Takeaway;
+
+  if (averagePurchaseIntent >= 7) {
+    takeaway = {
+      headline:
+        "Strong customer purchase signal.",
+      supportingText:
+        "The simulated audience shows meaningful purchase intent, suggesting the concept has a strong foundation to test further.",
+    };
+  } else if (averagePurchaseIntent >= 5) {
+    takeaway = {
+      headline:
+        "The concept shows promising customer interest.",
+      supportingText:
+        "Customers see value in the concept, but the current proposition does not consistently convert interest into purchase intent.",
+    };
+  } else {
+    takeaway = {
+      headline:
+        "The concept needs stronger customer validation.",
+      supportingText:
+        "Customer interest is limited, suggesting the value proposition, positioning or offer may need refinement.",
+    };
+  }
+
+  return {
+    totalCustomers: result.total_customers,
+    completedCustomers:
+      result.completed_customers,
+    failedCustomers: result.failed_customers,
+    overallPurchaseIntent:
+      roundToOneDecimal(
+        averagePurchaseIntent,
+      ),
+    wouldBuyPercentage: calculatePercentage(
+      wouldBuyCount,
+      totalResponses,
+    ),
+    wouldConsiderPercentage: calculatePercentage(
+      wouldConsiderCount,
+      totalResponses,
+    ),
+    rejectedPercentage: calculatePercentage(
+      rejectedCount,
+      totalResponses,
+    ),
+    topObjections,
+    strongestSignals,
+    archetypes,
+    previewCustomers:
+      enrichedResponses.slice(0, 6),
+    takeaway,
+  };
+}
 
 export default function ResultsPage() {
   const storedSimulation =
-  useSyncExternalStore(
-    () => () => {},
-    () =>
-      sessionStorage.getItem(
-        "customerLabSimulation"
-      ),
-    () => null
-  );
+    useSyncExternalStore(
+      subscribeToStorage,
+      getStoredSimulation,
+      () => null,
+    );
 
-let simulation: SimulationInput | null = null;
+  let simulation: StoredSimulation | null =
+    null;
 
-if (storedSimulation) {
-  try {
-    simulation = JSON.parse(
-      storedSimulation
-    ) as SimulationInput;
-  } catch {
-    simulation = null;
+  if (storedSimulation) {
+    try {
+      simulation = JSON.parse(
+        storedSimulation,
+      ) as StoredSimulation;
+    } catch {
+      simulation = null;
+    }
   }
-}
 
-const analysis: SimulationAnalysis | null =
-  simulation
-    ? analyseSimulation(simulation)
-    : null;
+  const [customers, setCustomers] = useState<
+    CustomerProfile[]
+  >([]);
 
-  if (!simulation || !analysis) {
+  const [isLoadingCustomers, setIsLoadingCustomers] =
+    useState(true);
+
+  const [customerLoadError, setCustomerLoadError] =
+    useState("");
+
+  useEffect(() => {
+    async function loadCustomers() {
+      try {
+        const response = await fetch(
+          "http://localhost:8000/customers",
+        );
+
+        if (!response.ok) {
+          throw new Error(
+            "Unable to load customer profiles.",
+          );
+        }
+
+        const data = await response.json();
+
+        setCustomers(data.customers);
+      } catch (error) {
+        console.error(
+          "Failed to load customer profiles:",
+          error,
+        );
+
+        setCustomerLoadError(
+          "Unable to load customer profile details.",
+        );
+      } finally {
+        setIsLoadingCustomers(false);
+      }
+    }
+
+    loadCustomers();
+  }, []);
+
+  if (!simulation) {
     return (
       <main className="results-shell">
         <nav className="results-topbar">
@@ -71,8 +450,42 @@ const analysis: SimulationAnalysis | null =
     );
   }
 
-  const previewCustomers =
-    analysis.responses.slice(0, 6);
+  if (isLoadingCustomers) {
+    return (
+      <main className="results-shell">
+        <nav className="results-topbar">
+          <Link href="/" className="brand">
+            <div className="brand-mark">C</div>
+            <span>Customer Lab</span>
+          </Link>
+
+          <div className="results-nav">
+            <span className="status-dot" />
+            Loading results
+          </div>
+        </nav>
+
+        <section className="empty-results">
+          <p className="section-label">
+            CUSTOMER LAB
+          </p>
+
+          <h1>Preparing your results.</h1>
+
+          <p>
+            Loading the simulated customer profiles and
+            matching their responses.
+          </p>
+        </section>
+      </main>
+    );
+  }
+
+  const analysis =
+    analyseBackendSimulation(
+      simulation,
+      customers,
+    );
 
   return (
     <main className="results-shell">
@@ -103,22 +516,35 @@ const analysis: SimulationAnalysis | null =
           </p>
 
           <p className="results-target">
-            Target market: {simulation.targetMarket}
+            Target market:{" "}
+            {simulation.targetMarket}
           </p>
         </div>
 
         <div className="test-meta">
           <div>
             <span>TESTED</span>
+
             <strong>
               {analysis.totalCustomers}
             </strong>
+
             <small>customers</small>
           </div>
 
           <div>
             <span>STATUS</span>
-            <strong>100%</strong>
+
+            <strong>
+              {analysis.totalCustomers > 0
+                ? calculatePercentage(
+                    analysis.completedCustomers,
+                    analysis.totalCustomers,
+                  )
+                : 0}
+              %
+            </strong>
+
             <small>completed</small>
           </div>
         </div>
@@ -196,7 +622,7 @@ const analysis: SimulationAnalysis | null =
                   <span className="signal-number">
                     {String(index + 1).padStart(
                       2,
-                      "0"
+                      "0",
                     )}
                   </span>
 
@@ -210,7 +636,7 @@ const analysis: SimulationAnalysis | null =
                     </p>
                   </div>
                 </div>
-              )
+              ),
             )}
           </div>
         </div>
@@ -254,7 +680,7 @@ const analysis: SimulationAnalysis | null =
                     />
                   </div>
                 </div>
-              )
+              ),
             )}
           </div>
         </div>
@@ -273,7 +699,7 @@ const analysis: SimulationAnalysis | null =
           </div>
 
           <span className="segment-count">
-            10 segments ·{" "}
+            {analysis.archetypes.length} segments ·{" "}
             {analysis.totalCustomers} customers
           </span>
         </div>
@@ -312,7 +738,7 @@ const analysis: SimulationAnalysis | null =
                   </b>
                 </span>
               </div>
-            )
+            ),
           )}
         </div>
       </section>
@@ -351,17 +777,24 @@ const analysis: SimulationAnalysis | null =
           </div>
 
           <span className="segment-count">
-            Showing {previewCustomers.length} of{" "}
+            Showing{" "}
+            {analysis.previewCustomers.length} of{" "}
             {analysis.totalCustomers}
           </span>
         </div>
 
+        {customerLoadError && (
+          <p className="error-message">
+            {customerLoadError}
+          </p>
+        )}
+
         <div className="customer-cards">
-          {previewCustomers.map(
+          {analysis.previewCustomers.map(
             (customer) => (
               <div
                 className="customer-card"
-                key={customer.customerId}
+                key={customer.customer_id}
               >
                 <div className="customer-avatar">
                   {customer.name.charAt(0)}
@@ -379,7 +812,7 @@ const analysis: SimulationAnalysis | null =
 
                 <div className="customer-card-score">
                   <strong>
-                    {customer.purchaseIntent}
+                    {customer.purchase_intent}
                   </strong>
 
                   <span>/10</span>
@@ -387,19 +820,19 @@ const analysis: SimulationAnalysis | null =
 
                 <div
                   className={`decision ${
-                    customer.wouldBuy
+                    customer.would_buy
                       ? "positive"
                       : ""
                   }`}
                 >
-                  {customer.wouldBuy
+                  {customer.would_buy
                     ? "Would buy"
-                    : customer.wouldConsider
+                    : customer.would_consider
                       ? "Would consider"
                       : "Would not buy"}
                 </div>
               </div>
-            )
+            ),
           )}
         </div>
       </section>
