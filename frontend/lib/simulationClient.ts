@@ -87,6 +87,47 @@ export type StoredSimulation = {
   backendResult: SimulationResult;
 };
 
+export type FinancialBehaviour = {
+  price_sensitivity: number;
+  willingness_to_finance: number;
+  impulse_buying: number;
+};
+
+export type Personality = {
+  risk_tolerance: number;
+  trust_requirement: number;
+  research_tendency: number;
+  brand_loyalty: number;
+};
+
+export type ShoppingBehaviour = {
+  reads_reviews: boolean;
+  compares_competitors: boolean;
+  checks_prices: boolean;
+  prefers_online_shopping: boolean;
+};
+
+export type CustomerProfile = {
+  id: string;
+  name: string;
+  archetype: string;
+  age: number;
+  state: string;
+  location: string;
+  occupation: string;
+  income_band: string;
+  household: string;
+  home_ownership: string;
+  education: string;
+  digital_literacy: number;
+  financial_behaviour: FinancialBehaviour;
+  personality: Personality;
+  shopping_behaviour: ShoppingBehaviour;
+  motivations: string[];
+  concerns: string[];
+  behavioural_rules: string[];
+};
+
 export const SIMULATION_RESULT_KEY = "customerLabSimulation";
 export const SIMULATION_JOB_KEY = "customerLabSimulationJob";
 
@@ -219,4 +260,44 @@ export function storeCompletedSimulation(
     SIMULATION_RESULT_KEY,
     JSON.stringify(stored),
   );
+}
+
+export async function getCustomers(): Promise<
+  CustomerProfile[]
+> {
+  const response = await fetch(`${API_URL}/customers`);
+
+  if (!response.ok) {
+    throw new Error(
+      await readApiError(
+        response,
+        "Unable to load customer profiles.",
+      ),
+    );
+  }
+
+  const data = (await response.json()) as {
+    customers?: CustomerProfile[];
+  };
+
+  return data.customers ?? [];
+}
+
+export async function getCustomerById(
+  customerId: string,
+): Promise<CustomerProfile> {
+  const response = await fetch(
+    `${API_URL}/customers/${customerId}`,
+  );
+
+  if (!response.ok) {
+    throw new Error(
+      await readApiError(
+        response,
+        `Unable to load customer '${customerId}'.`,
+      ),
+    );
+  }
+
+  return response.json();
 }

@@ -7,53 +7,20 @@ import {
   useSyncExternalStore,
 } from "react";
 
-type CustomerResponse = {
-  customer_id: string;
-  overall_interest: number;
-  understanding: number;
-  trust: number;
-  price_acceptance: number;
-  purchase_intent: number;
-  would_buy: boolean;
-  would_consider: boolean;
-  primary_objection: string;
-  secondary_objection: string;
-  positive_factors: string[];
-  negative_factors: string[];
-  questions: string[];
-  reasoning: string;
-};
-
-type BackendSimulationResult = {
-  test_id: string;
-  total_customers: number;
-  completed_customers: number;
-  failed_customers: number;
-  failed_customer_ids: string[];
-  responses: CustomerResponse[];
-};
-
-type StoredSimulation = {
-  testId: string;
-  productName: string;
-  testType: string;
-  description: string;
-  price: number;
-  targetMarket: string;
-  keyFeatures: string[];
-  backendResult: BackendSimulationResult;
-};
-
-type CustomerProfile = {
-  id: string;
-  name: string;
-  archetype: string;
-};
-
-type PreviewCustomer = CustomerResponse & {
-  name: string;
-  archetype: string;
-};
+import CustomerExplorer from "./CustomerExplorer";
+import {
+  selectPreviewCustomers,
+  decisionFromResponse,
+  type PreviewCustomer,
+} from "@/lib/customerExplorer";
+import {
+  SIMULATION_RESULT_KEY,
+  getCustomerById,
+  getCustomers,
+  type CustomerProfile,
+  type CustomerResponse,
+  type StoredSimulation,
+} from "@/lib/simulationClient";
 
 type ArchetypeResult = {
   name: string;
@@ -94,7 +61,7 @@ type Analysis = {
 
 function getStoredSimulation() {
   return sessionStorage.getItem(
-    "customerLabSimulation",
+    SIMULATION_RESULT_KEY,
   );
 }
 
@@ -127,7 +94,10 @@ function analyseBackendSimulation(
   const customerMap = new Map(
     customers.map((customer) => [
       customer.id,
-      customer,
+      {
+        name: customer.name,
+        archetype: customer.archetype,
+      },
     ]),
   );
 
@@ -346,8 +316,11 @@ function analyseBackendSimulation(
     topObjections,
     strongestSignals,
     archetypes,
-    previewCustomers:
-      enrichedResponses.slice(0, 6),
+    previewCustomers: selectPreviewCustomers(
+      responses,
+      customerMap,
+      6,
+    ),
     takeaway,
   };
 }
@@ -383,28 +356,26 @@ export default function ResultsPage() {
   const [customerLoadError, setCustomerLoadError] =
     useState("");
 
+  const [selectedCustomerId, setSelectedCustomerId] =
+    useState<string | null>(null);
+
+  const [fetchedProfile, setFetchedProfile] = useState<{
+    customerId: string;
+    profile: CustomerProfile | null;
+  } | null>(null);
+
   useEffect(() => {
     async function loadCustomers() {
       try {
-        const response = await fetch(
-          "http://localhost:8000/customers",
-        );
-
-        if (!response.ok) {
-          throw new Error(
-            "Unable to load customer profiles.",
-          );
-        }
-
-        const data = await response.json();
-
-        setCustomers(data.customers);
+        const loaded = await getCustomers();
+        setCustomers(loaded);
       } catch (error) {
         console.error(
           "Failed to load customer profiles:",
           error,
         );
 
+        setCustomers([]);
         setCustomerLoadError(
           "Unable to load customer profile details.",
         );
@@ -415,6 +386,42 @@ export default function ResultsPage() {
 
     loadCustomers();
   }, []);
+
+  const selectedProfileFromList =
+    customers.find(
+      (customer) => customer.id === selectedCustomerId,
+    ) ?? null;
+
+  useEffect(() => {
+    if (!selectedCustomerId || selectedProfileFromList) {
+      return;
+    }
+
+    const requestedId = selectedCustomerId;
+    let cancelled = false;
+
+    getCustomerById(requestedId)
+      .then((profile) => {
+        if (!cancelled) {
+          setFetchedProfile({
+            customerId: requestedId,
+            profile,
+          });
+        }
+      })
+      .catch(() => {
+        if (!cancelled) {
+          setFetchedProfile({
+            customerId: requestedId,
+            profile: null,
+          });
+        }
+      });
+
+    return () => {
+      cancelled = true;
+    };
+  }, [selectedCustomerId, selectedProfileFromList]);
 
   if (!simulation) {
     return (
@@ -486,6 +493,18 @@ export default function ResultsPage() {
       simulation,
       customers,
     );
+
+  const selectedCustomer =
+    analysis.previewCustomers.find(
+      (customer) =>
+        customer.customer_id === selectedCustomerId,
+    ) ?? null;
+
+  const resolvedProfile =
+    selectedProfileFromList ??
+    (fetchedProfile?.customerId === selectedCustomerId
+      ? fetchedProfile.profile
+      : null);
 
   return (
     <main className="results-shell">
@@ -774,6 +793,12 @@ export default function ResultsPage() {
             <h2>
               Meet the simulated customers
             </h2>
+
+            <p className="explorer-hint">
+              Select a customer to inspect their
+              individual decision. Simulated customers ·
+              not real people.
+            </p>
           </div>
 
           <span className="segment-count">
@@ -791,51 +816,67 @@ export default function ResultsPage() {
 
         <div className="customer-cards">
           {analysis.previewCustomers.map(
-            (customer) => (
-              <div
-                className="customer-card"
-                key={customer.customer_id}
-              >
-                <div className="customer-avatar">
-                  {customer.name.charAt(0)}
-                </div>
+            (customer) => {
+              const decision =
+                decisionFromResponse(customer);
 
-                <div className="customer-card-info">
-                  <strong>
-                    {customer.name}
-                  </strong>
-
-                  <span>
-                    {customer.archetype}
-                  </span>
-                </div>
-
-                <div className="customer-card-score">
-                  <strong>
-                    {customer.purchase_intent}
-                  </strong>
-
-                  <span>/10</span>
-                </div>
-
-                <div
-                  className={`decision ${
-                    customer.would_buy
-                      ? "positive"
+              return (
+                <button
+                  type="button"
+                  className={`customer-card ${
+                    selectedCustomerId ===
+                    customer.customer_id
+                      ? "selected"
                       : ""
                   }`}
+                  key={customer.customer_id}
+                  onClick={() =>
+                    setSelectedCustomerId(
+                      customer.customer_id,
+                    )
+                  }
                 >
-                  {customer.would_buy
-                    ? "Would buy"
-                    : customer.would_consider
-                      ? "Would consider"
-                      : "Would not buy"}
-                </div>
-              </div>
-            ),
+                  <div className="customer-avatar">
+                    {customer.name.charAt(0)}
+                  </div>
+
+                  <div className="customer-card-info">
+                    <strong>
+                      {customer.name}
+                    </strong>
+
+                    <span>
+                      {customer.archetype}
+                    </span>
+                  </div>
+
+                  <div className="customer-card-score">
+                    <strong>
+                      {customer.purchase_intent}
+                    </strong>
+
+                    <span>/10</span>
+                  </div>
+
+                  <div
+                    className={`decision ${decision.toLowerCase()}`}
+                  >
+                    {decision}
+                  </div>
+                </button>
+              );
+            },
           )}
         </div>
       </section>
+
+      {selectedCustomer && (
+        <CustomerExplorer
+          customer={selectedCustomer}
+          profile={resolvedProfile}
+          onClose={() => setSelectedCustomerId(null)}
+        />
+      )}
 
       <footer className="results-footer">
         <span>arnabela</span>
