@@ -1,9 +1,13 @@
 from services.simulation_service import (
     evaluate_customer_mock,
+    evaluate_customer_with_retry,
+    get_default_evaluator,
     run_simulation,
 )
 from services.customer_service import get_customer_by_id
+from models.customer_response import CustomerResponse
 from models.test_input import ProductTestInput
+from services import simulation_service as simulation_module
 
 
 PRODUCT = ProductTestInput(
@@ -104,3 +108,104 @@ def test_unknown_customer_id_is_rejected():
         raise AssertionError(
             "Expected ValueError was not raised."
         )
+
+
+def fake_response(customer):
+    return CustomerResponse(
+        customer_id=customer.id,
+        overall_interest=6,
+        understanding=7,
+        trust=5,
+        price_acceptance=4,
+        purchase_intent=3,
+        would_buy=False,
+        would_consider=True,
+        primary_objection="Needs more information.",
+        secondary_objection="Would compare alternatives.",
+        positive_factors=["Relevant product"],
+        negative_factors=["Needs more information"],
+        questions=["What support is included?"],
+        reasoning=(
+            "This fake response is used to test retry behaviour."
+        ),
+    )
+
+
+def test_mock_evaluator_is_the_safe_default(monkeypatch):
+    monkeypatch.delenv("CUSTOMER_LAB_USE_MOCK", raising=False)
+
+    assert get_default_evaluator() is evaluate_customer_mock
+
+
+def test_gemini_retry_evaluator_is_used_when_mock_disabled(
+    monkeypatch,
+):
+    monkeypatch.setenv("CUSTOMER_LAB_USE_MOCK", "false")
+
+    assert get_default_evaluator() is evaluate_customer_with_retry
+
+
+def test_quota_errors_fail_fast_without_retry(monkeypatch):
+    customer = get_customer_by_id("001")
+
+    assert customer is not None
+
+    calls = {"count": 0}
+
+    def boom(customer, product):
+        calls["count"] += 1
+        raise RuntimeError("429 rate limit")
+
+    monkeypatch.setattr(
+        simulation_module,
+        "evaluate_customer",
+        boom,
+    )
+    monkeypatch.setattr(
+        simulation_module.time,
+        "sleep",
+        lambda seconds: None,
+    )
+
+    try:
+        evaluate_customer_with_retry(customer, PRODUCT)
+    except RuntimeError as error:
+        assert "429" in str(error)
+    else:
+        raise AssertionError("Expected RuntimeError was not raised.")
+
+    assert calls["count"] == 1
+
+
+def test_transient_errors_are_retried_then_succeed(monkeypatch):
+    customer = get_customer_by_id("001")
+
+    assert customer is not None
+
+    calls = {"count": 0}
+    slept = []
+
+    def flaky(customer, product):
+        calls["count"] += 1
+
+        if calls["count"] == 1:
+            raise RuntimeError("temporary timeout")
+
+        return fake_response(customer)
+
+    monkeypatch.setattr(
+        simulation_module,
+        "evaluate_customer",
+        flaky,
+    )
+    monkeypatch.setattr(
+        simulation_module.time,
+        "sleep",
+        lambda seconds: slept.append(seconds),
+    )
+
+    response = evaluate_customer_with_retry(customer, PRODUCT)
+
+    assert response.customer_id == customer.id
+    assert calls["count"] == 2
+    assert slept == [2]
