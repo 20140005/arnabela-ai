@@ -14,7 +14,7 @@ from services.customer_service import get_all_customers
 MAX_CONCURRENT_CUSTOMERS = 5
 MAX_RETRIES = 2
 RETRY_DELAYS = [2, 5]
-
+USE_MOCK_EVALUATOR = True
 
 CustomerEvaluator = Callable[
     [CustomerProfile, ProductTestInput],
@@ -35,6 +35,18 @@ def evaluate_customer_with_retry(
         except Exception as error:
             last_error = error
 
+            error_text = str(error).lower()
+
+            is_quota_error = (
+                "429" in error_text
+                or "quota exceeded" in error_text
+                or "rate limit" in error_text
+                or "too many requests" in error_text
+            )
+
+            if is_quota_error:
+                raise
+
             if attempt >= MAX_RETRIES:
                 break
 
@@ -42,6 +54,127 @@ def evaluate_customer_with_retry(
 
     raise last_error
 
+def evaluate_customer_mock(
+    customer: CustomerProfile,
+    product: ProductTestInput,
+) -> CustomerResponse:
+    archetype_scores = {
+        "Budget-Focused Buyer": {
+            "interest": 4,
+            "purchase": 3,
+            "price": 3,
+        },
+        "Premium Value Buyer": {
+            "interest": 7,
+            "purchase": 6,
+            "price": 7,
+        },
+        "Tech Enthusiast": {
+            "interest": 9,
+            "purchase": 8,
+            "price": 8,
+        },
+        "Risk-Averse Researcher": {
+            "interest": 5,
+            "purchase": 3,
+            "price": 5,
+        },
+        "Convenience-First Buyer": {
+            "interest": 8,
+            "purchase": 7,
+            "price": 7,
+        },
+        "Family-Focused Buyer": {
+            "interest": 6,
+            "purchase": 5,
+            "price": 5,
+        },
+        "Sustainability-Focused Buyer": {
+            "interest": 8,
+            "purchase": 7,
+            "price": 7,
+        },
+        "Brand-Loyal Buyer": {
+            "interest": 5,
+            "purchase": 4,
+            "price": 5,
+        },
+        "Impulse Early Adopter": {
+            "interest": 8,
+            "purchase": 7,
+            "price": 8,
+        },
+        "Practical Skeptical Buyer": {
+            "interest": 5,
+            "purchase": 3,
+            "price": 4,
+        },
+    }
+
+    scores = archetype_scores.get(
+        customer.archetype,
+        {
+            "interest": 5,
+            "purchase": 4,
+            "price": 5,
+        },
+    )
+
+    purchase_intent = scores["purchase"]
+
+    would_buy = purchase_intent >= 7
+    would_consider = (
+        not would_buy
+        and purchase_intent >= 4
+    )
+
+    if customer.financial_behaviour.price_sensitivity >= 8:
+        primary_objection = "Price feels too high"
+    elif customer.personality.risk_tolerance <= 4:
+        primary_objection = (
+            "Need proof it actually works"
+        )
+    elif customer.shopping_behaviour.compares_competitors:
+        primary_objection = (
+            "Would compare alternatives"
+        )
+    else:
+        primary_objection = (
+            "Needs more information"
+        )
+
+    return CustomerResponse(
+        customer_id=customer.id,
+        overall_interest=scores["interest"],
+        understanding=7,
+        trust=7,
+        price_acceptance=scores["price"],
+        purchase_intent=purchase_intent,
+        would_buy=would_buy,
+        would_consider=would_consider,
+        primary_objection=primary_objection,
+        secondary_objection=(
+            "Would want more information before purchasing"
+        ),
+        positive_factors=[
+            product.key_features[0]
+            if product.key_features
+            else "Clear product value",
+            "Relevant to the customer's needs",
+        ],
+        negative_factors=[
+            primary_objection,
+        ],
+        questions=[
+            "What evidence supports the product's claims?"
+        ],
+        reasoning=(
+            f"This is a simulated response from the "
+            f"{customer.archetype} customer archetype. "
+            f"The response is based on the customer's "
+            f"behavioural profile and the supplied product."
+        ),
+    )
 
 def run_simulation(
     product: ProductTestInput,
@@ -50,7 +183,11 @@ def run_simulation(
     evaluator: CustomerEvaluator | None = None,
 ) -> SimulationResult:
     if evaluator is None:
-        evaluator = evaluate_customer_with_retry
+        evaluator = (
+            evaluate_customer_mock
+            if USE_MOCK_EVALUATOR
+            else evaluate_customer_with_retry
+        )
 
     all_customers = get_all_customers()
 
