@@ -422,7 +422,7 @@ export default function ResultsPage() {
         <nav className="results-topbar">
           <Link href="/" className="brand">
             <div className="brand-mark">C</div>
-            <span>Customer Lab</span>
+            <span>arnabela</span>
           </Link>
         </nav>
 
@@ -435,7 +435,7 @@ export default function ResultsPage() {
 
           <p>
             Enter a product, offer or concept and run it
-            through Customer Lab before viewing the
+            through arnabela before viewing the
             results.
           </p>
 
@@ -456,7 +456,7 @@ export default function ResultsPage() {
         <nav className="results-topbar">
           <Link href="/" className="brand">
             <div className="brand-mark">C</div>
-            <span>Customer Lab</span>
+            <span>arnabela</span>
           </Link>
 
           <div className="results-nav">
@@ -467,7 +467,7 @@ export default function ResultsPage() {
 
         <section className="empty-results">
           <p className="section-label">
-            CUSTOMER LAB
+            ARNABELA
           </p>
 
           <h1>Preparing your results.</h1>
@@ -492,7 +492,7 @@ export default function ResultsPage() {
       <nav className="results-topbar">
         <Link href="/" className="brand">
           <div className="brand-mark">C</div>
-          <span>Customer Lab</span>
+          <span>arnabela</span>
         </Link>
 
         <div className="results-nav">
@@ -746,7 +746,7 @@ export default function ResultsPage() {
       <section className="insight-banner">
         <div>
           <p className="section-label">
-            CUSTOMER LAB TAKEAWAY
+            ARNABELA TAKEAWAY
           </p>
 
           <h2>
@@ -838,7 +838,7 @@ export default function ResultsPage() {
       </section>
 
       <footer className="results-footer">
-        <span>Customer Lab</span>
+        <span>arnabela</span>
 
         <span>
           Simulated AI customers · Not human market

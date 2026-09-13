@@ -81,7 +81,7 @@ export default function Home() {
       <nav className="topbar">
         <div className="brand">
           <div className="brand-mark">C</div>
-          <span>Customer Lab</span>
+          <span>arnabela</span>
         </div>
 
         <div className="nav-status">
@@ -285,7 +285,7 @@ export default function Home() {
       </section>
 
       <footer>
-        <span>Customer Lab</span>
+        <span>arnabela</span>
         <span>
           Simulated AI customers · Not human market research
         </span>
