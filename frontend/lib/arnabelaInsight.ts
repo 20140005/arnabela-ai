@@ -119,28 +119,30 @@ export function classifyBarrierTheme(label: string): BarrierTheme {
 }
 
 function customerCountLabel(count: number) {
-  return count === 1 ? "1 responding customer" : `${count} responding customers`;
+  return count === 1
+    ? "1 responding perspective"
+    : `${count} responding perspectives`;
 }
 
 function citedDriver(
   driver: Pick<DecisionDriver, "label" | "count" | "percentage">,
   respondingCustomers: number,
 ) {
-  return `"${driver.label}", cited by ${driver.count} of ${respondingCustomers} responding customers (${driver.percentage}%)`;
+  return `"${driver.label}", cited by ${driver.count} of ${respondingCustomers} responding perspectives (${driver.percentage}%)`;
 }
 
 function emptyInsight(): ArnabelaInsight {
   return {
     headline:
-      "There is not enough completed simulation data to form a recommendation.",
+      "There is not enough completed test data to form a recommendation.",
     explanation:
-      "No simulated customers completed this test, so Arnabela cannot identify what pulled the audience in, what pushed them away, or what to test next.",
+      "No simulated customer perspectives completed this test, so Arnabela cannot identify what pulled the audience in, what pushed them away, or what to test next.",
     opportunity:
-      "Run a simulation that produces completed customer responses.",
+      "Run a test that produces completed customer responses.",
     barrier:
       "No responding customers were available to observe a barrier.",
     nextExperiment:
-      "Re-run the simulation and return here once customer responses are available.",
+      "Run another test and return here once customer responses are available.",
     nextExperimentKind: "none",
   };
 }
@@ -184,7 +186,7 @@ function buildHeadline(
     topArchetype &&
     topArchetype.purchaseIntent >= 7
   ) {
-    return `The proposition performed most strongly with ${topArchetype.name} in this simulation.`;
+    return `The proposition performed most strongly with ${topArchetype.name} in this test.`;
   }
 
   if (band === "moderate") {
@@ -240,7 +242,7 @@ function buildNextExperiment(
   if (topArchetype && topArchetype.purchaseIntent >= 7) {
     return {
       kind: "segment",
-      text: `Test messaging focused on ${topArchetype.name}, the strongest-performing segment observed in this simulation.`,
+      text: `Test messaging focused on ${topArchetype.name}, the strongest-performing segment observed in this test.`,
     };
   }
 
@@ -288,14 +290,14 @@ export function buildArnabelaInsight(
 
   if (usableArchetype) {
     explanationParts.push(
-      `${usableArchetype.name} was the strongest-performing segment observed, with average purchase intent of ${usableArchetype.purchaseIntent}/10 across ${usableArchetype.customers} responding customers.`,
+      `${usableArchetype.name} was the strongest-performing segment observed, with average purchase intent of ${usableArchetype.purchaseIntent}/10 across ${usableArchetype.customers} responding perspectives.`,
     );
   }
 
   let opportunity: string;
 
   if (considerLeads) {
-    opportunity = `The consider group (${input.wouldConsiderPercentage}%) is the largest near-term conversion opportunity observed in this simulation.`;
+    opportunity = `The consider group (${input.wouldConsiderPercentage}%) is the largest near-term conversion opportunity observed in this test.`;
   } else if (positive) {
     opportunity = `The strongest observed pull was ${citedDriver(positive, input.respondingCustomers)}.`;
   } else if (usableArchetype) {
@@ -310,12 +312,12 @@ export function buildArnabelaInsight(
   if (negative) {
     barrier = `The strongest observed barrier was ${citedDriver(negative, input.respondingCustomers)}.`;
   } else if (input.averagePriceAcceptance <= 4) {
-    barrier = `No dominant primary objection was returned, but average price acceptance was ${input.averagePriceAcceptance}/10 among responding customers.`;
+    barrier = `No dominant primary objection was returned, but average price acceptance was ${input.averagePriceAcceptance}/10 among responding perspectives.`;
   } else if (input.averageTrust <= 4.5) {
-    barrier = `No dominant primary objection was returned, but average trust was ${input.averageTrust}/10 among responding customers.`;
+    barrier = `No dominant primary objection was returned, but average trust was ${input.averageTrust}/10 among responding perspectives.`;
   } else {
     barrier =
-      "No dominant primary objection was returned by responding customers.";
+      "No dominant primary objection was returned by responding perspectives.";
   }
 
   const next = buildNextExperiment(
@@ -379,7 +381,7 @@ export function buildNextTestDraft(
 
       description = appendVariantNote(
         description,
-        "This variant tests a more accessible price point, or a clearer explanation of why the current price is justified, against the previous simulation baseline.",
+        "This variant tests a more accessible price point, or a clearer explanation of why the current price is justified, against the previous test baseline.",
       );
       break;
 
@@ -411,7 +413,7 @@ export function buildNextTestDraft(
     case "segment":
       description = appendVariantNote(
         description,
-        "This variant focuses messaging on the strongest-performing customer segment observed in the previous simulation.",
+        "This variant focuses messaging on the strongest-performing customer segment observed in the previous test.",
       );
       break;
 

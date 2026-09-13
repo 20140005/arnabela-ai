@@ -6,11 +6,13 @@ import {
   decisionFromResponse,
   type PreviewCustomer,
 } from "@/lib/customerExplorer";
+import { presentCustomerReasoning } from "@/lib/presentation";
 import type { CustomerProfile } from "@/lib/simulationClient";
 
 type CustomerExplorerProps = {
   customer: PreviewCustomer;
   profile: CustomerProfile | null;
+  productPrice?: number;
   onClose: () => void;
 };
 
@@ -92,11 +94,28 @@ function ListBlock({
 export default function CustomerExplorer({
   customer,
   profile,
+  productPrice,
   onClose,
 }: CustomerExplorerProps) {
   const titleId = useId();
   const closeRef = useRef<HTMLButtonElement>(null);
   const decision = decisionFromResponse(customer);
+  const reasoning = presentCustomerReasoning({
+    reasoning: customer.reasoning,
+    positive_factors: customer.positive_factors,
+    negative_factors: customer.negative_factors,
+    primary_objection: customer.primary_objection,
+    secondary_objection: customer.secondary_objection,
+    would_buy: customer.would_buy,
+    would_consider: customer.would_consider,
+    price_acceptance: customer.price_acceptance,
+    trust: customer.trust,
+    overall_interest: customer.overall_interest,
+    purchase_intent: customer.purchase_intent,
+    motivations: profile?.motivations,
+    concerns: profile?.concerns,
+    productPrice,
+  });
 
   useEffect(() => {
     const previousOverflow = document.body.style.overflow;
@@ -122,7 +141,7 @@ export default function CustomerExplorer({
       <button
         type="button"
         className="explorer-backdrop"
-        aria-label="Close customer explorer"
+        aria-label="Close audience explorer"
         onClick={onClose}
       />
       <aside
@@ -133,7 +152,7 @@ export default function CustomerExplorer({
       >
         <div className="explorer-top">
           <p className="explorer-disclaimer">
-            Simulated customer · Not a real person
+            Simulated perspectives · Not human market research
           </p>
 
           <button
@@ -146,7 +165,7 @@ export default function CustomerExplorer({
           </button>
         </div>
 
-        <p className="section-label">CUSTOMER {customer.customer_id}</p>
+        <p className="section-label">Customer #{customer.customer_id}</p>
 
         <h2 id={titleId}>
           {profile?.name ?? customer.name}
@@ -190,7 +209,7 @@ export default function CustomerExplorer({
           <p className="explorer-fallback">
             Full profile details are unavailable. The decision
             below still comes from this simulated customer&apos;s
-            evaluation.
+            perspective.
           </p>
         )}
 
@@ -304,20 +323,20 @@ export default function CustomerExplorer({
         )}
 
         <section className="explorer-section">
-          <p className="section-label">DECISION EXPLANATION</p>
+          <p className="section-label">WHY THEY DECIDED</p>
           <p className="explorer-reasoning">
-            {customer.reasoning ||
-              "No reasoning was returned for this simulated customer."}
+            {reasoning ||
+              "No perspective was available for this customer."}
           </p>
         </section>
 
         <ListBlock
-          title="ATTRACTED BY"
+          title="WHAT THEY LIKED"
           items={customer.positive_factors}
           empty="No positive factors were returned."
         />
         <ListBlock
-          title="CONCERNED ABOUT"
+          title="WHAT CONCERNED THEM"
           items={[
             customer.primary_objection,
             customer.secondary_objection,

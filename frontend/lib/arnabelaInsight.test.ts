@@ -58,8 +58,8 @@ describe("buildArnabelaInsight", () => {
       }),
     );
 
-    assert.match(insight.headline, /not enough completed simulation data/i);
-    assert.match(insight.explanation, /No simulated customers completed/i);
+    assert.match(insight.headline, /not enough completed test data/i);
+    assert.match(insight.explanation, /No simulated customer perspectives completed/i);
     assert.equal(insight.nextExperimentKind, "none");
     assert.doesNotMatch(insight.headline, /definitely/i);
   });
@@ -132,7 +132,7 @@ describe("buildArnabelaInsight", () => {
 
     assert.match(insight.headline, /price was the most frequently cited barrier/i);
     assert.match(insight.barrier, /Price feels too high/);
-    assert.match(insight.barrier, /32 of 100 responding customers \(32%\)/);
+    assert.match(insight.barrier, /32 of 100 responding perspectives \(32%\)/);
     assert.equal(insight.nextExperimentKind, "price");
     assert.match(insight.nextExperiment, /price/i);
     assert.doesNotMatch(insight.headline, /Demand is strong, but price is limiting conversion/);

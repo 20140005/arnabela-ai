@@ -3,6 +3,8 @@
 import { FormEvent, useRef, useState, useSyncExternalStore } from "react";
 import { useRouter } from "next/navigation";
 
+import ArnabelaRibbon from "@/components/brand/ArnabelaRibbon";
+import AppShell from "@/components/layout/AppShell";
 import {
   NEXT_TEST_DRAFT_KEY,
   clearCompletedSimulation,
@@ -20,6 +22,8 @@ const testTypes = [
   "Offer / Pricing",
   "Business Concept",
 ];
+
+const MAX_FEATURES = 5;
 
 function subscribeToNextTestDraft(onStoreChange: () => void) {
   return subscribeToSessionStore(onStoreChange);
@@ -41,6 +45,14 @@ function parseNextTestDraft(raw: string | null): NextTestDraft | null {
   }
 }
 
+function parseFeatureList(value: string) {
+  return value
+    .split("\n")
+    .map((feature) => feature.trim())
+    .filter(Boolean)
+    .slice(0, MAX_FEATURES);
+}
+
 export default function Home() {
   const router = useRouter();
   const rawDraft = useSyncExternalStore(
@@ -55,6 +67,7 @@ export default function Home() {
   const [description, setDescription] = useState<string | null>(null);
   const [price, setPrice] = useState<string | null>(null);
   const [features, setFeatures] = useState<string | null>(null);
+  const [featureDraft, setFeatureDraft] = useState("");
   const [targetMarket, setTargetMarket] = useState<string | null>(null);
 
   const resolvedTestType = testType ?? draft?.testType ?? "Product";
@@ -67,6 +80,7 @@ export default function Home() {
     features ?? (draft?.keyFeatures ?? []).join("\n");
   const resolvedTargetMarket =
     targetMarket ?? draft?.targetMarket ?? "";
+  const featureList = parseFeatureList(resolvedFeatures);
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState("");
@@ -80,6 +94,7 @@ export default function Home() {
     setDescription(null);
     setPrice(null);
     setFeatures(null);
+    setFeatureDraft("");
     setTargetMarket(null);
   }
 
@@ -88,13 +103,30 @@ export default function Home() {
   if (draft) {
     draftNotice =
       draft.nextExperimentKind === "none"
-        ? "The previous simulation did not produce a recommended variant. The last test has been loaded so you can adjust it."
-        : `This form was prefilled from the previous Arnabela Insight: ${draft.insightHeadline}`;
+        ? "The previous test did not produce a recommended variant. The last test has been loaded so you can adjust it."
+        : `Prefilled from what to test next: ${draft.insightHeadline}`;
   }
 
-  async function handleSubmit(
-    event: FormEvent<HTMLFormElement>,
-  ) {
+  function updateFeatures(next: string[]) {
+    setFeatures(next.slice(0, MAX_FEATURES).join("\n"));
+  }
+
+  function addFeature() {
+    const next = featureDraft.trim().replace(/\s+/g, " ");
+    if (!next || featureList.length >= MAX_FEATURES) {
+      return;
+    }
+    if (featureList.some((item) => item.toLowerCase() === next.toLowerCase())) {
+      setFeatureDraft("");
+      return;
+    }
+    // Keep chips scannable; long draft phrases still store useful content.
+    const clipped = next.length > 48 ? `${next.slice(0, 47).trimEnd()}…` : next;
+    updateFeatures([...featureList, clipped]);
+    setFeatureDraft("");
+  }
+
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
     if (isSubmitting || submitLock.current) {
@@ -105,10 +137,7 @@ export default function Home() {
     setError("");
     setIsSubmitting(true);
 
-    const keyFeatures = resolvedFeatures
-      .split("\n")
-      .map((feature) => feature.trim())
-      .filter(Boolean);
+    const keyFeatures = featureList;
 
     try {
       const job = await startSimulationJob({
@@ -143,234 +172,256 @@ export default function Home() {
       setError(
         submitError instanceof Error
           ? submitError.message
-          : "Something went wrong while running the simulation.",
+          : "Something went wrong while starting the test.",
       );
     }
   }
 
   return (
-    <main className="page-shell">
-      <nav className="topbar">
-        <div className="brand">
-          <div className="brand-mark">A</div>
-          <span>arnabela</span>
-        </div>
+    <AppShell status="Ready to test">
+      <main className="page-shell new-test-page">
+        <ArnabelaRibbon className="new-test-ribbon" opacity={0.28} />
 
-        <div className="nav-status">
-          <span className="status-dot" />
-          AI Customer Simulation
-        </div>
-      </nav>
+        <section className="hero">
+          <p className="eyebrow">New test</p>
 
-      <section className="hero">
-        <div className="eyebrow">
-          <span>100 AI CUSTOMERS</span>
-          <span className="eyebrow-line" />
-          <span>IN MINUTES</span>
-        </div>
+          <div className="hero-layout">
+            <div className="hero-copy-block">
+              <h1>
+                What are you trying
+                <br />
+                to learn?
+              </h1>
 
-        <h1>
-          Test your idea
-          <br />
-          <span>before the market does.</span>
-        </h1>
+              <p className="hero-copy">
+                Put your idea in front of 100 different perspectives.
+              </p>
 
-        <p className="hero-copy">
-          Put your product, offer or concept in front of 100 distinct
-          simulated AI customers and discover what they would actually think,
-          question and buy.
-        </p>
-
-        <div className="value-row">
-          <div>
-            <strong>100</strong>
-            <span>AI customers</span>
-          </div>
-
-          <div>
-            <strong>100</strong>
-            <span>different decisions</span>
-          </div>
-
-          <div>
-            <strong>1</strong>
-            <span>business insight</span>
-          </div>
-        </div>
-      </section>
-
-      <section className="workspace">
-        <div className="workspace-header">
-          <div>
-            <p className="section-label">START A TEST</p>
-            <h2>What do you want to test?</h2>
-          </div>
-
-          <div className="simulation-badge">
-            <span className="status-dot" />
-            Simulation ready
-          </div>
-        </div>
-
-        {draftNotice && (
-          <div className="draft-notice" role="status">
-            <p className="section-label">
-              NEXT TEST FROM ARNABELA INSIGHT
-            </p>
-            <p>{draftNotice}</p>
-          </div>
-        )}
-
-        <div className="test-type-grid">
-          {testTypes.map((type) => (
-            <button
-              key={type}
-              type="button"
-              className={`test-type ${
-                resolvedTestType === type ? "selected" : ""
-              }`}
-              onClick={() => setTestType(type)}
-            >
-              <span>{type}</span>
-
-              {resolvedTestType === type && (
-                <span className="check">✓</span>
-              )}
-            </button>
-          ))}
-        </div>
-
-        <form onSubmit={handleSubmit} className="test-form">
-          <div className="form-grid">
-            <div className="field field-full">
-              <label htmlFor="productName">
-                {resolvedTestType === "Product"
-                  ? "Product name"
-                  : `${resolvedTestType} name`}
-              </label>
-
-              <input
-                id="productName"
-                type="text"
-                placeholder="e.g. AI Field Service Assistant"
-                value={resolvedProductName}
-                onChange={(event) =>
-                  setProductName(event.target.value)
-                }
-                required
-              />
-            </div>
-
-            <div className="field field-full">
-              <label htmlFor="description">
-                What are you testing?
-              </label>
-
-              <textarea
-                id="description"
-                placeholder="Describe the product, offer or concept in plain language..."
-                rows={5}
-                value={resolvedDescription}
-                onChange={(event) =>
-                  setDescription(event.target.value)
-                }
-                required
-              />
-            </div>
-
-            <div className="field">
-              <label htmlFor="price">Price</label>
-
-              <div className="input-prefix">
-                <span>$</span>
-
-                <input
-                  id="price"
-                  type="number"
-                  min="0"
-                  step="0.01"
-                  placeholder="199"
-                  value={resolvedPrice}
-                  onChange={(event) =>
-                    setPrice(event.target.value)
-                  }
-                />
+              <div className="value-row">
+                <div>
+                  <strong>100</strong>
+                  <span>Perspectives</span>
+                </div>
+                <div>
+                  <strong>100</strong>
+                  <span>Decisions</span>
+                </div>
+                <div>
+                  <strong>1</strong>
+                  <span>Signal</span>
+                </div>
               </div>
             </div>
 
-            <div className="field">
-              <label htmlFor="targetMarket">
-                Target market
-              </label>
-
-              <input
-                id="targetMarket"
-                type="text"
-                placeholder="e.g. Australian tradespeople"
-                value={resolvedTargetMarket}
-                onChange={(event) =>
-                  setTargetMarket(event.target.value)
-                }
-                required
-              />
-            </div>
-
-            <div className="field field-full">
-              <label htmlFor="features">
-                Key features <span>(one per line)</span>
-              </label>
-
-              <textarea
-                id="features"
-                placeholder={
-                  "Voice-to-job-note conversion\nAutomatic quote generation\nCustomer follow-up messages"
-                }
-                rows={5}
-                value={resolvedFeatures}
-                onChange={(event) =>
-                  setFeatures(event.target.value)
-                }
-              />
-            </div>
+            <p className="hero-aside editorial-serif">
+              One idea.
+              <br />
+              Many paths.
+              <br />
+              Clearer direction.
+            </p>
           </div>
+        </section>
 
-          {error && (
-            <div className="error-message" role="alert">
-              {error}
+        <section className="workspace">
+          <p className="section-label">Test type</p>
+
+          {draftNotice && (
+            <div className="draft-notice" role="status">
+              <p className="section-label">From previous results</p>
+              <p>{draftNotice}</p>
             </div>
           )}
 
-          <div className="form-footer">
-            <div className="privacy-note">
-              <span className="lock">◆</span>
-              Your test is private. Customers are simulated AI profiles.
+          <div className="test-type-grid" role="group" aria-label="Test type">
+            {testTypes.map((type) => (
+              <button
+                key={type}
+                type="button"
+                className={`test-type ${
+                  resolvedTestType === type ? "selected" : ""
+                }`}
+                onClick={() => setTestType(type)}
+              >
+                <span className="test-type-radio" aria-hidden="true" />
+                <span>{type}</span>
+              </button>
+            ))}
+          </div>
+
+          <form onSubmit={handleSubmit} className="test-form">
+            <p className="section-label product-section-label">
+              {resolvedTestType === "Product" ? "Product" : resolvedTestType}
+            </p>
+
+            <div className="form-grid">
+              <div className="field field-full">
+                <label htmlFor="productName">
+                  {resolvedTestType === "Product"
+                    ? "Product name"
+                    : `${resolvedTestType} name`}
+                </label>
+
+                <input
+                  id="productName"
+                  type="text"
+                  placeholder="e.g. Fresh Bowls"
+                  value={resolvedProductName}
+                  onChange={(event) => setProductName(event.target.value)}
+                  required
+                />
+              </div>
+
+              <div className="field field-full">
+                <label htmlFor="description">What are you testing?</label>
+
+                <textarea
+                  id="description"
+                  placeholder="Describe the idea in plain language — what it is, who it’s for, and why it matters."
+                  rows={4}
+                  value={resolvedDescription}
+                  onChange={(event) => setDescription(event.target.value)}
+                  required
+                />
+              </div>
+
+              <div className="field">
+                <label htmlFor="price">Price</label>
+
+                <div className="input-prefix">
+                  <span>$</span>
+                  <input
+                    id="price"
+                    type="number"
+                    min="0"
+                    step="0.01"
+                    placeholder="9"
+                    value={resolvedPrice}
+                    onChange={(event) => setPrice(event.target.value)}
+                  />
+                </div>
+              </div>
+
+              <div className="field">
+                <label htmlFor="targetMarket">Target market</label>
+
+                <input
+                  id="targetMarket"
+                  type="text"
+                  placeholder="e.g. Busy professionals"
+                  value={resolvedTargetMarket}
+                  onChange={(event) => setTargetMarket(event.target.value)}
+                  required
+                />
+              </div>
+
+              <div className="field field-full">
+                <label htmlFor="featureDraft">
+                  Key features <span>· up to {MAX_FEATURES}</span>
+                </label>
+
+                <div
+                  className={`feature-input ${
+                    featureList.length >= MAX_FEATURES ? "is-full" : ""
+                  }`}
+                >
+                  {featureList.map((feature) => (
+                    <span key={feature} className="feature-chip">
+                      <span className="feature-chip-label">{feature}</span>
+                      <button
+                        type="button"
+                        className="feature-chip-remove"
+                        onClick={() =>
+                          updateFeatures(
+                            featureList.filter((item) => item !== feature),
+                          )
+                        }
+                        aria-label={`Remove ${feature}`}
+                      >
+                        ×
+                      </button>
+                    </span>
+                  ))}
+
+                  {featureList.length < MAX_FEATURES && (
+                    <input
+                      id="featureDraft"
+                      type="text"
+                      className="feature-draft-input"
+                      placeholder={
+                        featureList.length === 0
+                          ? "Add a feature and press Enter"
+                          : "Add another"
+                      }
+                      value={featureDraft}
+                      onChange={(event) => setFeatureDraft(event.target.value)}
+                      onKeyDown={(event) => {
+                        if (event.key === "Enter") {
+                          event.preventDefault();
+                          addFeature();
+                        }
+                        if (
+                          event.key === "Backspace" &&
+                          featureDraft === "" &&
+                          featureList.length > 0
+                        ) {
+                          updateFeatures(featureList.slice(0, -1));
+                        }
+                      }}
+                    />
+                  )}
+                </div>
+
+                <div className="feature-actions">
+                  {featureList.length < MAX_FEATURES ? (
+                    <button
+                      type="button"
+                      className="feature-add-button"
+                      onClick={addFeature}
+                      disabled={!featureDraft.trim()}
+                    >
+                      + Add feature
+                    </button>
+                  ) : (
+                    <span className="feature-limit">Maximum of {MAX_FEATURES} features</span>
+                  )}
+                  <span className="feature-count">
+                    {featureList.length}/{MAX_FEATURES}
+                  </span>
+                </div>
+              </div>
             </div>
 
-            <button
-              type="submit"
-              className="submit-button"
-              disabled={isSubmitting}
-            >
-              <span>
-                {isSubmitting
-                  ? "STARTING SIMULATION..."
-                  : "TEST WITH 100 CUSTOMERS"}
-              </span>
+            {error && (
+              <div className="error-message" role="alert">
+                {error}
+              </div>
+            )}
 
-              <span className="arrow">
-                {isSubmitting ? "…" : "→"}
-              </span>
-            </button>
-          </div>
-        </form>
-      </section>
+            <div className="form-footer">
+              <div className="privacy-note">
+                <p>Your test is private. Customer responses are simulated.</p>
+              </div>
 
-      <footer>
-        <span>arnabela</span>
-        <span>
-          Simulated AI customers · Not human market research
-        </span>
-      </footer>
-    </main>
+              <div className="form-cta-block">
+                <button
+                  type="submit"
+                  className="submit-button"
+                  disabled={isSubmitting}
+                >
+                  <span>
+                    {isSubmitting ? "Starting test…" : "Test the idea"}
+                  </span>
+                  <span className="arrow">{isSubmitting ? "…" : "→"}</span>
+                </button>
+                <p className="cta-support">
+                  Test against 100 customer perspectives
+                </p>
+              </div>
+            </div>
+          </form>
+        </section>
+      </main>
+    </AppShell>
   );
 }

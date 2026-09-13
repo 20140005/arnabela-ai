@@ -87,9 +87,20 @@ function excerptFromResponse(
   fallback: string,
 ) {
   const reasoning = response.reasoning.trim();
+  const mechanical =
+    /relevance\s+adjustment|price\s+adjustment|trust\s+adjustment|As a .+?, this customer responds/i.test(
+      reasoning,
+    );
 
-  if (!reasoning) {
-    return fallback;
+  // Prefer a readable factor/objection over internal scoring templates.
+  if (!reasoning || mechanical) {
+    const preferred =
+      response.positive_factors.find((item) => item.trim()) ||
+      response.primary_objection.trim() ||
+      fallback;
+    return preferred.length <= 160
+      ? preferred
+      : `${preferred.slice(0, 157).trimEnd()}...`;
   }
 
   if (reasoning.length <= 160) {

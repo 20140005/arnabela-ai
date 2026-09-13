@@ -1,6 +1,8 @@
 "use client";
 
 import Link from "next/link";
+
+import AppShell from "@/components/layout/AppShell";
 import {
   useEffect,
   useState,
@@ -24,6 +26,7 @@ import {
   calculatePercentage,
   type DecisionDriversResult,
 } from "@/lib/decisionDrivers";
+import { formatPrice } from "@/lib/presentation";
 import {
   SIMULATION_RESULT_KEY,
   getCustomerById,
@@ -377,66 +380,52 @@ export default function ResultsPage() {
 
   if (!simulation) {
     return (
+      <AppShell status="No results yet">
       <main className="results-shell">
-        <nav className="results-topbar">
-          <Link href="/" className="brand">
-            <div className="brand-mark">A</div>
-            <span>arnabela</span>
-          </Link>
-        </nav>
 
         <section className="empty-results">
           <p className="section-label">
-            NO TEST FOUND
+            Results
           </p>
 
-          <h1>Start a customer test first.</h1>
+          <h1>Start a test first.</h1>
 
           <p>
             Enter a product, offer or concept and run it
-            through arnabela before viewing the
-            results.
+            through Arnabela before viewing the results.
           </p>
 
           <Link
             href="/"
             className="back-button"
           >
-            RUN A TEST →
+            New test →
           </Link>
         </section>
       </main>
+      </AppShell>
     );
   }
 
   if (isLoadingCustomers) {
     return (
+      <AppShell status="Building the signal">
       <main className="results-shell">
-        <nav className="results-topbar">
-          <Link href="/" className="brand">
-            <div className="brand-mark">A</div>
-            <span>arnabela</span>
-          </Link>
-
-          <div className="results-nav">
-            <span className="status-dot" />
-            Loading results
-          </div>
-        </nav>
 
         <section className="empty-results">
           <p className="section-label">
-            ARNABELA
+            Results
           </p>
 
-          <h1>Preparing your results.</h1>
+          <h1>Building the audience signal.</h1>
 
           <p>
-            Loading the simulated customer profiles and
+            Loading simulated customer profiles and
             matching their responses.
           </p>
         </section>
       </main>
+      </AppShell>
     );
   }
 
@@ -458,45 +447,41 @@ export default function ResultsPage() {
       ? fetchedProfile.profile
       : null);
 
-  return (
-    <main className="results-shell">
-      <nav className="results-topbar">
-        <Link href="/" className="brand">
-          <div className="brand-mark">A</div>
-          <span>arnabela</span>
-        </Link>
+  const priceLabel =
+    typeof simulation.price === "number" && simulation.price > 0
+      ? formatPrice(simulation.price)
+      : null;
 
-        <div className="results-nav">
-          <span className="status-dot" />
-          Simulation complete
-        </div>
-      </nav>
+  return (
+    <AppShell status="Results ready">
+    <main className="results-shell">
 
       <section className="results-header">
         <div>
           <p className="section-label">
-            {simulation.testType.toUpperCase()} ·
-            SIMULATION RESULTS
+            Results · {simulation.testType}
           </p>
 
           <h1>{simulation.productName}</h1>
 
           <p className="results-description">
-            Tested against {analysis.totalCustomers}{" "}
-            distinct simulated AI customers.
+            {[priceLabel, simulation.targetMarket]
+              .filter(Boolean)
+              .join(" · ")}
           </p>
 
           <p className="results-target">
-            Target market:{" "}
-            {simulation.targetMarket}
+            {analysis.completedCustomers} of{" "}
+            {analysis.totalCustomers} simulated perspectives
+            responded.
           </p>
 
           {analysis.failedCustomers > 0 && (
             <p className="results-target">
               {analysis.failedCustomers}{" "}
               {analysis.failedCustomers === 1
-                ? "simulated customer did not complete and is"
-                : "simulated customers did not complete and are"}{" "}
+                ? "perspective did not complete and is"
+                : "perspectives did not complete and are"}{" "}
               excluded from the decision totals.
             </p>
           )}
@@ -504,17 +489,17 @@ export default function ResultsPage() {
 
         <div className="test-meta">
           <div>
-            <span>TESTED</span>
+            <span>Audience</span>
 
             <strong>
               {analysis.totalCustomers}
             </strong>
 
-            <small>customers</small>
+            <small>perspectives</small>
           </div>
 
           <div>
-            <span>STATUS</span>
+            <span>Completion</span>
 
             <strong>
               {analysis.totalCustomers > 0
@@ -526,7 +511,7 @@ export default function ResultsPage() {
               %
             </strong>
 
-            <small>completed</small>
+            <small>captured</small>
           </div>
         </div>
       </section>
@@ -534,34 +519,10 @@ export default function ResultsPage() {
       <section className="verdict-card">
         <div className="verdict-main">
           <p className="section-label">
-            WHAT HAPPENED
+            The signal
           </p>
 
           <div className="verdict-score">
-            <strong>
-              {analysis.overallPurchaseIntent}
-            </strong>
-
-            <span>/ 10</span>
-          </div>
-
-          <p>
-            Average purchase intent across{" "}
-            {analysis.completedCustomers} responding
-            simulated customers.
-          </p>
-        </div>
-
-        <div className="verdict-stats">
-          <div>
-            <strong>
-              {analysis.wouldConsiderPercentage}%
-            </strong>
-
-            <span>Would consider</span>
-          </div>
-
-          <div>
             <strong>
               {analysis.wouldBuyPercentage}%
             </strong>
@@ -569,12 +530,35 @@ export default function ResultsPage() {
             <span>Would buy</span>
           </div>
 
-          <div>
+          <p>
+            Across {analysis.completedCustomers} responding
+            perspectives in this test.
+          </p>
+        </div>
+
+        <div className="verdict-stats">
+          <div className="stat-buy">
+            <strong>
+              {analysis.wouldBuyPercentage}%
+            </strong>
+
+            <span>Would buy</span>
+          </div>
+
+          <div className="stat-consider">
+            <strong>
+              {analysis.wouldConsiderPercentage}%
+            </strong>
+
+            <span>Would consider</span>
+          </div>
+
+          <div className="stat-reject">
             <strong>
               {analysis.rejectedPercentage}%
             </strong>
 
-            <span>Rejected</span>
+            <span>Would not buy</span>
           </div>
         </div>
       </section>
@@ -590,7 +574,7 @@ export default function ResultsPage() {
         <div className="panel-heading">
           <div>
             <p className="section-label">
-              CUSTOMER SEGMENTS
+              Audience
             </p>
 
             <h2>
@@ -654,17 +638,16 @@ export default function ResultsPage() {
         <div className="panel-heading">
           <div>
             <p className="section-label">
-              INDIVIDUAL RESPONSES
+              Explore the audience
             </p>
 
             <h2>
-              Meet the simulated customers
+              See how individual perspectives shaped the result
             </h2>
 
             <p className="explorer-hint">
-              Select a customer to inspect their
-              individual decision. Simulated customers ·
-              not real people.
+              Select a customer to inspect their decision.
+              Simulated perspectives · Not human market research.
             </p>
           </div>
 
@@ -748,16 +731,16 @@ export default function ResultsPage() {
         <CustomerExplorer
           customer={selectedCustomer}
           profile={resolvedProfile}
+          productPrice={simulation.price}
           onClose={() => setSelectedCustomerId(null)}
         />
       )}
 
       <footer className="results-footer">
-        <span>arnabela</span>
+        <span>Arnabela</span>
 
         <span>
-          Simulated AI customers · Not human market
-          research
+          Simulated perspectives · Not human market research
         </span>
 
         <Link href="/">
@@ -765,5 +748,6 @@ export default function ResultsPage() {
         </Link>
       </footer>
     </main>
+    </AppShell>
   );
 }

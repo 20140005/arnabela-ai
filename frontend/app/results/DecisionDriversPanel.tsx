@@ -14,8 +14,8 @@ type DecisionDriversPanelProps = {
 function denominatorLabel(drivers: DecisionDriversResult) {
   const responding =
     drivers.respondingCustomers === 1
-      ? "1 responding customer"
-      : `${drivers.respondingCustomers} responding customers`;
+      ? "1 responding perspective"
+      : `${drivers.respondingCustomers} responding perspectives`;
 
   if (drivers.failedCustomers > 0) {
     const failed =
@@ -168,8 +168,8 @@ export default function DecisionDriversPanel({
     <section className="drivers-section">
       <div className="panel-heading">
         <div>
-          <p className="section-label">DECISION DRIVERS</p>
-          <h2>What moved the audience</h2>
+          <p className="section-label">Why</p>
+          <h2>Why they said yes — and why they didn&apos;t</h2>
         </div>
 
         <span className="segment-count">
@@ -179,15 +179,15 @@ export default function DecisionDriversPanel({
 
       <div className="results-grid">
         <DriverList
-          title="WHAT PULLED CUSTOMERS IN"
-          heading="Positive drivers"
+          title="Pulled customers in"
+          heading="What attracted the audience"
           empty="Responding customers did not return any positive factors."
           drivers={drivers.positive}
           kind="positive"
         />
         <DriverList
-          title="WHAT PUSHED CUSTOMERS AWAY"
-          heading="Negative drivers"
+          title="Pushed customers away"
+          heading="What held the audience back"
           empty="Responding customers did not return any primary objections."
           drivers={drivers.negative}
           kind="negative"

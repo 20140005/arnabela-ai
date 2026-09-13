@@ -38,7 +38,7 @@ export default function ArnabelaInsightPanel({
 
   return (
     <section className="insight-panel">
-      <p className="section-label">✦ ARNABELA INSIGHT</p>
+      <p className="section-label">What we learned</p>
 
       <h2>{insight.headline}</h2>
 
@@ -46,18 +46,18 @@ export default function ArnabelaInsightPanel({
 
       <div className="insight-blocks">
         <div className="insight-block">
-          <p className="section-label">BIGGEST OPPORTUNITY</p>
+          <p className="section-label">What this means</p>
           <p>{insight.opportunity}</p>
         </div>
 
         <div className="insight-block">
-          <p className="section-label">BIGGEST BARRIER</p>
+          <p className="section-label">Biggest barrier</p>
           <p>{insight.barrier}</p>
         </div>
       </div>
 
       <div className="insight-next">
-        <p className="section-label">RECOMMENDED NEXT TEST</p>
+        <p className="section-label">What to test next</p>
         <p>{insight.nextExperiment}</p>
       </div>
 
@@ -66,7 +66,7 @@ export default function ArnabelaInsightPanel({
         className="insight-test-button"
         onClick={persistRecommendation}
       >
-        <span>TEST THIS RECOMMENDATION</span>
+        <span>Run another test</span>
         <span className="arrow">→</span>
       </Link>
     </section>
