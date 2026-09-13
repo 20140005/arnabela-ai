@@ -1,6 +1,7 @@
 import pytest
 
 from services import ai_customer_service as ai_customer_service
+from services.simulation_job_service import reset_simulation_jobs
 
 
 @pytest.fixture(autouse=True)
@@ -23,3 +24,10 @@ def prevent_real_gemini_calls(monkeypatch):
         "_gemini_client",
         None,
     )
+
+
+@pytest.fixture(autouse=True)
+def isolate_simulation_jobs():
+    reset_simulation_jobs()
+    yield
+    reset_simulation_jobs()

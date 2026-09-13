@@ -35,6 +35,12 @@ CustomerEvaluator = Callable[
     CustomerResponse,
 ]
 
+CustomerStartCallback = Callable[[CustomerProfile], None]
+CustomerFinishCallback = Callable[
+    [CustomerProfile, CustomerResponse | None],
+    None,
+]
+
 
 ARCHETYPE_BASE_SCORES = {
     "Budget-Focused Buyer": {
@@ -598,15 +604,10 @@ def get_default_evaluator() -> CustomerEvaluator:
     return evaluate_customer_with_retry
 
 
-def run_simulation(
-    product: ProductTestInput,
+def resolve_simulation_customers(
     customer_ids: list[str] | None = None,
     max_customers: int | None = None,
-    evaluator: CustomerEvaluator | None = None,
-) -> SimulationResult:
-    if evaluator is None:
-        evaluator = get_default_evaluator()
-
+) -> list[CustomerProfile]:
     all_customers = get_all_customers()
 
     if customer_ids is not None and max_customers is not None:
@@ -630,22 +631,47 @@ def run_simulation(
                 + ", ".join(sorted(missing_ids))
             )
 
-        customers = [
+        return [
             customer
             for customer in all_customers
             if customer.id in requested_ids
         ]
 
-    else:
-        customers = all_customers
+    if max_customers is not None:
+        if max_customers < 1:
+            raise ValueError(
+                "max_customers must be at least 1."
+            )
 
-        if max_customers is not None:
-            if max_customers < 1:
-                raise ValueError(
-                    "max_customers must be at least 1."
-                )
+        return all_customers[:max_customers]
 
-            customers = customers[:max_customers]
+    return all_customers
+
+
+def run_simulation(
+    product: ProductTestInput,
+    customer_ids: list[str] | None = None,
+    max_customers: int | None = None,
+    evaluator: CustomerEvaluator | None = None,
+    on_customer_start: CustomerStartCallback | None = None,
+    on_customer_finish: CustomerFinishCallback | None = None,
+) -> SimulationResult:
+    if evaluator is None:
+        evaluator = get_default_evaluator()
+
+    customers = resolve_simulation_customers(
+        customer_ids=customer_ids,
+        max_customers=max_customers,
+    )
+
+    def tracked_evaluator(
+        customer: CustomerProfile,
+        product_input: ProductTestInput,
+    ) -> CustomerResponse:
+        if on_customer_start is not None:
+            on_customer_start(customer)
+
+        return evaluator(customer, product_input)
 
     responses_by_customer_id: dict[
         str,
@@ -659,7 +685,7 @@ def run_simulation(
     ) as executor:
         future_to_customer = {
             executor.submit(
-                evaluator,
+                tracked_evaluator,
                 customer,
                 product,
             ): customer
@@ -679,6 +705,9 @@ def run_simulation(
                     customer.id
                 ] = response
 
+                if on_customer_finish is not None:
+                    on_customer_finish(customer, response)
+
             except Exception as error:
                 print(
                     f"Customer {customer.id} failed: "
@@ -688,6 +717,9 @@ def run_simulation(
                 failed_customer_ids.append(
                     customer.id
                 )
+
+                if on_customer_finish is not None:
+                    on_customer_finish(customer, None)
 
     responses = [
         responses_by_customer_id[customer.id]

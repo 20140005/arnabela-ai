@@ -1,9 +1,12 @@
 "use client";
 
-import { FormEvent, useState } from "react";
+import { FormEvent, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 
-import { runSimulation } from "@/lib/simulationClient";
+import {
+  startSimulationJob,
+  storeSimulationJobMeta,
+} from "@/lib/simulationClient";
 
 const testTypes = [
   "Product",
@@ -25,12 +28,18 @@ export default function Home() {
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState("");
+  const submitLock = useRef(false);
 
   async function handleSubmit(
     event: FormEvent<HTMLFormElement>,
   ) {
     event.preventDefault();
 
+    if (isSubmitting || submitLock.current) {
+      return;
+    }
+
+    submitLock.current = true;
     setError("");
     setIsSubmitting(true);
 
@@ -40,7 +49,7 @@ export default function Home() {
       .filter(Boolean);
 
     try {
-      const result = await runSimulation({
+      const job = await startSimulationJob({
         product_name: productName.trim(),
         description: description.trim(),
         price: Number(price),
@@ -48,24 +57,21 @@ export default function Home() {
         target_market: targetMarket.trim(),
       });
 
-      sessionStorage.setItem(
-        "customerLabSimulation",
-        JSON.stringify({
-          testId: result.test_id,
-          productName: productName.trim(),
-          testType,
-          description: description.trim(),
-          price: Number(price),
-          targetMarket: targetMarket.trim(),
-          keyFeatures,
-          backendResult: result,
-        }),
-      );
+      storeSimulationJobMeta({
+        jobId: job.job_id,
+        productName: productName.trim(),
+        testType,
+        description: description.trim(),
+        price: Number(price),
+        targetMarket: targetMarket.trim(),
+        keyFeatures,
+      });
 
-      router.push("/results");
+      router.push("/simulation");
     } catch (submitError) {
       console.error("Simulation failed:", submitError);
 
+      submitLock.current = false;
       setIsSubmitting(false);
 
       setError(
@@ -272,7 +278,7 @@ export default function Home() {
             >
               <span>
                 {isSubmitting
-                  ? "RUNNING SIMULATION..."
+                  ? "STARTING SIMULATION..."
                   : "TEST WITH 100 CUSTOMERS"}
               </span>
 
