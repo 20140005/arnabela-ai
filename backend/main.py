@@ -14,7 +14,6 @@ from services.simulation_job_service import (
 )
 from services.simulation_service import run_simulation
 
-
 app = FastAPI(
     title="Customer Lab API",
     description="AI-powered customer simulation platform",
@@ -26,6 +25,7 @@ app.add_middleware(
     CORSMiddleware,
     allow_origins=[
         "http://localhost:3000",
+        "https://arnabela-ai.vercel.app",
     ],
     allow_credentials=True,
     allow_methods=["*"],
@@ -79,10 +79,16 @@ def create_simulation(product: ProductTestInput):
             customer_ids=product.customer_ids,
         )
     except ValueError as error:
-        raise HTTPException(status_code=400, detail=str(error)) from error
+        raise HTTPException(
+            status_code=400,
+            detail=str(error),
+        ) from error
 
 
-@app.post("/simulation-jobs", response_model=SimulationJobStatus)
+@app.post(
+    "/simulation-jobs",
+    response_model=SimulationJobStatus,
+)
 def start_simulation_job(product: ProductTestInput):
     try:
         return create_simulation_job(
@@ -90,7 +96,10 @@ def start_simulation_job(product: ProductTestInput):
             customer_ids=product.customer_ids,
         )
     except ValueError as error:
-        raise HTTPException(status_code=400, detail=str(error)) from error
+        raise HTTPException(
+            status_code=400,
+            detail=str(error),
+        ) from error
 
 
 @app.get(
