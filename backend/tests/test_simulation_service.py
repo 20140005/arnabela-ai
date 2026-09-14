@@ -41,6 +41,61 @@ def test_mock_evaluator_is_deterministic():
     assert first == second
 
 
+def test_proof_objection_does_not_also_claim_trustworthy():
+    """Decision Drivers should not show contradictory pull/push signals."""
+    result = run_simulation(
+        PRODUCT,
+        customer_ids=[
+            "001",
+            "002",
+            "003",
+            "004",
+            "005",
+            "006",
+            "007",
+            "008",
+            "009",
+            "010",
+            "011",
+            "012",
+            "013",
+            "014",
+            "015",
+            "016",
+            "017",
+            "018",
+            "019",
+            "020",
+        ],
+        evaluator=evaluate_customer_mock,
+    )
+
+    contradictory = [
+        response
+        for response in result.responses
+        if "proof" in response.primary_objection.lower()
+        and any(
+            "trustworthy" in factor.lower()
+            for factor in response.positive_factors
+        )
+    ]
+
+    assert contradictory == []
+
+    trustworthy_count = sum(
+        1
+        for response in result.responses
+        if any(
+            "trustworthy" in factor.lower()
+            for factor in response.positive_factors
+        )
+    )
+
+    # High trust_requirement must not force nearly everyone into
+    # "feels trustworthy" — that made the drivers panel nonsense.
+    assert trustworthy_count < len(result.responses)
+
+
 def test_different_customers_can_make_different_decisions():
     budget_customer = get_customer_by_id("001")
     premium_customer = get_customer_by_id("011")

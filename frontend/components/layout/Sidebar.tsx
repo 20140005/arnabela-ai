@@ -9,6 +9,7 @@ const workspace = [
   { href: "/", label: "New test" },
   { href: "/simulation", label: "Audience" },
   { href: "/results", label: "Results" },
+  { href: "/compare", label: "Versus" },
 ] as const;
 
 type SidebarProps = {

@@ -481,7 +481,8 @@ def evaluate_customer_mock(
 
     trust = clamp_score(
         6
-        + customer.personality.trust_requirement * 0.25
+        - max(0, customer.personality.trust_requirement - 5)
+        * 0.45
         + trust_effect
         + variation * 0.5
     )
@@ -533,7 +534,19 @@ def evaluate_customer_mock(
             "Strong fit with digital behaviour"
         )
 
-    if trust >= 7:
+    proof_or_trust_objection = any(
+        token in primary_objection.lower()
+        for token in (
+            "proof",
+            "trust",
+            "evidence",
+            "guarantee",
+        )
+    )
+
+    # Do not mark the proposition as trustworthy when the same
+    # customer is simultaneously asking for proof or trust signals.
+    if trust >= 7 and not proof_or_trust_objection:
         positive_factors.append(
             "The proposition feels trustworthy"
         )

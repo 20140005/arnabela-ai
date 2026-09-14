@@ -161,3 +161,35 @@ def test_create_simulation_validates_input():
     )
 
     assert response.status_code == 422
+
+
+def test_create_simulation_with_customer_ids(monkeypatch):
+    from services import simulation_service
+
+    monkeypatch.setattr(
+        simulation_service,
+        "get_default_evaluator",
+        lambda: fake_customer_evaluator,
+    )
+
+    response = client.post(
+        "/simulations",
+        json={
+            "product_name": "FreshMind Smart Fridge",
+            "description": "A smart refrigerator for households.",
+            "price": 2199,
+            "key_features": ["AI-powered food recognition"],
+            "target_market": "Australian households",
+            "customer_ids": ["001", "011", "021"],
+        },
+    )
+
+    assert response.status_code == 200
+
+    data = response.json()
+
+    assert data["total_customers"] == 3
+    assert data["completed_customers"] == 3
+    assert sorted(
+        item["customer_id"] for item in data["responses"]
+    ) == ["001", "011", "021"]

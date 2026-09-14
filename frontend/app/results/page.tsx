@@ -258,6 +258,19 @@ function analyseBackendSimulation(
     positiveDrivers: drivers.positive,
     negativeDrivers: drivers.negative,
     topArchetype,
+    archetypes: archetypes.map((item) => ({
+      name: item.name,
+      customers: item.customers,
+      purchaseIntent: roundToOneDecimal(item.purchaseIntent / 10),
+    })),
+    product: {
+      productName: simulation.productName,
+      testType: simulation.testType,
+      description: simulation.description,
+      price: simulation.price,
+      targetMarket: simulation.targetMarket,
+      keyFeatures: simulation.keyFeatures ?? [],
+    },
   });
 
   return {

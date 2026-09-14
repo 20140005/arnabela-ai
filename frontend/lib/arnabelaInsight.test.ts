@@ -61,6 +61,7 @@ describe("buildArnabelaInsight", () => {
     assert.match(insight.headline, /not enough completed test data/i);
     assert.match(insight.explanation, /No simulated customer perspectives completed/i);
     assert.equal(insight.nextExperimentKind, "none");
+    assert.equal(insight.recommendation.type, "NO_CLEAR_VARIANT");
     assert.doesNotMatch(insight.headline, /definitely/i);
   });
 
@@ -134,6 +135,7 @@ describe("buildArnabelaInsight", () => {
     assert.match(insight.barrier, /Price feels too high/);
     assert.match(insight.barrier, /32 of 100 responding perspectives \(32%\)/);
     assert.equal(insight.nextExperimentKind, "price");
+    assert.equal(insight.recommendation.type, "LOWER_PRICE");
     assert.match(insight.nextExperiment, /price/i);
     assert.doesNotMatch(insight.headline, /Demand is strong, but price is limiting conversion/);
   });
@@ -158,7 +160,8 @@ describe("buildArnabelaInsight", () => {
     assert.match(insight.headline, /stronger proof/i);
     assert.match(insight.barrier, /Need proof it actually works/);
     assert.equal(insight.nextExperimentKind, "trust");
-    assert.match(insight.nextExperiment, /proof|evidence|guarantee/i);
+    assert.equal(insight.recommendation.type, "STRONGER_PROOF");
+    assert.match(insight.nextExperiment, /verify|works|proof/i);
 
     const draft = buildNextTestDraft(
       {
@@ -173,12 +176,9 @@ describe("buildArnabelaInsight", () => {
     );
 
     assert.equal(draft.price, 199);
-    assert.match(draft.description, /proof of outcomes/i);
-    assert.ok(
-      draft.keyFeatures.includes(
-        "Proof of outcomes and guarantee language",
-      ),
-    );
+    assert.match(draft.description, /verifiable|how the product works|See how it works/i);
+    assert.deepEqual(draft.keyFeatures, ["Voice notes"]);
+    assert.doesNotMatch(draft.description, /guaranteed to/i);
   });
 
   it("uses the strongest positive driver as the opportunity", () => {
@@ -239,8 +239,8 @@ describe("buildArnabelaInsight", () => {
     );
 
     assert.equal(draft.nextExperimentKind, "price");
-    assert.equal(draft.price, 159.2);
-    assert.match(draft.description, /more accessible price/i);
+    assert.equal(draft.price, 175.12);
+    assert.equal(draft.description, "An AI assistant for trades.");
     assert.equal(draft.productName, "Field Assistant");
   });
 });

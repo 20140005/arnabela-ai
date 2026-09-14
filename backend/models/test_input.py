@@ -7,3 +7,5 @@ class ProductTestInput(BaseModel):
     price: float = Field(ge=0)
     key_features: list[str] = Field(default_factory=list)
     target_market: str = Field(min_length=1)
+    # Optional: retest the same audience (Versus / comparison).
+    customer_ids: list[str] | None = None

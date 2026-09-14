@@ -2,12 +2,10 @@
 
 import Link from "next/link";
 
+import type { ArnabelaInsight } from "@/lib/arnabelaInsight";
+import { createComparisonSession } from "@/lib/comparisonSession";
 import {
-  buildNextTestDraft,
-  type ArnabelaInsight,
-} from "@/lib/arnabelaInsight";
-import {
-  storeNextTestDraft,
+  storeComparisonSession,
   type StoredSimulation,
 } from "@/lib/simulationClient";
 
@@ -20,19 +18,15 @@ export default function ArnabelaInsightPanel({
   insight,
   simulation,
 }: ArnabelaInsightPanelProps) {
+  const recommendation = insight.recommendation;
+  const canTest =
+    recommendation?.canApply !== false &&
+    recommendation?.type !== "NO_CLEAR_VARIANT";
+  const evidence = recommendation?.evidence ?? [];
+
   function persistRecommendation() {
-    storeNextTestDraft(
-      buildNextTestDraft(
-        {
-          productName: simulation.productName,
-          testType: simulation.testType,
-          description: simulation.description,
-          price: simulation.price,
-          targetMarket: simulation.targetMarket,
-          keyFeatures: simulation.keyFeatures ?? [],
-        },
-        insight,
-      ),
+    storeComparisonSession(
+      createComparisonSession(simulation, insight),
     );
   }
 
@@ -58,17 +52,64 @@ export default function ArnabelaInsightPanel({
 
       <div className="insight-next">
         <p className="section-label">What to test next</p>
-        <p>{insight.nextExperiment}</p>
+        <h3 className="insight-recommendation-title">
+          {recommendation?.title ?? "What to test next"}
+        </h3>
+        <p>
+          {recommendation?.rationale ??
+            recommendation?.reason ??
+            insight.nextExperiment}
+        </p>
+        <p className="insight-prepared-note">
+          {recommendation?.nextExperiment ?? insight.nextExperiment}
+        </p>
+
+        {evidence.length > 0 && (
+          <div className="insight-evidence">
+            <p className="section-label">Based on</p>
+            <ul>
+              {evidence.map((item) => (
+                <li key={`${item.metric}-${item.label}`}>
+                  <strong>{item.label}</strong>
+                  <span>{item.value}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+
+        {canTest ? (
+          <p className="insight-prepared-note">
+            Arnabela has prepared a Version 2 for you based on this
+            evidence. Review the change before testing it against the
+            same audience.
+          </p>
+        ) : (
+          <p className="insight-prepared-note">
+            {recommendation?.applyBlockReason ??
+              "The current simulation does not show a strong enough signal for Arnabela to recommend one specific change."}
+          </p>
+        )}
       </div>
 
-      <Link
-        href="/"
-        className="insight-test-button"
-        onClick={persistRecommendation}
-      >
-        <span>Run another test</span>
-        <span className="arrow">→</span>
-      </Link>
+      {canTest ? (
+        <Link
+          href="/compare"
+          className="insight-test-button"
+          onClick={persistRecommendation}
+        >
+          <span>Test Arnabela&apos;s recommendation</span>
+          <span className="arrow">→</span>
+        </Link>
+      ) : (
+        <Link
+          href="/"
+          className="insight-test-button insight-test-button-secondary"
+        >
+          <span>Create your own variant</span>
+          <span className="arrow">→</span>
+        </Link>
+      )}
     </section>
   );
 }

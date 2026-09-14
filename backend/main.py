@@ -73,12 +73,24 @@ def get_customer(customer_id: str):
 
 @app.post("/simulations", response_model=SimulationResult)
 def create_simulation(product: ProductTestInput):
-    return run_simulation(product)
+    try:
+        return run_simulation(
+            product,
+            customer_ids=product.customer_ids,
+        )
+    except ValueError as error:
+        raise HTTPException(status_code=400, detail=str(error)) from error
 
 
 @app.post("/simulation-jobs", response_model=SimulationJobStatus)
 def start_simulation_job(product: ProductTestInput):
-    return create_simulation_job(product)
+    try:
+        return create_simulation_job(
+            product,
+            customer_ids=product.customer_ids,
+        )
+    except ValueError as error:
+        raise HTTPException(status_code=400, detail=str(error)) from error
 
 
 @app.get(

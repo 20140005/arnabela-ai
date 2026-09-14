@@ -4,6 +4,7 @@ export type SimulationInput = {
   price: number;
   key_features: string[];
   target_market: string;
+  customer_ids?: string[];
 };
 
 export type CustomerResponse = {
@@ -131,6 +132,7 @@ export type CustomerProfile = {
 export const SIMULATION_RESULT_KEY = "customerLabSimulation";
 export const SIMULATION_JOB_KEY = "customerLabSimulationJob";
 export const NEXT_TEST_DRAFT_KEY = "customerLabNextTest";
+export const COMPARISON_SESSION_KEY = "customerLabComparison";
 export const SESSION_UPDATED_EVENT = "arnabela-session-updated";
 
 function notifySessionUpdated() {
@@ -198,12 +200,24 @@ export async function runSimulation(
 export async function startSimulationJob(
   input: SimulationInput,
 ): Promise<SimulationJobStatus> {
+  const payload: SimulationInput = {
+    product_name: input.product_name,
+    description: input.description,
+    price: input.price,
+    key_features: input.key_features,
+    target_market: input.target_market,
+  };
+
+  if (input.customer_ids && input.customer_ids.length > 0) {
+    payload.customer_ids = input.customer_ids;
+  }
+
   const response = await fetch(`${API_URL}/simulation-jobs`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(input),
+    body: JSON.stringify(payload),
   });
 
   if (!response.ok) {
@@ -327,6 +341,100 @@ export function readNextTestDraft(): NextTestDraft | null {
 export function clearNextTestDraft(): void {
   sessionStorage.removeItem(NEXT_TEST_DRAFT_KEY);
   notifySessionUpdated();
+}
+
+export type ComparisonVariantDraft = {
+  productName: string;
+  testType: string;
+  description: string;
+  price: number;
+  targetMarket: string;
+  keyFeatures: string[];
+  insightHeadline: string;
+  nextExperiment: string;
+  nextExperimentKind: string;
+  label: string;
+  recommendationType: string;
+  recommendationTitle: string;
+  recommendationReason: string;
+  canApply: boolean;
+  applyBlockReason: string | null;
+  changedFields: string[];
+  parentTestId: string;
+  changeSummary: Array<{
+    field: string;
+    from: string;
+    to: string;
+    changed: boolean;
+  }>;
+};
+
+export type ComparisonSession = {
+  baseline: StoredSimulation;
+  customerIds: string[];
+  variantDraft: ComparisonVariantDraft;
+  variant: StoredSimulation | null;
+  variantJobId: string | null;
+};
+
+export function storeComparisonSession(
+  session: ComparisonSession,
+): void {
+  sessionStorage.setItem(
+    COMPARISON_SESSION_KEY,
+    JSON.stringify(session),
+  );
+  notifySessionUpdated();
+}
+
+export function readComparisonSession(): ComparisonSession | null {
+  const raw = sessionStorage.getItem(COMPARISON_SESSION_KEY);
+
+  if (!raw) {
+    return null;
+  }
+
+  try {
+    return JSON.parse(raw) as ComparisonSession;
+  } catch {
+    return null;
+  }
+}
+
+export function clearComparisonSession(): void {
+  sessionStorage.removeItem(COMPARISON_SESSION_KEY);
+  notifySessionUpdated();
+}
+
+export function updateComparisonVariantDraft(
+  draft: ComparisonVariantDraft,
+): void {
+  const session = readComparisonSession();
+
+  if (!session) {
+    return;
+  }
+
+  storeComparisonSession({
+    ...session,
+    variantDraft: draft,
+  });
+}
+
+export function storeComparisonVariantResult(
+  variant: StoredSimulation,
+): void {
+  const session = readComparisonSession();
+
+  if (!session) {
+    return;
+  }
+
+  storeComparisonSession({
+    ...session,
+    variant,
+    variantJobId: null,
+  });
 }
 
 export async function getCustomers(): Promise<
